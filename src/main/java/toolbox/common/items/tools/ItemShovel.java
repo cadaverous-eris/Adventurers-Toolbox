@@ -1,0 +1,209 @@
+package toolbox.common.items.tools;
+
+import java.util.List;
+
+import com.google.common.collect.Multimap;
+
+import api.materials.AdornmentMaterial;
+import api.materials.HaftMaterial;
+import api.materials.HandleMaterial;
+import api.materials.HeadMaterial;
+import api.materials.Materials;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+
+	public ItemShovel() {
+		super("shovel");
+		this.toolClass = "shovel";
+		this.setMaxDamage(0);
+	}
+
+	public int getHarvestLevel(ItemStack stack) {
+		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
+	}
+
+	public int getDurability(ItemStack stack) {
+		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
+				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
+	}
+
+	public float getEfficiency(ItemStack stack) {
+		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod();
+	}
+
+	public float getAttackDamage(ItemStack stack) {
+		return IHeadTool.getHeadMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
+	}
+
+	public int getEnchantability(ItemStack stack) {
+		return (int) (IHeadTool.getHeadMat(stack).getEnchantability() * IHaftTool.getHaftMat(stack).getEnchantabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
+	}
+
+	public ItemStack getRepairItem(ItemStack stack) {
+		return IHeadTool.getHeadMat(stack).getRepairItem();
+	}
+
+	@Override
+	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+		for (String type : getToolClasses(stack)) {
+			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.GROUND
+					|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SAND
+					|| state.getMaterial() == Material.SNOW || state.getMaterial() == Material.CRAFTED_SNOW
+					|| state.getMaterial() == Material.CLAY) {
+				return getEfficiency(stack);
+			}
+		}
+		return 1.0F;
+	}
+
+	@Override
+	public int getItemEnchantability(ItemStack stack) {
+		return getEnchantability(stack);
+	}
+
+	@Override
+	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+		ItemStack mat = getRepairItem(toRepair);
+		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false)) {
+			return true;
+		}
+		return super.getIsRepairable(toRepair, repair);
+	}
+
+	@Override
+	public int getHarvestLevel(ItemStack stack, String toolClass,
+			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
+			@javax.annotation.Nullable IBlockState blockState) {
+		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
+		if (level == -1 && toolClass.equals(this.toolClass)) {
+			return getHarvestLevel(stack);
+		} else {
+			return level;
+		}
+	}
+
+	@Override
+	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
+			ItemStack stack) {
+		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+
+		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
+					"Tool modifier", (double) 1.5F + this.getAttackDamage(stack), 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -3.0F, 0));
+		}
+
+		return multimap;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		return (double) getDamage(stack) / (double) getDurability(stack);
+	}
+
+	@Override
+	public int getMaxDamage(ItemStack stack) {
+		return getDurability(stack);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+
+		if (GuiScreen.isShiftKeyDown()) {
+			if (!advanced || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
+				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
+						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
+			}
+			tooltip.add(I18n.translateToLocal("desc.efficiency.name") + ": " + getEfficiency(stack));
+			tooltip.add(I18n.translateToLocal("desc.harvest_level.name") + ": " + getHarvestLevel(stack));
+		}
+
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		ItemStack stack1 = new ItemStack(this);
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString(HEAD_TAG, Materials.randomHead().getName());
+		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
+		stack1.setTagCompound(tag);
+		subItems.add(stack1);
+	}
+
+	@Override
+	public String getItemStackDisplayName(ItemStack stack) {
+		return I18n.translateToLocal(IHeadTool.getHeadMat(stack).getName() + ".name") + " "
+				+ super.getItemStackDisplayName(stack);
+	}
+
+	@Override
+	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
+		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER;
+	}
+
+	@Override
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		Block block = blockIn.getBlock();
+		return block == Blocks.SNOW_LAYER ? true : block == Blocks.SNOW;
+	}
+
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
+			EnumFacing facing, float hitX, float hitY, float hitZ) {
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
+			return EnumActionResult.FAIL;
+		} else {
+			IBlockState iblockstate = worldIn.getBlockState(pos);
+			Block block = iblockstate.getBlock();
+
+			if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR
+					&& block == Blocks.GRASS) {
+				IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
+				worldIn.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+				if (!worldIn.isRemote) {
+					worldIn.setBlockState(pos, iblockstate1, 11);
+					damageItem(itemstack, 1, player);
+				}
+
+				return EnumActionResult.SUCCESS;
+			} else {
+				return EnumActionResult.PASS;
+			}
+		}
+	}
+
+}

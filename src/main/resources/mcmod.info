@@ -1,0 +1,16 @@
+[
+{
+  "modid": "toolbox",
+  "name": "Adventurer's Toolbox",
+  "description": "A customizable tools mod.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["mangoose"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,0 +1,118 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "toolbox:items/book"
+    },
+    "elements": [
+        {
+            "name": "Back_Cover",
+            "from": [ 4.0, 0.0, 2.0 ], 
+            "to": [ 12.0, 0.4999999925494194, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0.0, 0.0, 4.0, 0.4999999925494194 ] },
+                "east": { "texture": "#0", "uv": [ 0.0, 0.0, 0.5, 6.0 ], "rotation": 90 },
+                "south": { "texture": "#0", "uv": [ 0.0, 5.5, 4.0, 6.0 ] },
+                "west": { "texture": "#0", "uv": [ 3.5, 0.0, 4.0, 6.0 ], "rotation": 270 },
+                "up": { "texture": "#0", "uv": [ 4.0, 0.0, 0.0, 6.0 ] },
+                "down": { "texture": "#0", "uv": [ 4.0, 6.0, 0.0, 0.0 ] }
+            }
+        },
+        {
+            "name": "Pages",
+            "from": [ 3.999999985098839, 0.5000000074505806, 2.5000000074505806 ], 
+            "to": [ 11.49999999254942, 3.5000000074505806, 13.49999999254942 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 0.0, 11.5, 4.0, 16.0 ] },
+                "east": { "texture": "#0", "uv": [ 4.0, 6.0, 8.5, 11.5 ], "rotation": 90 },
+                "south": { "texture": "#0", "uv": [ 0.0, 11.5, 4.0, 16.0 ] },
+                "west": { "texture": "#0", "uv": [ 4.0, 6.0, 8.5, 11.5 ], "rotation": 270 },
+                "up": { "texture": "#0", "uv": [ 0.0, 6.0, 4.0, 11.5 ] },
+                "down": { "texture": "#0", "uv": [ 0.0, 6.0, 4.0, 11.5 ] }
+            }
+        },
+        {
+            "name": "Spine",
+            "from": [ 3.4999999925494194, 0.5000000074505806, 2.0 ], 
+            "to": [ 3.999999985098839, 3.5000000074505806, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 4.0, 0.0, 5.5, 0.5 ], "rotation": 90 },
+                "east": { "texture": "#0", "uv": [ 4.0, 0.0, 5.5, 6.0 ], "rotation": 90 },
+                "south": { "texture": "#0", "uv": [ 4.0, 5.5, 5.5, 6.0 ], "rotation": 90 },
+                "west": { "texture": "#0", "uv": [ 4.0, 0.0, 5.5, 6.0 ], "rotation": 270 },
+                "up": { "texture": "#0", "uv": [ 5.0, 0.0, 5.5, 6.0 ] },
+                "down": { "texture": "#0", "uv": [ 4.0, 0.0, 4.499999992549419, 6.0 ] }
+            }
+        },
+        {
+            "name": "Front_Cover",
+            "from": [ 4.0, 3.5000000074505806, 2.0 ], 
+            "to": [ 12.0, 4.0, 14.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 5.5, 0.0, 9.5, 0.5 ] },
+                "east": { "texture": "#0", "uv": [ 9.0, 0.0, 9.5, 6.0 ], "rotation": 90 },
+                "south": { "texture": "#0", "uv": [ 5.5, 5.5, 9.5, 6.0 ] },
+                "west": { "texture": "#0", "uv": [ 5.5, 0.0, 6.0, 6.0 ], "rotation": 270 },
+                "up": { "texture": "#0", "uv": [ 5.5, 0.0, 9.5, 6.0 ] },
+                "down": { "texture": "#0", "uv": [ 5.5, 6.0, 9.5, 0.0 ] }
+            }
+        }
+    ],
+    "display": {
+
+        "gui": {
+            "rotation": [ 45, -55, 0 ],
+
+            "translation": [ 0, 4.2, 0],
+
+            "scale":[ 1.0, 1.0, 1.0 ]
+
+        },
+        "ground": {
+
+            "rotation": [ 0, 0, 0 ],
+
+            "translation": [ 0, 2, 0],
+
+            "scale":[ 0.5, 0.5, 0.5 ]
+
+        },
+
+        "head": {
+
+            "rotation": [ 0, 180, 0 ],
+
+            "translation": [ 0, 13, 7],
+
+            "scale":[ 1, 1, 1]
+        },
+
+        "thirdperson_righthand": {
+
+            "rotation": [ 90, 0, 0 ],
+
+            "translation": [ -2, 3, 4.5 ],
+
+            "scale": [ 0.55, 0.55, 0.55 ]
+        },
+
+        "firstperson_righthand": {
+
+            "rotation": [ 70, -10, 65 ],
+
+            "translation": [ -2.26, 4.7, 1.13],
+
+            "scale": [ 0.68, 0.68, 0.68 ]
+
+        },
+
+        "fixed": {
+
+            "rotation": [ 90, 0, 180 ],
+            "translation": [ -0.25, 0.0, -7.0],
+
+            "scale": [ 1, 1, 1 ]
+
+        }
+
+    }
+}
