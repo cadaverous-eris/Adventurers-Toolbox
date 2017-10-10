@@ -12,6 +12,7 @@ import api.materials.Materials;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,6 +25,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -61,16 +63,18 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 		return IHeadTool.getHeadMat(stack).getRepairItem();
 	}
 
-	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
-		for (String type : getToolClasses(stack)) {
+        @Override
+        public float getDestroySpeed(ItemStack stack, IBlockState state) {
+            for (String type : getToolClasses(stack)) {
 			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.WOOD
 					|| state.getMaterial() == Material.VINE || state.getMaterial() == Material.PLANTS) {
 				return getEfficiency(stack);
 			}
 		}
 		return 1.0F;
-	}
+        }
+        
+        
 
 	@Override
 	public int getItemEnchantability(ItemStack stack) {
@@ -125,10 +129,10 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		if (GuiScreen.isShiftKeyDown()) {
-			if (!advanced || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
+			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
@@ -137,10 +141,10 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 		}
 
 	}
-
+        
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		ItemStack stack1 = new ItemStack(this);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(HEAD_TAG, Materials.randomHead().getName());

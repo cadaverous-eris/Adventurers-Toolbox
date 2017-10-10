@@ -1,5 +1,6 @@
 package toolbox;
 
+import net.minecraft.advancements.Advancement;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
@@ -7,7 +8,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.stats.Achievement;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -82,7 +82,7 @@ public class Toolbox {
 		}
 	};
 	
-	public static Achievement HEAD_CRAFTED;
+	//public static Advancement HEAD_CRAFTED;
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -98,7 +98,7 @@ public class Toolbox {
 				break;
 			}
 		}
-		HEAD_CRAFTED = new Achievement("achievement.toolbox.head_crafted", "toolbox.head_crafted", -4, 0, new ItemStack(ModItems.PICKAXE_HEAD, 1, meta), null);
+		//HEAD_CRAFTED = new Advancement("achievement.toolbox.head_crafted", "toolbox.head_crafted", -4, 0, new ItemStack(ModItems.PICKAXE_HEAD, 1, meta), null);
 		
 		proxy.init(event);
 	}

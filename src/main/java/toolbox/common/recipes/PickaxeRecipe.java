@@ -106,9 +106,16 @@ public class PickaxeRecipe extends ToolRecipe {
 		return out;
 	}
 
-	@Override
-	public int getRecipeSize() {
-		return 4;
-	}
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= getRecipeSize();
+        }
+
+        public int getRecipeSize() {
+            if(adornmentMat == null) {
+                return 3;
+            }
+            return 4;
+        }
 
 }

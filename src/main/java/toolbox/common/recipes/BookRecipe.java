@@ -9,10 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import toolbox.common.items.ModItems;
 import toolbox.common.items.parts.ItemToolHead;
 
-public class BookRecipe implements IRecipe {
+public class BookRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
 	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn) {
@@ -44,10 +45,10 @@ public class BookRecipe implements IRecipe {
 		return getRecipeOutput();
 	}
 
-	@Override
-	public int getRecipeSize() {
-		return 2;
-	}
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= 2;
+        }
 
 	@Override
 	public ItemStack getRecipeOutput() {
