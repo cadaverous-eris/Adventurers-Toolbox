@@ -445,8 +445,8 @@ public class GuiBook extends GuiScreen {
 			this.chapter = chapter;
 		}
 
-		//@Override
-		public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+		@Override
+		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 			if (this.visible) {
 				FontRenderer fontrenderer = mc.fontRenderer;
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
@@ -484,8 +484,8 @@ public class GuiBook extends GuiScreen {
 			this.isForward = isForward;
 		}
 
-		//@Override
-		public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+		@Override
+		public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
 			if (this.visible) {
 				boolean flag = mouseX >= this.x && mouseY >= this.y
 						&& mouseX < this.x + this.width && mouseY < this.y + this.height;

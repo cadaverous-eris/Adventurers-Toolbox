@@ -30,8 +30,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -63,12 +63,11 @@ public class ToolHeadModel implements IModel {
 
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format,
-			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+			java.util.function.Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 		
-		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper
-				.getTransforms(state);
+		ImmutableMap<TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
 		
-		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+		TRSRTransformation transform = (TRSRTransformation.identity());
 		
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 		ImmutableList<ResourceLocation> textures = ImmutableList.<ResourceLocation>of(new ResourceLocation(modid, "items/" + toolName + "/" + partName + "_" + matName));
@@ -110,7 +109,7 @@ public class ToolHeadModel implements IModel {
 		}
 	}
 	
-	private static final class BakedToolHeadModel implements IPerspectiveAwareModel {
+	private static final class BakedToolHeadModel implements IBakedModel {
 
 		private final ToolHeadModel parent;
 		private final ImmutableMap<TransformType, TRSRTransformation> transforms;
@@ -133,8 +132,7 @@ public class ToolHeadModel implements IModel {
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this,
-					(ImmutableMap<TransformType, TRSRTransformation>) this.transforms, cameraTransformType);
+			return PerspectiveMapWrapper.handlePerspective(this, transforms, cameraTransformType);
 		}
 
 		private static ImmutableMap<TransformType, TRSRTransformation> itemTransforms() {

@@ -156,7 +156,9 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
 		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
 		stack1.setTagCompound(tag);
-		subItems.add(stack1);
+		if (isInCreativeTab(tab)) {
+			subItems.add(stack1);
+		}
 	}
 
 	@Override

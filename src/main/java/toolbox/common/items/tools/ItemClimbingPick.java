@@ -150,7 +150,9 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
 		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
 		stack1.setTagCompound(tag);
-		subItems.add(stack1);
+		if (isInCreativeTab(tab)) {
+			subItems.add(stack1);
+		}
 	}
 
 	@Override

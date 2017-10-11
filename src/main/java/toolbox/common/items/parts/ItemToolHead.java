@@ -44,13 +44,16 @@ public class ItemToolHead extends ItemToolPart {
 		registerMatRecipes();
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (int i = 0; i < meta_map.size(); i++) {
 			if (!Config.HIDE_UNCRAFTABLE_HEADS || (OreDictionary.getOres(meta_map.get(i).getCraftingItem()).size() > 0
 					&& OreDictionary.getOres(meta_map.get(i).getSmallCraftingItem()).size() > 0)) {
 				ItemStack stack = new ItemStack(this, 1, i);
-				subItems.add(stack);
+				if (isInCreativeTab(tab)) {
+					subItems.add(stack);
+				}
 			}
 		}
 	}

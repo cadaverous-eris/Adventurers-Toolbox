@@ -8,17 +8,18 @@ import java.util.Map.Entry;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ShapedNBTOreRecipe extends ShapedOreRecipe {
 
 	public ShapedNBTOreRecipe(ItemStack result, Object[] recipe) {
-		super(result, recipe);
+		super(null, result, recipe);
 	}
 	
 	public ShapedNBTOreRecipe(int width, int height, Object[] input, ItemStack output) {
-		super(output, "EEE", "EEE", "EEE", 'E', ItemStack.EMPTY);
+		super(null, output, "EEE", "EEE", "EEE", 'E', ItemStack.EMPTY);
 		this.width = width;
 		this.height = height;
 		this.input = input;
@@ -28,8 +29,8 @@ public class ShapedNBTOreRecipe extends ShapedOreRecipe {
 	@Override
 	@SuppressWarnings("unchecked")
 	protected boolean checkMatch(InventoryCrafting inv, int startX, int startY, boolean mirror) {
-		for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++) {
-			for (int y = 0; y < MAX_CRAFT_GRID_HEIGHT; y++) {
+		for (int x = 0; x < inv.getWidth(); x++) {
+			for (int y = 0; y < inv.getHeight(); y++) {
 				int subX = x - startX;
 				int subY = y - startY;
 				Object target = null;
