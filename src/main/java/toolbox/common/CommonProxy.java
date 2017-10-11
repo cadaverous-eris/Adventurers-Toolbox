@@ -102,12 +102,13 @@ public class CommonProxy {
         ModMaterials.initHeadRepairItems();
 
         if (Config.DISABLE_VANILLA_TOOLS) {
-            processRecipes();
+            //processRecipes();
         }
 
     }
 
-    //Half done
+    //Removed functionality temporarily
+	/*
     protected void processRecipes() {
         List<IRecipe> toRemove = new ArrayList<IRecipe>();
         List<IRecipe> toAdd = new ArrayList<IRecipe>();
@@ -238,6 +239,7 @@ public class CommonProxy {
         Toolbox.logger.log(Level.INFO, "re-added " + i + " crafting recipes");
 
     }
+*/
 
 
     public ItemStack createWoodTool(ItemBase item) {

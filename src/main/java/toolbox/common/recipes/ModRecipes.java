@@ -12,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -31,70 +32,70 @@ public class ModRecipes {
 		
 		for (int i : ModItems.PICKAXE_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.PICKAXE_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.PICKAXE_HEAD, 1, i), "PPP", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.PICKAXE_HEAD, 1, i), "PPP", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 
 		for (int i : ModItems.AXE_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.AXE_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.AXE_HEAD, 1, i), "PPS", "P  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.AXE_HEAD, 1, i), "PPS", "P  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.SHOVEL_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.SHOVEL_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.SHOVEL_HEAD, 1, i), "SPS", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.SHOVEL_HEAD, 1, i), "SPS", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.HOE_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.HOE_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.HOE_HEAD, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.HOE_HEAD, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.HANDPICK_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.HANDPICK_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.HANDPICK_HEAD, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.HANDPICK_HEAD, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.HAMMER_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.HAMMER_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.HAMMER_HEAD, 1, i), "PSP", "PPP", "PSP", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.HAMMER_HEAD, 1, i), "PSP", "PPP", "PSP", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.CLIMBING_PICK_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.CLIMBING_PICK_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.CLIMBING_PICK_HEAD, 1, i), "PPS", "S  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.CLIMBING_PICK_HEAD, 1, i), "PPS", "S  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		
 		for (int i : ModItems.SWORD_BLADE.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.SWORD_BLADE.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.SWORD_BLADE, 1, i), " S ", " P ", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.SWORD_BLADE, 1, i), " S ", " P ", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.CROSSGUARD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.CROSSGUARD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.CROSSGUARD, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.CROSSGUARD, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.DAGGER_BLADE.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.DAGGER_BLADE.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.DAGGER_BLADE, 1, i), " S ", " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.DAGGER_BLADE, 1, i), " S ", " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
 		for (int i : ModItems.MACE_HEAD.meta_map.keySet()) {
 			HeadMaterial mat = ModItems.MACE_HEAD.meta_map.get(i);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ModItems.MACE_HEAD, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.MACE_HEAD, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()));
 		}
 		
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.HANDLE, 1, 0), "stickWood", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE)));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.HANDLE, 1, 1), "stickWood", new ItemStack(Items.LEATHER)));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 0), "stickWood", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE)));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 1), "stickWood", new ItemStack(Items.LEATHER)));
 		
 		OreDictionary.registerOre("pebble", new ItemStack(ModItems.ROCK));
-		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.ROCK, 9), "cobblestone"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.COBBLESTONE), "RRR", "RRR", "RRR", 'R', new ItemStack(ModItems.ROCK)));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.ROCK, 9), "cobblestone"));
+		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(Blocks.COBBLESTONE), "RRR", "RRR", "RRR", 'R', new ItemStack(ModItems.ROCK)));
 		
 		RecipeSorter.register("toolbox:book", BookRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new BookRecipe());
+		ForgeRegistries.RECIPES.register(new BookRecipe());
 		
 		initToolRecipes();
 		
@@ -104,35 +105,35 @@ public class ModRecipes {
 	public static void initToolRecipes() {
 		RecipeSorter.register("toolbox:pickaxe", PickaxeRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new PickaxeRecipe());
+		ForgeRegistries.RECIPES.register(new PickaxeRecipe());
 		RecipeSorter.register("toolbox:axe", AxeRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new AxeRecipe());
+		ForgeRegistries.RECIPES.register(new AxeRecipe());
 		RecipeSorter.register("toolbox:shovel", ShovelRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new ShovelRecipe());
+		ForgeRegistries.RECIPES.register(new ShovelRecipe());
 		RecipeSorter.register("toolbox:hoe", HoeRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new HoeRecipe());
+		ForgeRegistries.RECIPES.register(new HoeRecipe());
 		RecipeSorter.register("toolbox:handpick", HandpickRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new HandpickRecipe());
+		ForgeRegistries.RECIPES.register(new HandpickRecipe());
 		RecipeSorter.register("toolbox:hammer", HammerRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new HammerRecipe());
+		ForgeRegistries.RECIPES.register(new HammerRecipe());
 		RecipeSorter.register("toolbox:climbing_pick", ClimbingPickRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new ClimbingPickRecipe());
+		ForgeRegistries.RECIPES.register(new ClimbingPickRecipe());
 		
 		RecipeSorter.register("toolbox:sword", SwordRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new SwordRecipe());
+		ForgeRegistries.RECIPES.register(new SwordRecipe());
 		RecipeSorter.register("toolbox:dagger", DaggerRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new DaggerRecipe());
+		ForgeRegistries.RECIPES.register(new DaggerRecipe());
 		RecipeSorter.register("toolbox:mace", MaceRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
-		GameRegistry.addRecipe(new MaceRecipe());
+		ForgeRegistries.RECIPES.register(new MaceRecipe());
 	}
 	
 	public static void initMaterialItems() {
