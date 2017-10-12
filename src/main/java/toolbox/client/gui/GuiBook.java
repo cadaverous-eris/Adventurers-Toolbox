@@ -72,7 +72,7 @@ public class GuiBook extends GuiScreen {
 
 		chapters.get("home").addPage(home);
 		chapters.get("mat").addPage(matHome);
-		
+
 		chapters.get("misc").addPage(new BookPageText("guide.page.misc.name", "guide.page.misc.text"));
 
 		for (HeadMaterial mat : Materials.head_registry.values()) {
@@ -99,7 +99,7 @@ public class GuiBook extends GuiScreen {
 			BookPageMat page = new BookPageMat(mat);
 			chapters.get("adornment_mat").addPage(page);
 		}
-		
+
 		chapters.get("tool").addPage(new BookPageTool("guide.tool.pickaxe.name", "guide.tool.pickaxe.desc", ModItems.PICKAXE));
 		chapters.get("tool").addPage(new BookPageTool("guide.tool.axe.name", "guide.tool.axe.desc", ModItems.AXE));
 		chapters.get("tool").addPage(new BookPageTool("guide.tool.shovel.name", "guide.tool.shovel.desc", ModItems.SHOVEL));
@@ -164,7 +164,7 @@ public class GuiBook extends GuiScreen {
 			} else if (currentPage instanceof BookPageText) {
 				renderTextPage((BookPageText) currentPage, mouseX, mouseY);
 			}
-			
+
 			if (chapters.get(currentChapter).getPageCount() > 1) {
 				GlStateManager.pushMatrix();
 				float textScale = 0.5F;
@@ -209,7 +209,7 @@ public class GuiBook extends GuiScreen {
 		this.fontRenderer.drawSplitString(I18n.format(page.getDescription()), (int) ((left + 18) / textScale),
 				(int) ((top + 58) / textScale), (int) ((WIDTH - (18 * 2)) / textScale), 0);
 		GlStateManager.popMatrix();
-		
+
 		if (mouseX >= itemX && mouseY >= itemY && mouseX <= itemX + (16 * itemScale) && mouseY <= itemY + (16 * itemScale)) {
 			GlStateManager.pushMatrix();
 			float toolTipScale = 0.5F;
@@ -244,87 +244,87 @@ public class GuiBook extends GuiScreen {
 			HeadMaterial mat = (HeadMaterial) page.getMat();
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.harvest_level.name") + TextFormatting.RESET
-							+ ": " + mat.getHarvestLevel(),
+					+ ": " + mat.getHarvestLevel(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.efficiency.name") + TextFormatting.RESET
-							+ ": " + mat.getEfficiency(),
+					+ ": " + mat.getEfficiency(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.durability.name") + TextFormatting.RESET
-							+ ": " + mat.getDurability(),
+					+ ": " + mat.getDurability(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.attack_damage.name") + TextFormatting.RESET
-							+ ": " + mat.getAttackDamage(),
+					+ ": " + mat.getAttackDamage(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.enchantability.name") + TextFormatting.RESET
-							+ ": " + mat.getEnchantability(),
+					+ ": " + mat.getEnchantability(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 		} else if (page.getMat() instanceof HaftMaterial) {
 			HaftMaterial mat = (HaftMaterial) page.getMat();
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.durability_mod.name") + TextFormatting.RESET
-							+ ": " + mat.getDurabilityMod(),
+					+ ": " + mat.getDurabilityMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.enchantability_mod.name")
-							+ TextFormatting.RESET + ": " + mat.getEnchantabilityMod(),
+					+ TextFormatting.RESET + ": " + mat.getEnchantabilityMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 		} else if (page.getMat() instanceof HandleMaterial) {
 			HandleMaterial mat = (HandleMaterial) page.getMat();
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.durability_mod.name") + TextFormatting.RESET
-							+ ": " + mat.getDurabilityMod(),
+					+ ": " + mat.getDurabilityMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 		} else if (page.getMat() instanceof AdornmentMaterial) {
 			AdornmentMaterial mat = (AdornmentMaterial) page.getMat();
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.harvest_level_mod.name")
-							+ TextFormatting.RESET + ": " + mat.getHarvestLevelMod(),
+					+ TextFormatting.RESET + ": " + mat.getHarvestLevelMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.efficiency_mod.name") + TextFormatting.RESET
-							+ ": " + mat.getEfficiencyMod(),
+					+ ": " + mat.getEfficiencyMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.durability_mod.name") + TextFormatting.RESET
-							+ ": " + mat.getDurabilityMod(),
+					+ ": " + mat.getDurabilityMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.attack_damage_mod.name")
-							+ TextFormatting.RESET + ": " + mat.getAttackDamageMod(),
+					+ TextFormatting.RESET + ": " + mat.getAttackDamageMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.enchantability_mod.name")
-							+ TextFormatting.RESET + ": " + mat.getEnchantabilityMod(),
+					+ TextFormatting.RESET + ": " + mat.getEnchantabilityMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 		}
-		
+
 		if (!I18n.format(page.getDescription()).equals(page.getDescription())) {
-			
+
 			i += 6;
 			this.fontRenderer.drawSplitString(TextFormatting.DARK_RED + I18n.format(page.getDescription()), (int) ((left + 18) / textScale),
 					(int) ((top + i) / textScale), (int) ((WIDTH - (18 * 2)) / textScale), 0);
-			
+
 		}
-		
+
 		GlStateManager.popMatrix();
-		
+
 		if (mouseX >= itemX && mouseY >= itemY && mouseX <= itemX + (16 * itemScale) && mouseY <= itemY + (16 * itemScale)) {
 			GlStateManager.pushMatrix();
 			float toolTipScale = 0.5F;
@@ -335,7 +335,7 @@ public class GuiBook extends GuiScreen {
 		}
 
 	}
-	
+
 	private void renderTextPage(BookPageText page, int mouseX, int mouseY) {
 
 		GlStateManager.pushMatrix();
@@ -343,15 +343,16 @@ public class GuiBook extends GuiScreen {
 		GlStateManager.scale(textScale, textScale, textScale);
 		String text = I18n.format(page.getText());
 		List<String> paragraphs = new ArrayList<String>();
-		
+
 		while (text.indexOf("|") > -1) {
 			int i = text.indexOf("|");
 			paragraphs.add("    " + text.substring(0, i));
-			if (i < text.length() - 1)
-			text = text.substring(i + 1);
+			if (i < text.length() - 1) {
+				text = text.substring(i + 1);
+			}
 		}
 		paragraphs.add("    " + text);
-		
+
 		int i = 24;
 		for (String par : paragraphs) {
 			this.fontRenderer.drawSplitString(par, (int) ((left + 18) / textScale),
@@ -420,6 +421,15 @@ public class GuiBook extends GuiScreen {
 		} else if (1 == par2) {
 			mc.displayGuiScreen(null);
 			mc.setIngameFocus();
+		}
+	}
+
+	@Override
+	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+		super.mouseClicked(mouseX, mouseY, mouseButton);
+		if(mouseButton == 1) {
+			currentChapter = chapters.get(currentChapter).getParent();
+			currentPageNum = 0;
 		}
 	}
 

@@ -7,18 +7,20 @@ import java.util.Map.Entry;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class ShapedNBTOreRecipe extends ShapedOreRecipe {
 
-	public ShapedNBTOreRecipe(ItemStack result, Object[] recipe) {
+	public ShapedNBTOreRecipe(ItemStack result, NonNullList<Ingredient> recipe) {
 		super(null, result, recipe);
 	}
 	
-	public ShapedNBTOreRecipe(int width, int height, Object[] input, ItemStack output) {
+	public ShapedNBTOreRecipe(int width, int height, NonNullList<Ingredient> input, ItemStack output) {
 		super(null, output, "EEE", "EEE", "EEE", 'E', ItemStack.EMPTY);
 		this.width = width;
 		this.height = height;
@@ -37,9 +39,9 @@ public class ShapedNBTOreRecipe extends ShapedOreRecipe {
 
 				if (subX >= 0 && subY >= 0 && subX < width && subY < height) {
 					if (mirror) {
-						target = input[width - subX - 1 + subY * width];
+						target = input.get(width - subX - 1 + subY * width);
 					} else {
-						target = input[subX + subY * width];
+						target = input.get(subX + subY * width);
 					}
 				}
 
