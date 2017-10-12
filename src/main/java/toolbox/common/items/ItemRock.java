@@ -48,7 +48,7 @@ public class ItemRock extends ItemBase {
 
 				if (!worldIn.isRemote) {
 					EntityRock entityrock = new EntityRock(worldIn, entityplayer);
-					entityrock.setHeadingFromThrower(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw,
+					entityrock.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw,
 							0.0F, f, 1.0F);
 
 					if (f == 1.0F) {

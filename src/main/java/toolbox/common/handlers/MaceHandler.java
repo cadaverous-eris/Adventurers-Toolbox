@@ -14,7 +14,7 @@ public class MaceHandler {
 	public void onMaceAttack(LivingHurtEvent event) {
 		DamageSource source = event.getSource();
 		if (source != null && source instanceof EntityDamageSource) {
-			Entity entity = ((EntityDamageSource) source).getSourceOfDamage();
+			Entity entity = ((EntityDamageSource) source).getImmediateSource();
 			if (entity != null && entity instanceof EntityLivingBase) {
 				EntityLivingBase attacker = (EntityLivingBase) entity;
 				if (attacker.getHeldItemMainhand().getItem() == ModItems.MACE) {

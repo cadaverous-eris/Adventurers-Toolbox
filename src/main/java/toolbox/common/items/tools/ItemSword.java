@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -32,8 +33,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.common.Config;
 
 public class ItemSword extends ItemWeaponBase implements IBladeTool, ICrossguardTool, IHandleTool, IAdornedTool {
 
@@ -65,7 +68,7 @@ public class ItemSword extends ItemWeaponBase implements IBladeTool, ICrossguard
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		Block block = state.getBlock();
 
 		if (block == Blocks.WEB) {
@@ -123,10 +126,9 @@ public class ItemSword extends ItemWeaponBase implements IBladeTool, ICrossguard
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if (GuiScreen.isShiftKeyDown()) {
-			if (!advanced || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
+			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
@@ -136,15 +138,19 @@ public class ItemSword extends ItemWeaponBase implements IBladeTool, ICrossguard
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack stack1 = new ItemStack(this);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString(BLADE_TAG, Materials.randomHead().getName());
-		tag.setString(CROSSGUARD_TAG, Materials.randomHead().getName());
-		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
-		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
-		stack1.setTagCompound(tag);
-		subItems.add(stack1);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (!Config.DISABLE_SWORD) {
+			ItemStack stack1 = new ItemStack(this);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(BLADE_TAG, Materials.randomHead().getName());
+			tag.setString(CROSSGUARD_TAG, Materials.randomHead().getName());
+			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
+			stack1.setTagCompound(tag);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack1);
+			}
+		}
 	}
 
 	@Override
@@ -197,13 +203,13 @@ public class ItemSword extends ItemWeaponBase implements IBladeTool, ICrossguard
 
 					f = f + f1;
 
-					float f3 = 1.0F + EnchantmentHelper.func_191527_a(player) * f;
+					float f3 = 1.0F + EnchantmentHelper.getSweepingDamageRatio(player) * f;
 
 					for (EntityLivingBase entitylivingbase : player.world.getEntitiesWithinAABB(EntityLivingBase.class,
 							target.getEntityBoundingBox().expand(1.0D, 0.25D, 1.0D))) {
 						if (entitylivingbase != player && entitylivingbase != target
 								&& !player.isOnSameTeam(entitylivingbase)
-								&& player.getDistanceSqToEntity(entitylivingbase) < 9.0D) {
+								&& player.getDistanceSq(entitylivingbase) < 9.0D) {
 							entitylivingbase.knockBack(player, 0.4F,
 									(double) MathHelper.sin(player.rotationYaw * 0.017453292F),
 									(double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));

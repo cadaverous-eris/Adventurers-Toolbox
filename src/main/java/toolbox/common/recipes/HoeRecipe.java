@@ -74,7 +74,7 @@ public class HoeRecipe extends ToolRecipe {
 				items.add(temp);
 			}
 		}
-		if (items.size() > getRecipeSize() || (adornmentMat == null && items.size() > getRecipeSize() - 1)) {
+		if (items.size() > getRecipeSize()) {
 			return false;
 		}
 		
@@ -107,9 +107,16 @@ public class HoeRecipe extends ToolRecipe {
 		return out;
 	}
 
-	@Override
-	public int getRecipeSize() {
-		return 4;
-	}
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= getRecipeSize();
+        }
+
+        public int getRecipeSize() {
+            if(adornmentMat == null) {
+                return 3;
+            }
+            return 4;
+        }
 
 }

@@ -9,10 +9,15 @@ import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import api.materials.Materials;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import java.util.Set;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -33,8 +38,11 @@ import net.minecraft.world.World;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.common.Config;
 
 public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+
+	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
 
 	public ItemPickaxe() {
 		super("pickaxe");
@@ -69,7 +77,7 @@ public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, I
 	}
 
 	@Override
-	public float getStrVsBlock(ItemStack stack, IBlockState state) {
+	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		for (String type : getToolClasses(stack)) {
 			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.ROCK
 					|| state.getMaterial() == Material.IRON) {
@@ -94,11 +102,16 @@ public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, I
 	}
 
 	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		return harvestableMaterials.contains(state.getMaterial());
+	}
+
+	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass,
 			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
 			@javax.annotation.Nullable IBlockState blockState) {
 		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
+		if (level == -1 && toolClass != null && getToolClasses(stack).contains(toolClass)) {
 			return getHarvestLevel(stack);
 		} else {
 			return level;
@@ -132,10 +145,10 @@ public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, I
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		if (GuiScreen.isShiftKeyDown()) {
-			if (!advanced || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
+			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
@@ -147,15 +160,19 @@ public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, I
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack stack1 = new ItemStack(this);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString(HEAD_TAG, Materials.randomHead().getName());
-		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
-		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
-		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
-		stack1.setTagCompound(tag);
-		subItems.add(stack1);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (!Config.DISABLE_PICKAXE) {
+			ItemStack stack1 = new ItemStack(this);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(HEAD_TAG, Materials.randomHead().getName());
+			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
+			stack1.setTagCompound(tag);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack1);
+			}
+		}
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
@@ -12,8 +13,8 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class ShapelessNBTOreRecipe extends ShapelessOreRecipe {
 
-	public ShapelessNBTOreRecipe(ItemStack result, Object[] recipe) {
-		super(result, recipe);
+	public ShapelessNBTOreRecipe(ItemStack result, NonNullList<Ingredient> recipe) {
+		super(null, result, recipe);
 	}
 
 	@SuppressWarnings("unchecked")

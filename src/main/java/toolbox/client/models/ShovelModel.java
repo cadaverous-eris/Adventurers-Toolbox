@@ -41,10 +41,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelCustomData;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -57,7 +55,7 @@ import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.materials.ModMaterials;
 
-public class ShovelModel implements IModel, IRetexturableModel, IModelCustomData {
+public class ShovelModel implements IModel {
 	
 	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(
 			new ResourceLocation(Toolbox.MODID, "shovel"), "inventory");
@@ -157,12 +155,11 @@ public class ShovelModel implements IModel, IRetexturableModel, IModelCustomData
 	
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format,
-			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+			java.util.function.Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 
-		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper
-				.getTransforms(state);
+		ImmutableMap<TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
 
-		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+		TRSRTransformation transform = (TRSRTransformation.identity());
 
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
@@ -265,22 +262,12 @@ public class ShovelModel implements IModel, IRetexturableModel, IModelCustomData
 
 	}
 	
-	private static final class BakedShovelModel implements IPerspectiveAwareModel {
-
-		private final ShovelModel parent;
-		private final Map<String, IBakedModel> cache;
-		private final ImmutableMap<TransformType, TRSRTransformation> transforms;
-		private final ImmutableList<BakedQuad> quads;
-		private final VertexFormat format;
+	private static final class BakedShovelModel extends BakedToolModel {
 
 		public BakedShovelModel(ShovelModel parent, ImmutableList<BakedQuad> quads, VertexFormat format,
 				ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms,
 				Map<String, IBakedModel> cache) {
-			this.quads = quads;
-			this.format = format;
-			this.parent = parent;
-			this.transforms = itemTransforms();
-			this.cache = cache;
+			super(parent, quads, format, transforms, cache);
 		}
 
 		@Override
@@ -288,56 +275,6 @@ public class ShovelModel implements IModel, IRetexturableModel, IModelCustomData
 			return BakedShovelOverrideHandler.INSTANCE;
 		}
 
-		@Override
-		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this,
-					(ImmutableMap<TransformType, TRSRTransformation>) this.transforms, cameraTransformType);
-		}
-
-		private static ImmutableMap<TransformType, TRSRTransformation> itemTransforms() {
-			ImmutableMap.Builder<TransformType, TRSRTransformation> builder = ImmutableMap.builder();
-			builder.put(TransformType.GROUND, get(0 , 2, 0, 0, 0, 0, 0.5f));
-			builder.put(TransformType.HEAD, get(0, 13, 7, 0, 180, 0, 1));
-			builder.put(TransformType.FIXED, get(0, 0, 0, 0, 180, 0, 1));
-			builder.put(TransformType.THIRD_PERSON_RIGHT_HAND, get(0, 4, 0.5f,         0, -90, 55, 0.85f));
-			builder.put(TransformType.THIRD_PERSON_LEFT_HAND, get(0, 4, 0.5f,         0, 90, -55, 0.85f));
-			builder.put(TransformType.FIRST_PERSON_RIGHT_HAND, get(1.13f, 3.2f, 1.13f, 0, -90, 25, 0.68f));
-			builder.put(TransformType.FIRST_PERSON_LEFT_HAND, get(1.13f, 3.2f, 1.13f, 0, 90, -25, 0.68f));
-			return (ImmutableMap) builder.build();
-		}
-
-		private static TRSRTransformation get(float tx, float ty, float tz, float ax, float ay, float az, float s) {
-			return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-					new Vector3f(tx / 16, ty / 16, tz / 16),
-					TRSRTransformation.quatFromXYZDegrees(new Vector3f(ax, ay, az)), new Vector3f(s, s, s), null));
-		}
-
-		@Override
-		public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
-			if (side == null)
-				return quads;
-			return ImmutableList.of();
-		}
-
-		public boolean isAmbientOcclusion() {
-			return true;
-		}
-
-		public boolean isGui3d() {
-			return false;
-		}
-
-		public boolean isBuiltInRenderer() {
-			return false;
-		}
-
-		public TextureAtlasSprite getParticleTexture() {
-			return null;
-		}
-
-		public ItemCameraTransforms getItemCameraTransforms() {
-			return ItemCameraTransforms.DEFAULT;
-		}
 	}
 
 }

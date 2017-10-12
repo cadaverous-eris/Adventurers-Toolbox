@@ -60,7 +60,7 @@ public class DaggerRecipe extends ToolRecipe {
 				items.add(temp);
 			}
 		}
-		if (items.size() > getRecipeSize() || (adornmentMat == null && items.size() > getRecipeSize() - 1)) {
+		if (items.size() > getRecipeSize()) {
 			return false;
 		}
 		
@@ -92,9 +92,16 @@ ItemStack out = new ItemStack(ModItems.DAGGER);
 		return out;
 	}
 
-	@Override
-	public int getRecipeSize() {
-		return 3;
-	}
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= getRecipeSize();
+        }
+
+        public int getRecipeSize() {
+            if(adornmentMat == null) {
+                return 2;
+            }
+            return 3;
+        }
 
 }

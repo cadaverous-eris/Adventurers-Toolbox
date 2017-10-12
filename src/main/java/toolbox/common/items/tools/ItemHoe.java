@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnchantmentDurability;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -40,9 +41,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import toolbox.Toolbox;
+import toolbox.common.Config;
 import toolbox.common.items.ItemBase;
 
-public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemHoe extends ItemBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
 	public static final String DAMAGE_TAG = "Damage";
 
@@ -52,7 +54,7 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 		this.setMaxDamage(0);
 		this.setCreativeTab(Toolbox.toolsTab);
 	}
-	
+
 	public int getHarvestLevel(ItemStack stack) {
 		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
 	}
@@ -94,7 +96,7 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
 					new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 0.0F, 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER,
-					"Weapon modifier", (double)  -(3.0 - this.getHarvestLevel(stack)), 0));
+					"Weapon modifier", (double) -(3.0 - this.getHarvestLevel(stack)), 0));
 		}
 
 		return multimap;
@@ -102,10 +104,10 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 
 		if (GuiScreen.isShiftKeyDown()) {
-			if (!advanced || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
+			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
@@ -115,15 +117,19 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack stack1 = new ItemStack(this);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString(HEAD_TAG, Materials.randomHead().getName());
-		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
-		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
-		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
-		stack1.setTagCompound(tag);
-		subItems.add(stack1);
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+		if (!Config.DISABLE_HOE) {
+			ItemStack stack1 = new ItemStack(this);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(HEAD_TAG, Materials.randomHead().getName());
+			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
+			stack1.setTagCompound(tag);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack1);
+			}
+		}
 	}
 
 	@Override
@@ -223,9 +229,9 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 			}
 
 			setDamage(stack, getDamage(stack) + amount); // Redirect through
-															// Item's
-															// callback if
-															// applicable.
+			// Item's
+			// callback if
+			// applicable.
 			return getDamage(stack) > getMaxDamage(stack);
 		}
 	}
@@ -239,8 +245,9 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 			return EnumActionResult.FAIL;
 		} else {
 			int hook = net.minecraftforge.event.ForgeEventFactory.onHoeUse(itemstack, player, worldIn, pos);
-			if (hook != 0)
+			if (hook != 0) {
 				return hook > 0 ? EnumActionResult.SUCCESS : EnumActionResult.FAIL;
+			}
 
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 			Block block = iblockstate.getBlock();
@@ -253,13 +260,13 @@ public class ItemHoe extends ItemBase  implements IHeadTool, IHaftTool, IHandleT
 
 				if (block == Blocks.DIRT) {
 					switch ((BlockDirt.DirtType) iblockstate.getValue(BlockDirt.VARIANT)) {
-					case DIRT:
-						this.setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
-						return EnumActionResult.SUCCESS;
-					case COARSE_DIRT:
-						this.setBlock(itemstack, player, worldIn, pos,
-								Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
-						return EnumActionResult.SUCCESS;
+						case DIRT:
+							this.setBlock(itemstack, player, worldIn, pos, Blocks.FARMLAND.getDefaultState());
+							return EnumActionResult.SUCCESS;
+						case COARSE_DIRT:
+							this.setBlock(itemstack, player, worldIn, pos,
+									Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.DIRT));
+							return EnumActionResult.SUCCESS;
 					}
 				}
 			}

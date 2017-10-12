@@ -89,7 +89,11 @@ public class ClimbingPickRecipe extends ToolRecipe {
 		return out;
 	}
 
-	@Override
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= getRecipeSize();
+        }
+        
 	public int getRecipeSize() {
 		return 3;
 	}

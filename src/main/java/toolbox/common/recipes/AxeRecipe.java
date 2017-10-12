@@ -9,7 +9,9 @@ import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import toolbox.common.items.ModItems;
 import toolbox.common.items.tools.IAdornedTool;
@@ -73,7 +75,7 @@ public class AxeRecipe extends ToolRecipe {
 				items.add(temp);
 			}
 		}
-		if (items.size() > getRecipeSize() || (adornmentMat == null && items.size() > getRecipeSize() - 1)) {
+		if (items.size() > getRecipeSize()) {
 			return false;
 		}
 		
@@ -106,9 +108,16 @@ public class AxeRecipe extends ToolRecipe {
 		return out;
 	}
 
-	@Override
-	public int getRecipeSize() {
-		return 4;
-	}
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= getRecipeSize();
+        }
 
+        public int getRecipeSize() {
+            if(adornmentMat == null) {
+                return 3;
+            }
+            return 4;
+        }
+        
 }

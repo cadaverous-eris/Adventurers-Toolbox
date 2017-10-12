@@ -38,10 +38,12 @@ public class PickaxeRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
+				System.out.println(temp.toString());
 				if (!slots[i] && headMat == null && temp.getItem() == ModItems.PICKAXE_HEAD) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
+							System.out.println("Adding Head");
 							slots[i] = true;
 						}
 					}
@@ -50,6 +52,7 @@ public class PickaxeRecipe extends ToolRecipe {
 					for (ItemStack test : ModRecipes.haft_map.keySet()) {
 						if (haftMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							haftMat = ModRecipes.haft_map.get(test);
+							System.out.println("Adding Haft");
 							slots[i] = true;
 						}
 					}
@@ -58,6 +61,7 @@ public class PickaxeRecipe extends ToolRecipe {
 					for (ItemStack test : ModRecipes.handle_map.keySet()) {
 						if (handleMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							handleMat = ModRecipes.handle_map.get(test);
+							System.out.println("Adding Handle");
 							slots[i] = true;
 						}
 					}
@@ -66,6 +70,7 @@ public class PickaxeRecipe extends ToolRecipe {
 					for (ItemStack test : ModRecipes.adornment_map.keySet()) {
 						if (adornmentMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							adornmentMat = ModRecipes.adornment_map.get(test);
+							System.out.println("Adding Adornment");
 							slots[i] = true;
 						}
 					}
@@ -73,7 +78,7 @@ public class PickaxeRecipe extends ToolRecipe {
 				items.add(temp);
 			}
 		}
-		if (items.size() > getRecipeSize() || (adornmentMat == null && items.size() > getRecipeSize() - 1)) {
+		if (items.size() > getRecipeSize()) {
 			return false;
 		}
 		
@@ -106,9 +111,16 @@ public class PickaxeRecipe extends ToolRecipe {
 		return out;
 	}
 
-	@Override
-	public int getRecipeSize() {
-		return 4;
-	}
+        @Override
+        public boolean canFit(int width, int height) {
+            return width * height >= getRecipeSize();
+        }
+
+        public int getRecipeSize() {
+            if(adornmentMat == null) {
+                return 3;
+            }
+            return 4;
+        }
 
 }

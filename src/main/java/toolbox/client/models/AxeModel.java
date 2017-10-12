@@ -41,10 +41,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelCustomData;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelPart;
 import net.minecraftforge.common.model.IModelState;
@@ -57,7 +55,7 @@ import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.materials.ModMaterials;
 
-public class AxeModel implements IModel, IRetexturableModel, IModelCustomData {
+public class AxeModel implements IModel {
 	
 	public static final ModelResourceLocation LOCATION = new ModelResourceLocation(
 			new ResourceLocation(Toolbox.MODID, "axe"), "inventory");
@@ -157,12 +155,11 @@ public class AxeModel implements IModel, IRetexturableModel, IModelCustomData {
 
 	@Override
 	public IBakedModel bake(IModelState state, VertexFormat format,
-			Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+			java.util.function.Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
 
-		ImmutableMap<TransformType, TRSRTransformation> transformMap = IPerspectiveAwareModel.MapWrapper
-				.getTransforms(state);
+		ImmutableMap<TransformType, TRSRTransformation> transformMap = PerspectiveMapWrapper.getTransforms(state);
 
-		TRSRTransformation transform = state.apply(Optional.<IModelPart>absent()).or(TRSRTransformation.identity());
+		TRSRTransformation transform = (TRSRTransformation.identity());
 
 		ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
 
@@ -265,7 +262,7 @@ public class AxeModel implements IModel, IRetexturableModel, IModelCustomData {
 
 	}
 	
-	private static final class BakedAxeModel implements IPerspectiveAwareModel {
+	private static final class BakedAxeModel implements IBakedModel {
 
 		private final AxeModel parent;
 		private final Map<String, IBakedModel> cache;
@@ -290,8 +287,7 @@ public class AxeModel implements IModel, IRetexturableModel, IModelCustomData {
 
 		@Override
 		public Pair<? extends IBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-			return IPerspectiveAwareModel.MapWrapper.handlePerspective(this,
-					(ImmutableMap<TransformType, TRSRTransformation>) this.transforms, cameraTransformType);
+			return PerspectiveMapWrapper.handlePerspective(this, transforms, cameraTransformType);
 		}
 
 		private static ImmutableMap<TransformType, TRSRTransformation> itemTransforms() {

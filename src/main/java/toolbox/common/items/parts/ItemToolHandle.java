@@ -22,6 +22,8 @@ public class ItemToolHandle extends ItemToolPart {
 		subItems = new ArrayList<String>();
 		subItems.add("cloth");
 		subItems.add("leather");
+		subItems.add("wood");
+		subItems.add("bone");
 	}
 	
 	@Override
@@ -29,11 +31,14 @@ public class ItemToolHandle extends ItemToolPart {
 		return getUnlocalizedName() + "_" + subItems.get(stack.getMetadata());
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (int i = 0; i < this.subItems.size(); i++) {
 			ItemStack stack = new ItemStack(this, 1, i);
-			subItems.add(stack);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack);
+			}
 		}
 	}
 	
