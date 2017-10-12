@@ -5,6 +5,10 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import java.util.Set;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
@@ -15,6 +19,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -33,7 +38,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool {
-
+	
+	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
+	
 	public ItemClimbingPick() {
 		super("climbing_pick");
 		this.toolClass = "pickaxe";
@@ -89,6 +96,11 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 			return true;
 		}
 		return super.getIsRepairable(toRepair, repair);
+	}
+
+	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		return harvestableMaterials.contains(state.getMaterial());
 	}
 
 	@Override

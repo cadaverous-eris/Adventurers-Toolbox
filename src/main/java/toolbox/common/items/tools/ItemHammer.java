@@ -6,6 +6,9 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,6 +20,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,6 +38,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
+	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
+	
 	public ItemHammer() {
 		super("hammer");
 		this.toolClass = "pickaxe";
@@ -92,6 +98,11 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 			return true;
 		}
 		return super.getIsRepairable(toRepair, repair);
+	}
+
+	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		return harvestableMaterials.contains(state.getMaterial());
 	}
 
 	@Override
@@ -188,7 +199,7 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 					
 					IBlockState state = world.getBlockState(pos2);
 					
-					if (!world.isBlockLoaded(pos2) || !player.canPlayerEdit(pos2, side, itemstack) || !state.getBlock().canHarvestBlock(world, pos2, player)) {
+					if (!world.isBlockLoaded(pos2) || !player.canPlayerEdit(pos2, side, itemstack) || !(state.getBlock().canHarvestBlock(world, pos2, player))) {
 						continue;
 					}
 					

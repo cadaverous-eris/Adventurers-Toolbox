@@ -75,7 +75,7 @@ public class AxeRecipe extends ToolRecipe {
 				items.add(temp);
 			}
 		}
-		if (items.size() > getRecipeSize() || (adornmentMat == null && items.size() > getRecipeSize())) {
+		if (items.size() > getRecipeSize()) {
 			return false;
 		}
 		

@@ -9,6 +9,10 @@ import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import api.materials.Materials;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
+import java.util.Set;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -37,6 +41,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
+	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
+	
 	public ItemPickaxe() {
 		super("pickaxe");
 		this.toolClass = "pickaxe";
@@ -95,11 +101,16 @@ public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, I
 	}
 
 	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		return harvestableMaterials.contains(state.getMaterial());
+	}
+
+	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass,
 			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
 			@javax.annotation.Nullable IBlockState blockState) {
 		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
+		if (level == -1 && toolClass != null && getToolClasses(stack).contains(toolClass)) {
 			return getHarvestLevel(stack);
 		} else {
 			return level;

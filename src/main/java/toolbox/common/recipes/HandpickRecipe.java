@@ -74,7 +74,7 @@ public class HandpickRecipe extends ToolRecipe {
 				items.add(temp);
 			}
 		}
-		if (items.size() > getRecipeSize() || (adornmentMat == null && items.size() > getRecipeSize() - 1)) {
+		if (items.size() > getRecipeSize()) {
 			return false;
 		}
 		
