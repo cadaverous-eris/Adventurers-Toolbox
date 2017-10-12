@@ -36,6 +36,8 @@ item.toolbox.rock.name=Rock
 
 item.toolbox.handle_cloth.name=Cloth-Padded Handle
 item.toolbox.handle_leather.name=Leather-Padded Handle
+item.toolbox.handle_wood.name=Wooden Handle
+item.toolbox.handle_bone.name=Bone Handle
 
 item.toolbox.pickaxe_head.name=Pickaxe Head
 item.toolbox.axe_head.name=Axe Head

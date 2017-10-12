@@ -90,6 +90,8 @@ public class ModRecipes {
 		
 		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 0), "stickWood", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_0")));
 		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 1), "stickWood", new ItemStack(Items.LEATHER)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_1")));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 2), "stickWood", "stickWood").setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_2")));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 3), "stickWood", new ItemStack(Items.BONE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_3")));
 		
 		OreDictionary.registerOre("pebble", new ItemStack(ModItems.ROCK));
 		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.ROCK, 9), "cobblestone").setRegistryName(new ResourceLocation(Toolbox.MODID, "pebble")));
@@ -144,10 +146,10 @@ public class ModRecipes {
 		haft_map.put(new ItemStack(Items.BLAZE_ROD), ModMaterials.HAFT_BLAZE_ROD);
 		haft_map.put(new ItemStack(Blocks.END_ROD), ModMaterials.HAFT_END_ROD);
 		
-		handle_map.put(new ItemStack(Items.STICK), ModMaterials.HANDLE_WOOD);
-		handle_map.put(new ItemStack(Items.BONE), ModMaterials.HANDLE_BONE);
 		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 0), ModMaterials.HANDLE_CLOTH);
 		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 1), ModMaterials.HANDLE_LEATHER);
+		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 2), ModMaterials.HANDLE_WOOD);
+		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 3), ModMaterials.HANDLE_BONE);
 		
 		adornment_map.put(new ItemStack(Items.DIAMOND), ModMaterials.ADORNMENT_DIAMOND);
 		adornment_map.put(new ItemStack(Items.EMERALD), ModMaterials.ADORNMENT_EMERALD);
