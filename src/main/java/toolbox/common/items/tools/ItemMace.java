@@ -28,6 +28,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.common.Config;
 
 public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
@@ -35,7 +36,7 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 		super("mace");
 		setMaxDamage(0);
 	}
-	
+
 	public int getHarvestLevel(ItemStack stack) {
 		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
 	}
@@ -135,15 +136,17 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack stack1 = new ItemStack(this);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString(HEAD_TAG, Materials.randomHead().getName());
-		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
-		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
-		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
-		stack1.setTagCompound(tag);
-		if (isInCreativeTab(tab)) {
-			subItems.add(stack1);
+		if (!Config.DISABLE_MACE) {
+			ItemStack stack1 = new ItemStack(this);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(HEAD_TAG, Materials.randomHead().getName());
+			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
+			stack1.setTagCompound(tag);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack1);
+			}
 		}
 	}
 
@@ -157,17 +160,17 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
 		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.WEAPON;
 	}
-	
+
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		super.hitEntity(stack, target, attacker);
-		
+
 		for (ItemStack armor : target.getArmorInventoryList()) {
 			if (armor.isItemStackDamageable() && this.itemRand.nextFloat() < 1F) {
 				armor.damageItem((int) this.getAttackDamage(stack) + 1, target);
 			}
 		}
-		
+
 		return true;
 	}
 

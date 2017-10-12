@@ -35,6 +35,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.common.Config;
 
 public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
@@ -152,15 +153,17 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack stack1 = new ItemStack(this);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString(HEAD_TAG, Materials.randomHead().getName());
-		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
-		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
-		tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
-		stack1.setTagCompound(tag);
-		if (isInCreativeTab(tab)) {
-			subItems.add(stack1);
+		if (!Config.DISABLE_SHOVEL) {
+			ItemStack stack1 = new ItemStack(this);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(HEAD_TAG, Materials.randomHead().getName());
+			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
+			stack1.setTagCompound(tag);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack1);
+			}
 		}
 	}
 

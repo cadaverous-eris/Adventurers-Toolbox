@@ -36,11 +36,12 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.common.Config;
 
 public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool {
-	
+
 	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
-	
+
 	public ItemClimbingPick() {
 		super("climbing_pick");
 		this.toolClass = "pickaxe";
@@ -156,14 +157,16 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack stack1 = new ItemStack(this);
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setString(HEAD_TAG, Materials.randomHead().getName());
-		tag.setString(HAFT_TAG, Materials.randomHaft().getName());
-		tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
-		stack1.setTagCompound(tag);
-		if (isInCreativeTab(tab)) {
-			subItems.add(stack1);
+		if (!Config.DISABLE_CLIMBING_PICK) {
+			ItemStack stack1 = new ItemStack(this);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setString(HEAD_TAG, Materials.randomHead().getName());
+			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			stack1.setTagCompound(tag);
+			if (isInCreativeTab(tab)) {
+				subItems.add(stack1);
+			}
 		}
 	}
 
