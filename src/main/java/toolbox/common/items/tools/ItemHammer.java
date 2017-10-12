@@ -101,8 +101,13 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+	public boolean canHarvestBlock(IBlockState state) {
 		return harvestableMaterials.contains(state.getMaterial());
+	}
+
+	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		return canHarvestBlock(state);
 	}
 
 	@Override
@@ -286,11 +291,11 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 			return;
 		}
 		
-		if (!world.getBlockState(pos1).getBlock().isToolEffective(toolClass, world.getBlockState(pos1))) {
+		if (!world.getBlockState(pos1).getBlock().isToolEffective(toolClass, world.getBlockState(pos1)) && !canHarvestBlock(world.getBlockState(pos1))) {
 			return;
 		}
 		
-		if (!world.getBlockState(pos2).getBlock().isToolEffective(toolClass, world.getBlockState(pos2))) {
+		if (!world.getBlockState(pos2).getBlock().isToolEffective(toolClass, world.getBlockState(pos2)) && !canHarvestBlock(world.getBlockState(pos2))) {
 			return;
 		}
 		
