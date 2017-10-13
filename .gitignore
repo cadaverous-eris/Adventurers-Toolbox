@@ -1,40 +1,25 @@
 # eclipse
 bin
-
 *.launch
-
 .settings
-
 .metadata
-
 .classpath
-
 .project
 
-
 # idea
-
 out
-
 *.ipr
-
 *.iws
-
 *.iml
-
 .idea
 
-
 # gradle
-
 build
 .gradle
 
-
 # other
-
+.nb-gradle
 eclipse
-
 run
-
 libs
+.nb-gradle-properties
