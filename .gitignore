@@ -22,5 +22,4 @@ build
 eclipse
 run
 libs
-*.png
 .nb-gradle-properties
