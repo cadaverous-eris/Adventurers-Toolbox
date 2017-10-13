@@ -41,6 +41,8 @@ public class ModMaterials {
 			"ingotSteel", "nuggetSteel", Toolbox.MODID);
 	public static final HeadMaterial HEAD_ELECTRUM = new HeadMaterial("electrum", 1, 96, 8.0F, 1.0F, 26,
 			ItemStack.EMPTY, "ingotElectrum", "nuggetElectrum", Toolbox.MODID);
+	public static final HeadMaterial HEAD_SOULFORGED_STEEL = new HeadMaterial("soulforged_steel", 4, 700, 9.0F, 3F, 22, ItemStack.EMPTY,
+			"ingotSoulforgedSteel", "nuggetSoulforgedSteel", Toolbox.MODID);
 
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 1.0F, 1.0F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0.8F, 1.5F, Toolbox.MODID);
@@ -87,6 +89,7 @@ public class ModMaterials {
 		Materials.registerHeadMat(HEAD_SILVER);
 		Materials.registerHeadMat(HEAD_STEEL);
 		Materials.registerHeadMat(HEAD_ELECTRUM);
+		Materials.registerHeadMat(HEAD_SOULFORGED_STEEL);
 	}
 
 	private static void initHaftMaterials() {

@@ -27,6 +27,7 @@ lead.name=Lead
 silver.name=Silver
 steel.name=Steel
 electrum.name=Electrum
+soulforged_steel.name=Soulforged Steel
 
 
 #Blocks
@@ -100,6 +101,7 @@ guide.mat.lead.name=Lead
 guide.mat.silver.name=Silver
 guide.mat.steel.name=Steel
 guide.mat.electrum.name=Electrum
+guide.mat.soulforged_steel.name=Soulforged Steel
 
 guide.mat.blaze_rod.name=Blaze Rod
 guide.mat.end_rod.name=End Rod

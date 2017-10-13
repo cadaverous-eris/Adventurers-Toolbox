@@ -92,13 +92,14 @@ public class ToolHeadModel implements IModel {
 		@Override
 		public IModel loadModel(ResourceLocation modelLocation) {
 			String path = modelLocation.getResourcePath().substring(3);
-			int index = path.lastIndexOf('_');
-			String matName = path.substring(index + 1, path.length());
-			path = path.substring(0, index);
-			index = path.lastIndexOf('_');
-			String partName = path.substring(index + 1, path.length());
-			path = path.substring(0, index);
-			String toolName = path;
+			int index = path.indexOf('_');
+			if(path.charAt(0) == 'c') index = path.indexOf('_', index + 1);
+			String toolName = path.substring(0, index);
+			path = path.substring(index + 1);
+			index = path.indexOf('_');
+			String partName = path.substring(0, index);
+			path = path.substring(index + 1);
+			String matName = path;
 			
 			return new ToolHeadModel(modelLocation.getResourceDomain(), toolName, partName, matName);
 		}
