@@ -1,11 +1,8 @@
 package toolbox;
 
-import net.minecraft.advancements.Advancement;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.Mod;
@@ -24,16 +21,14 @@ import toolbox.common.items.tools.ICrossguardTool;
 import toolbox.common.items.tools.IHaftTool;
 import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.items.tools.IHeadTool;
-import toolbox.common.items.tools.ItemPickaxe;
 import toolbox.common.materials.ModMaterials;
 
-@Mod(modid = Toolbox.MODID, name = Toolbox.NAME, version = Toolbox.VERSION, useMetadata = false, dependencies = Toolbox.DEPENDENCIES)
+@Mod(modid = Toolbox.MODID, name = Toolbox.NAME, version = Toolbox.VERSION, useMetadata = false)
 public class Toolbox {
 	
 	public static final String MODID = "toolbox";
 	public static final String NAME = "Adventurer's Toolbox";
 	public static final String VERSION = "0.1";
-	public static final String DEPENDENCIES = "required-after:toolbox_api";
 	
 	@SidedProxy(clientSide = "toolbox.client.ClientProxy", serverSide = "toolbox.common.CommonProxy")
 	public static CommonProxy proxy;
