@@ -47,7 +47,7 @@ public class SwordRecipe extends ToolRecipe {
 						}
 					}
 				}
-				if (!slots[i] && crossguardMat == null && temp.getItem() == ModItems.CROSSGUARD) {
+				if (!slots[i] && crossguardMat == null && temp.getItem() == ModItems.SWORD_CROSSGUARD) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (crossguardMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							crossguardMat = ModRecipes.head_map.get(test);

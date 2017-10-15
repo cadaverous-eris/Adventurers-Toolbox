@@ -5,13 +5,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
       <group>
-        <file>file:/D:/Other/Mods/Adventurers-Toolbox/src/main/java/toolbox/common/items/tools/IBladeTool.java</file>
-        <file>file:/D:/Other/Mods/Adventurers-Toolbox/src/main/java/toolbox/common/items/tools/ItemHammer.java</file>
+        <file>file:/D:/Other/Mods/Adventurers-Toolbox/src/main/java/api/materials/HandleMaterial.java</file>
       </group>
     </open-files>
     <editor-bookmarks lastBookmarkId="0" xmlns="http://www.netbeans.org/ns/editor-bookmarks/2"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-      <group/>
-    </open-files>
   </auxiliary>
 </gradle-project-properties>

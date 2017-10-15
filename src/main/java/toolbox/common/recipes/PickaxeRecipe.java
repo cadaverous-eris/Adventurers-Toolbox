@@ -38,7 +38,6 @@ public class PickaxeRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				System.out.println(temp.toString());
 				if (!slots[i] && headMat == null && temp.getItem() == ModItems.PICKAXE_HEAD) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {

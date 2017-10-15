@@ -39,8 +39,6 @@ public class ClientProxy extends CommonProxy {
 		ModelLoaderRegistry.registerLoader(DaggerModel.LoaderDagger.INSTANCE);
 		ModelLoaderRegistry.registerLoader(MaceModel.LoaderMace.INSTANCE);
 		
-		ModItems.initModels();
-		
 		ModEntities.initRenderers();
 		
 	}

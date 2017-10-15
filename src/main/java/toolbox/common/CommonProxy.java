@@ -78,7 +78,6 @@ public class CommonProxy {
 
         ModMaterials.init();
         Toolbox.logger.log(Level.INFO, "Initialized tool part materials with " + Materials.head_registry.size() + " head materials, " + Materials.haft_registry.size() + " haft materials, " + Materials.handle_registry.size() + " handle materials, and " + Materials.adornment_registry.size() + " adornment materials");
-        ModItems.init();
         ModEntities.init();
 
     }

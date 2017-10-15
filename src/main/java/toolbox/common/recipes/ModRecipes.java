@@ -89,9 +89,9 @@ public class ModRecipes {
 		}
 
 		if (!Config.DISABLE_SWORD) {
-			for (int i : ModItems.CROSSGUARD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.CROSSGUARD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.CROSSGUARD, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
+			for (int i : ModItems.SWORD_CROSSGUARD.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.SWORD_CROSSGUARD.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.SWORD_CROSSGUARD, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
 			}
 		}
 
