@@ -61,38 +61,38 @@ public class ModItems {
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		event.getRegistry().register (new ItemRock());
+		event.getRegistry().register(new ItemRock());
 		
-		if(!Config.DISABLE_PICKAXE) event.getRegistry().register (new ItemToolHead("pickaxe_head"));
-		if(!Config.DISABLE_AXE) event.getRegistry().register (new ItemToolHead("axe_head"));
-		if(!Config.DISABLE_SHOVEL) event.getRegistry().register (new ItemToolHead("shovel_head"));
-		if(!Config.DISABLE_HOE) event.getRegistry().register (new ItemToolHead("hoe_head"));
-		if(!Config.DISABLE_HAND_PICK) event.getRegistry().register (new ItemToolHead("handpick_head"));
-		if(!Config.DISABLE_HAMMER) event.getRegistry().register (new ItemToolHead("hammer_head"));
-		if(!Config.DISABLE_CLIMBING_PICK) event.getRegistry().register (new ItemToolHead("climbing_pick_head"));
+		if(!Config.DISABLE_PICKAXE) event.getRegistry().register(new ItemToolHead("pickaxe_head"));
+		if(!Config.DISABLE_AXE) event.getRegistry().register(new ItemToolHead("axe_head"));
+		if(!Config.DISABLE_SHOVEL) event.getRegistry().register(new ItemToolHead("shovel_head"));
+		if(!Config.DISABLE_HOE) event.getRegistry().register(new ItemToolHead("hoe_head"));
+		if(!Config.DISABLE_HANDPICK) event.getRegistry().register(new ItemToolHead("handpick_head"));
+		if(!Config.DISABLE_HAMMER) event.getRegistry().register(new ItemToolHead("hammer_head"));
+		if(!Config.DISABLE_CLIMBING_PICK) event.getRegistry().register(new ItemToolHead("climbing_pick_head"));
 
-		if(!Config.DISABLE_SWORD) event.getRegistry().register (new ItemToolHead("sword_blade"));
-		if(!Config.DISABLE_SWORD) event.getRegistry().register (new ItemToolHead("sword_crossguard"));
-		if(!Config.DISABLE_DAGGER) event.getRegistry().register (new ItemToolHead("dagger_blade"));
-		if(!Config.DISABLE_MACE) event.getRegistry().register (new ItemToolHead("mace_head"));
+		if(!Config.DISABLE_SWORD) event.getRegistry().register(new ItemToolHead("sword_blade"));
+		if(!Config.DISABLE_SWORD) event.getRegistry().register(new ItemToolHead("sword_crossguard"));
+		if(!Config.DISABLE_DAGGER) event.getRegistry().register(new ItemToolHead("dagger_blade"));
+		if(!Config.DISABLE_MACE) event.getRegistry().register(new ItemToolHead("mace_head"));
 		
-		event.getRegistry().register (new ItemToolHandle());
+		event.getRegistry().register(new ItemToolHandle());
 
-		if(!Config.DISABLE_PICKAXE) event.getRegistry().register (new ItemPickaxe());
-		if(!Config.DISABLE_AXE) event.getRegistry().register (new ItemAxe());
-		if(!Config.DISABLE_SHOVEL) event.getRegistry().register (new ItemShovel());
-		if(!Config.DISABLE_HOE) event.getRegistry().register (new ItemHoe());
-		if(!Config.DISABLE_HAND_PICK) event.getRegistry().register (new ItemHandpick());
-		if(!Config.DISABLE_HAMMER) event.getRegistry().register (new ItemHammer());
-		if(!Config.DISABLE_CLIMBING_PICK) event.getRegistry().register (new ItemClimbingPick());
+		if(!Config.DISABLE_PICKAXE) event.getRegistry().register(new ItemPickaxe());
+		if(!Config.DISABLE_AXE) event.getRegistry().register(new ItemAxe());
+		if(!Config.DISABLE_SHOVEL) event.getRegistry().register(new ItemShovel());
+		if(!Config.DISABLE_HOE) event.getRegistry().register(new ItemHoe());
+		if(!Config.DISABLE_HANDPICK) event.getRegistry().register(new ItemHandpick());
+		if(!Config.DISABLE_HAMMER) event.getRegistry().register(new ItemHammer());
+		if(!Config.DISABLE_CLIMBING_PICK) event.getRegistry().register(new ItemClimbingPick());
 
-		if(!Config.DISABLE_SWORD) event.getRegistry().register (new ItemSword());
-		if(!Config.DISABLE_DAGGER) event.getRegistry().register (new ItemDagger());
-		if(!Config.DISABLE_MACE) event.getRegistry().register (new ItemMace());
+		if(!Config.DISABLE_SWORD) event.getRegistry().register(new ItemSword());
+		if(!Config.DISABLE_DAGGER) event.getRegistry().register(new ItemDagger());
+		if(!Config.DISABLE_MACE) event.getRegistry().register(new ItemMace());
 
-		event.getRegistry().register (new ItemGuideBook());
+		event.getRegistry().register(new ItemGuideBook());
 		
-		event.getRegistry().register (new ItemCast());
+		event.getRegistry().register(new ItemCast());
 	}
 	
 	@SubscribeEvent
@@ -104,7 +104,7 @@ public class ModItems {
 		if(!Config.DISABLE_AXE) axe_head.initModel();
 		if(!Config.DISABLE_SHOVEL) shovel_head.initModel();
 		if(!Config.DISABLE_HOE) hoe_head.initModel();
-		if(!Config.DISABLE_HAND_PICK) handpick_head.initModel();
+		if(!Config.DISABLE_HANDPICK) handpick_head.initModel();
 		if(!Config.DISABLE_HAMMER) hammer_head.initModel();
 		if(!Config.DISABLE_CLIMBING_PICK) climbing_pick_head.initModel();
 
@@ -119,16 +119,16 @@ public class ModItems {
 		if(!Config.DISABLE_AXE) axe.initModel();
 		if(!Config.DISABLE_SHOVEL) shovel.initModel();
 		if(!Config.DISABLE_HOE) hoe.initModel();
-		if(!Config.DISABLE_HAND_PICK) handpick.initModel();
+		if(!Config.DISABLE_HANDPICK) handpick.initModel();
 		if(!Config.DISABLE_HAMMER) hammer.initModel();
-		if(!Config.DISABLE_HAND_PICK) climbing_pick.initModel();
+		if(!Config.DISABLE_HANDPICK) climbing_pick.initModel();
 
 		if(!Config.DISABLE_SWORD) sword.initModel();
 		if(!Config.DISABLE_DAGGER) dagger.initModel();
 		if(!Config.DISABLE_MACE) mace.initModel();
 
 		guide_book.initModel();
-
+		
 		cast.initModel();
 	}
 

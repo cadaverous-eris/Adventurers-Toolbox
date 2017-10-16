@@ -22,8 +22,8 @@ public class ItemToolHandle extends ItemToolPart {
 		subItems = new ArrayList<String>();
 		subItems.add("cloth");
 		subItems.add("leather");
-		subItems.add("wood");
-		subItems.add("bone");
+		//subItems.add("wood");
+		//subItems.add("bone");
 	}
 	
 	@Override

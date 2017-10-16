@@ -36,7 +36,8 @@ public class ClimbingPickRecipe extends ToolRecipe {
 			if (!temp.isEmpty()) {
 				if (!slots[i] && headMat == null && temp.getItem() == ModItems.climbing_pick_head) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
-						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (headMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
 							slots[i] = true;
 						}
@@ -44,7 +45,8 @@ public class ClimbingPickRecipe extends ToolRecipe {
 				}
 				if (!slots[i] && haftMat == null) {
 					for (ItemStack test : ModRecipes.haft_map.keySet()) {
-						if (haftMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (haftMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							haftMat = ModRecipes.haft_map.get(test);
 							slots[i] = true;
 						}
@@ -52,7 +54,8 @@ public class ClimbingPickRecipe extends ToolRecipe {
 				}
 				if (!slots[i] && handleMat == null) {
 					for (ItemStack test : ModRecipes.handle_map.keySet()) {
-						if (handleMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (handleMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							handleMat = ModRecipes.handle_map.get(test);
 							slots[i] = true;
 						}
@@ -64,36 +67,36 @@ public class ClimbingPickRecipe extends ToolRecipe {
 		if (items.size() > getRecipeSize()) {
 			return false;
 		}
-		
+
 		if (headMat == null || haftMat == null || handleMat == null) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
 		ItemStack out = new ItemStack(ModItems.climbing_pick);
-		
+
 		if (headMat == null || haftMat == null || handleMat == null) {
 			return ItemStack.EMPTY;
 		}
-		
+
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IHeadTool.HEAD_TAG, headMat.getName());
 		tag.setString(IHaftTool.HAFT_TAG, haftMat.getName());
 		tag.setString(IHandleTool.HANDLE_TAG, handleMat.getName());
 		out.setTagCompound(tag);
-		
+
 		return out;
 	}
 
-        @Override
-        public boolean canFit(int width, int height) {
-            return width * height >= getRecipeSize();
-        }
-        
+	@Override
+	public boolean canFit(int width, int height) {
+		return width * height >= getRecipeSize();
+	}
+
 	public int getRecipeSize() {
 		return 3;
 	}

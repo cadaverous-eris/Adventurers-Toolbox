@@ -60,7 +60,7 @@ public class ModRecipes {
 				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hoe_head, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
 			}
 		}
-		if (!Config.DISABLE_HAND_PICK) {
+		if (!Config.DISABLE_HANDPICK) {
 			for (int i : ModItems.handpick_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.handpick_head.meta_map.get(i);
 				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.handpick_head, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
@@ -111,8 +111,8 @@ public class ModRecipes {
 
 		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 0), "stickWood", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_0")));
 		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 1), "stickWood", new ItemStack(Items.LEATHER)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_1")));
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 2), "stickWood", "stickWood").setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_2")));
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 3), "stickWood", new ItemStack(Items.BONE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_3")));
+		//ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 2), "stickWood", "stickWood").setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_2")));
+		//ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 3), "stickWood", new ItemStack(Items.BONE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_3")));
 
 		OreDictionary.registerOre("pebble", new ItemStack(ModItems.rock));
 		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.rock, 9), "cobblestone").setRegistryName(new ResourceLocation(Toolbox.MODID, "pebble")));
@@ -148,7 +148,7 @@ public class ModRecipes {
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new HoeRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe")));
 		}
-		if (!Config.DISABLE_HAND_PICK) {
+		if (!Config.DISABLE_HANDPICK) {
 			RecipeSorter.register("toolbox:handpick", HandpickRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new HandpickRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick")));
@@ -188,8 +188,10 @@ public class ModRecipes {
 
 		handle_map.put(new ItemStack(ModItems.handle, 1, 0), ModMaterials.HANDLE_CLOTH);
 		handle_map.put(new ItemStack(ModItems.handle, 1, 1), ModMaterials.HANDLE_LEATHER);
-		handle_map.put(new ItemStack(ModItems.handle, 1, 2), ModMaterials.HANDLE_WOOD);
-		handle_map.put(new ItemStack(ModItems.handle, 1, 3), ModMaterials.HANDLE_BONE);
+		//handle_map.put(new ItemStack(ModItems.handle, 1, 2), ModMaterials.HANDLE_WOOD);
+		//handle_map.put(new ItemStack(ModItems.handle, 1, 3), ModMaterials.HANDLE_BONE);
+		handle_map.put(new ItemStack(Items.STICK, 1, 0), ModMaterials.HANDLE_WOOD);
+		handle_map.put(new ItemStack(Items.BONE, 1, 0), ModMaterials.HANDLE_BONE);
 
 		adornment_map.put(new ItemStack(Items.DIAMOND), ModMaterials.ADORNMENT_DIAMOND);
 		adornment_map.put(new ItemStack(Items.EMERALD), ModMaterials.ADORNMENT_EMERALD);

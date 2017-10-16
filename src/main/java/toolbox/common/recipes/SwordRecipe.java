@@ -22,7 +22,7 @@ import toolbox.common.items.tools.ItemSword;
 import toolbox.common.materials.ModMaterials;
 
 public class SwordRecipe extends ToolRecipe {
-	
+
 	private HeadMaterial bladeMat = null;
 	private HeadMaterial crossguardMat = null;
 	private HandleMaterial handleMat = null;
@@ -41,7 +41,8 @@ public class SwordRecipe extends ToolRecipe {
 			if (!temp.isEmpty()) {
 				if (!slots[i] && bladeMat == null && temp.getItem() == ModItems.sword_blade) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
-						if (bladeMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (bladeMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							bladeMat = ModRecipes.head_map.get(test);
 							slots[i] = true;
 						}
@@ -49,7 +50,8 @@ public class SwordRecipe extends ToolRecipe {
 				}
 				if (!slots[i] && crossguardMat == null && temp.getItem() == ModItems.sword_crossguard) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
-						if (crossguardMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (crossguardMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							crossguardMat = ModRecipes.head_map.get(test);
 							slots[i] = true;
 						}
@@ -57,7 +59,8 @@ public class SwordRecipe extends ToolRecipe {
 				}
 				if (!slots[i] && handleMat == null) {
 					for (ItemStack test : ModRecipes.handle_map.keySet()) {
-						if (handleMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (handleMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							handleMat = ModRecipes.handle_map.get(test);
 							slots[i] = true;
 						}
@@ -65,7 +68,8 @@ public class SwordRecipe extends ToolRecipe {
 				}
 				if (!slots[i] && adornmentMat == null) {
 					for (ItemStack test : ModRecipes.adornment_map.keySet()) {
-						if (adornmentMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
+						if (adornmentMat == null && ItemStack.areItemsEqual(test, temp)
+								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							adornmentMat = ModRecipes.adornment_map.get(test);
 							slots[i] = true;
 						}
@@ -77,46 +81,46 @@ public class SwordRecipe extends ToolRecipe {
 		if (items.size() > getRecipeSize()) {
 			return false;
 		}
-		
+
 		if (bladeMat == null || crossguardMat == null || handleMat == null) {
 			return false;
 		}
-		
+
 		return true;
 	}
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-ItemStack out = new ItemStack(ModItems.sword);
-		
+		ItemStack out = new ItemStack(ModItems.sword);
+
 		if (adornmentMat == null) {
 			adornmentMat = ModMaterials.ADORNMENT_NULL;
 		}
-		
+
 		if (bladeMat == null || crossguardMat == null || handleMat == null || adornmentMat == null) {
 			return ItemStack.EMPTY;
 		}
-		
+
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IBladeTool.BLADE_TAG, bladeMat.getName());
 		tag.setString(ICrossguardTool.CROSSGUARD_TAG, crossguardMat.getName());
 		tag.setString(IHandleTool.HANDLE_TAG, handleMat.getName());
 		tag.setString(IAdornedTool.ADORNMENT_TAG, adornmentMat.getName());
 		out.setTagCompound(tag);
-		
+
 		return out;
 	}
 
-        @Override
-        public boolean canFit(int width, int height) {
-            return width * height >= getRecipeSize();
-        }
+	@Override
+	public boolean canFit(int width, int height) {
+		return width * height >= getRecipeSize();
+	}
 
-        public int getRecipeSize() {
-            if(adornmentMat == null) {
-                return 3;
-            }
-            return 4;
-        }
+	public int getRecipeSize() {
+		if (adornmentMat == null) {
+			return 3;
+		}
+		return 4;
+	}
 
 }

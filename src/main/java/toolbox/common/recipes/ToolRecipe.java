@@ -19,5 +19,10 @@ public abstract class ToolRecipe extends IForgeRegistryEntry.Impl<IRecipe> imple
 		NonNullList items = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 		return items;
 	}
+	
+	@Override
+	public boolean isDynamic() {
+		return true;
+	}
 
 }
