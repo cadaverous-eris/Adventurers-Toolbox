@@ -40,7 +40,7 @@ public class AxeRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				if (!slots[i] && headMat == null && temp.getItem() == ModItems.AXE_HEAD) {
+				if (!slots[i] && headMat == null && temp.getItem() == ModItems.axe_head) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
@@ -88,7 +88,7 @@ public class AxeRecipe extends ToolRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		ItemStack out = new ItemStack(ModItems.AXE);
+		ItemStack out = new ItemStack(ModItems.axe);
 		
 		if (adornmentMat == null) {
 			adornmentMat = ModMaterials.ADORNMENT_NULL;

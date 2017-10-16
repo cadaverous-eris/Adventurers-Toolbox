@@ -67,6 +67,18 @@ item.toolbox.mace.name=Mace
 
 item.toolbox.guide_book.name=Toolmakers' Treatise
 
+item.toolbox.cast_pickaxe_head.name=Pickaxe Head Cast
+item.toolbox.cast_axe_head.name=Axe Head Cast
+item.toolbox.cast_shovel_head.name=Shovel Head Cast
+item.toolbox.cast_hoe_head.name=Hoe Head Cast
+item.toolbox.cast_climbing_pick_head.name=Climbing Pick Head Cast
+item.toolbox.cast_handpick_head.name=Hand Pick Head Cast
+item.toolbox.cast_hammer_head.name=Hammer Head Cast
+item.toolbox.cast_sword_blade.name=Sword Blade Cast
+item.toolbox.cast_sword_crossguard.name=Sword Crossguard Cast
+item.toolbox.cast_dagger_blade.name=Dagger Blade Cast
+item.toolbox.cast_mace_head.name=Mace Head Cast
+
 # Guide Book
 guide.chapter.home.name=Contents
 

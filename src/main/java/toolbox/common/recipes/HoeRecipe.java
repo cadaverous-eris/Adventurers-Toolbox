@@ -39,7 +39,7 @@ public class HoeRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				if (!slots[i] && headMat == null && temp.getItem() == ModItems.HOE_HEAD) {
+				if (!slots[i] && headMat == null && temp.getItem() == ModItems.hoe_head) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
@@ -87,7 +87,7 @@ public class HoeRecipe extends ToolRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		ItemStack out = new ItemStack(ModItems.HOE);
+		ItemStack out = new ItemStack(ModItems.hoe);
 		
 		if (adornmentMat == null) {
 			adornmentMat = ModMaterials.ADORNMENT_NULL;

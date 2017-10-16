@@ -17,7 +17,7 @@ public class HandpickHarvestHandler {
 		if (event.getHarvester() == null) {
 			return;
 		}
-		if (!event.getHarvester().getHeldItemMainhand().isEmpty() && event.getHarvester().getHeldItemMainhand().getItem() == ModItems.HANDPICK) {
+		if (!event.getHarvester().getHeldItemMainhand().isEmpty() && event.getHarvester().getHeldItemMainhand().getItem() == ModItems.handpick) {
 			if (!event.getDrops().isEmpty()) {
 				event.getDrops().clear();
 				if (!event.getWorld().isRemote) {

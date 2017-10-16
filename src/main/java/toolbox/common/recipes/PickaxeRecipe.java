@@ -38,11 +38,10 @@ public class PickaxeRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				if (!slots[i] && headMat == null && temp.getItem() == ModItems.PICKAXE_HEAD) {
+				if (!slots[i] && headMat == null && temp.getItem() == ModItems.pickaxe_head) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
-							System.out.println("Adding Head");
 							slots[i] = true;
 						}
 					}
@@ -51,7 +50,6 @@ public class PickaxeRecipe extends ToolRecipe {
 					for (ItemStack test : ModRecipes.haft_map.keySet()) {
 						if (haftMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							haftMat = ModRecipes.haft_map.get(test);
-							System.out.println("Adding Haft");
 							slots[i] = true;
 						}
 					}
@@ -60,7 +58,6 @@ public class PickaxeRecipe extends ToolRecipe {
 					for (ItemStack test : ModRecipes.handle_map.keySet()) {
 						if (handleMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							handleMat = ModRecipes.handle_map.get(test);
-							System.out.println("Adding Handle");
 							slots[i] = true;
 						}
 					}
@@ -69,7 +66,6 @@ public class PickaxeRecipe extends ToolRecipe {
 					for (ItemStack test : ModRecipes.adornment_map.keySet()) {
 						if (adornmentMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							adornmentMat = ModRecipes.adornment_map.get(test);
-							System.out.println("Adding Adornment");
 							slots[i] = true;
 						}
 					}
@@ -90,7 +86,7 @@ public class PickaxeRecipe extends ToolRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		ItemStack out = new ItemStack(ModItems.PICKAXE);
+		ItemStack out = new ItemStack(ModItems.pickaxe);
 		
 		if (adornmentMat == null) {
 			adornmentMat = ModMaterials.ADORNMENT_NULL;

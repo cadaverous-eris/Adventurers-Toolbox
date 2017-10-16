@@ -100,20 +100,20 @@ public class GuiBook extends GuiScreen {
 			chapters.get("adornment_mat").addPage(page);
 		}
 
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.pickaxe.name", "guide.tool.pickaxe.desc", ModItems.PICKAXE));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.axe.name", "guide.tool.axe.desc", ModItems.AXE));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.shovel.name", "guide.tool.shovel.desc", ModItems.SHOVEL));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.hoe.name", "guide.tool.hoe.desc", ModItems.HOE));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.handpick.name", "guide.tool.handpick.desc", ModItems.HANDPICK));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.hammer.name", "guide.tool.hammer.desc", ModItems.HAMMER));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.climbing_pick.name", "guide.tool.climbing_pick.desc", ModItems.CLIMBING_PICK));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.pickaxe.name", "guide.tool.pickaxe.desc", ModItems.pickaxe));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.axe.name", "guide.tool.axe.desc", ModItems.axe));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.shovel.name", "guide.tool.shovel.desc", ModItems.shovel));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.hoe.name", "guide.tool.hoe.desc", ModItems.hoe));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.handpick.name", "guide.tool.handpick.desc", ModItems.handpick));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.hammer.name", "guide.tool.hammer.desc", ModItems.hammer));
+		chapters.get("tool").addPage(new BookPageTool("guide.tool.climbing_pick.name", "guide.tool.climbing_pick.desc", ModItems.climbing_pick));
 
 		chapters.get("weapon")
-				.addPage(new BookPageTool("guide.weapon.sword.name", "guide.weapon.sword.desc", ModItems.SWORD));
+				.addPage(new BookPageTool("guide.weapon.sword.name", "guide.weapon.sword.desc", ModItems.sword));
 		chapters.get("weapon")
-				.addPage(new BookPageTool("guide.weapon.dagger.name", "guide.weapon.dagger.desc", ModItems.DAGGER));
+				.addPage(new BookPageTool("guide.weapon.dagger.name", "guide.weapon.dagger.desc", ModItems.dagger));
 		chapters.get("weapon")
-				.addPage(new BookPageTool("guide.weapon.mace.name", "guide.weapon.mace.desc", ModItems.MACE));
+				.addPage(new BookPageTool("guide.weapon.mace.name", "guide.weapon.mace.desc", ModItems.mace));
 
 		for (BookChapter chapter : chapters.values()) {
 			if (chapter.getPageCount() <= 0) {

@@ -225,7 +225,7 @@ public class HoeModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.HOE) {
+			if (stack.getItem() != ModItems.hoe) {
 				return originalModel;
 			}
 

@@ -37,7 +37,7 @@ public class HammerRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				if (!slots[i] && headMat == null && temp.getItem() == ModItems.HAMMER_HEAD) {
+				if (!slots[i] && headMat == null && temp.getItem() == ModItems.hammer_head) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
@@ -85,7 +85,7 @@ public class HammerRecipe extends ToolRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		ItemStack out = new ItemStack(ModItems.HAMMER);
+		ItemStack out = new ItemStack(ModItems.hammer);
 		
 		if (adornmentMat == null) {
 			adornmentMat = ModMaterials.ADORNMENT_NULL;

@@ -39,7 +39,7 @@ public class SwordRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				if (!slots[i] && bladeMat == null && temp.getItem() == ModItems.SWORD_BLADE) {
+				if (!slots[i] && bladeMat == null && temp.getItem() == ModItems.sword_blade) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (bladeMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							bladeMat = ModRecipes.head_map.get(test);
@@ -47,7 +47,7 @@ public class SwordRecipe extends ToolRecipe {
 						}
 					}
 				}
-				if (!slots[i] && crossguardMat == null && temp.getItem() == ModItems.SWORD_CROSSGUARD) {
+				if (!slots[i] && crossguardMat == null && temp.getItem() == ModItems.sword_crossguard) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (crossguardMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							crossguardMat = ModRecipes.head_map.get(test);
@@ -87,7 +87,7 @@ public class SwordRecipe extends ToolRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-ItemStack out = new ItemStack(ModItems.SWORD);
+ItemStack out = new ItemStack(ModItems.sword);
 		
 		if (adornmentMat == null) {
 			adornmentMat = ModMaterials.ADORNMENT_NULL;

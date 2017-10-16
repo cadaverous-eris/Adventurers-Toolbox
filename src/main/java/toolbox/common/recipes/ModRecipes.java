@@ -34,89 +34,89 @@ public class ModRecipes {
 	public static void init() {
 
 		if (!Config.DISABLE_PICKAXE) {
-			for (int i : ModItems.PICKAXE_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.PICKAXE_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.PICKAXE_HEAD, 1, i), "PPP", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe_head_" + mat.getName())));
+			for (int i : ModItems.pickaxe_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.pickaxe_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.pickaxe_head, 1, i), "PPP", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe_head_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_AXE) {
-			for (int i : ModItems.AXE_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.AXE_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.AXE_HEAD, 1, i), "PPS", "P  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "axe_head_" + mat.getName())));
+			for (int i : ModItems.axe_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.axe_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.axe_head, 1, i), "PPS", "P  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "axe_head_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_SHOVEL) {
-			for (int i : ModItems.SHOVEL_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.SHOVEL_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.SHOVEL_HEAD, 1, i), "SPS", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel_head_" + mat.getName())));
+			for (int i : ModItems.shovel_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.shovel_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.shovel_head, 1, i), "SPS", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel_head_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_HOE) {
-			for (int i : ModItems.HOE_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.HOE_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.HOE_HEAD, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
+			for (int i : ModItems.hoe_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.hoe_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hoe_head, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
 			}
 		}
 		if (!Config.DISABLE_HAND_PICK) {
-			for (int i : ModItems.HANDPICK_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.HANDPICK_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.HANDPICK_HEAD, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
+			for (int i : ModItems.handpick_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.handpick_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.handpick_head, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_HAMMER) {
-			for (int i : ModItems.HAMMER_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.HAMMER_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.HAMMER_HEAD, 1, i), "PSP", "PPP", "PSP", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer_head_" + mat.getName())));
+			for (int i : ModItems.hammer_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.hammer_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hammer_head, 1, i), "PSP", "PPP", "PSP", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer_head_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_CLIMBING_PICK) {
-			for (int i : ModItems.CLIMBING_PICK_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.CLIMBING_PICK_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.CLIMBING_PICK_HEAD, 1, i), "PPS", "S  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "climbing_pick_head_" + mat.getName())));
+			for (int i : ModItems.climbing_pick_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.climbing_pick_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.climbing_pick_head, 1, i), "PPS", "S  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "climbing_pick_head_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_SWORD) {
-			for (int i : ModItems.SWORD_BLADE.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.SWORD_BLADE.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.SWORD_BLADE, 1, i), " S ", " P ", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "sword_blade_" + mat.getName())));
+			for (int i : ModItems.sword_blade.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.sword_blade.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.sword_blade, 1, i), " S ", " P ", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "sword_blade_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_SWORD) {
-			for (int i : ModItems.SWORD_CROSSGUARD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.SWORD_CROSSGUARD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.SWORD_CROSSGUARD, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
+			for (int i : ModItems.sword_crossguard.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.sword_crossguard.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.sword_crossguard, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_DAGGER) {
-			for (int i : ModItems.DAGGER_BLADE.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.DAGGER_BLADE.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.DAGGER_BLADE, 1, i), " S ", " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger_blade_" + mat.getName())));
+			for (int i : ModItems.dagger_blade.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.dagger_blade.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.dagger_blade, 1, i), " S ", " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger_blade_" + mat.getName())));
 			}
 		}
 
 		if (!Config.DISABLE_MACE) {
-			for (int i : ModItems.MACE_HEAD.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.MACE_HEAD.meta_map.get(i);
-				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.MACE_HEAD, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
+			for (int i : ModItems.mace_head.meta_map.keySet()) {
+				HeadMaterial mat = ModItems.mace_head.meta_map.get(i);
+				ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.mace_head, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
 			}
 		}
 
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 0), "stickWood", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_0")));
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 1), "stickWood", new ItemStack(Items.LEATHER)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_1")));
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 2), "stickWood", "stickWood").setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_2")));
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.HANDLE, 1, 3), "stickWood", new ItemStack(Items.BONE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_3")));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 0), "stickWood", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_0")));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 1), "stickWood", new ItemStack(Items.LEATHER)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_1")));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 2), "stickWood", "stickWood").setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_2")));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.handle, 1, 3), "stickWood", new ItemStack(Items.BONE)).setRegistryName(new ResourceLocation(Toolbox.MODID, "handle_3")));
 
-		OreDictionary.registerOre("pebble", new ItemStack(ModItems.ROCK));
-		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.ROCK, 9), "cobblestone").setRegistryName(new ResourceLocation(Toolbox.MODID, "pebble")));
-		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(Blocks.COBBLESTONE), "RRR", "RRR", "RRR", 'R', new ItemStack(ModItems.ROCK)).setRegistryName(new ResourceLocation(Toolbox.MODID, "cobble")));
+		OreDictionary.registerOre("pebble", new ItemStack(ModItems.rock));
+		ForgeRegistries.RECIPES.register(new ShapelessOreRecipe(null, new ItemStack(ModItems.rock, 9), "cobblestone").setRegistryName(new ResourceLocation(Toolbox.MODID, "pebble")));
+		ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(Blocks.COBBLESTONE), "RRR", "RRR", "RRR", 'R', new ItemStack(ModItems.rock)).setRegistryName(new ResourceLocation(Toolbox.MODID, "cobble")));
 
 		RecipeSorter.register("toolbox:book", BookRecipe.class, RecipeSorter.Category.SHAPELESS,
 				"after:minecraft:shapeless");
@@ -186,10 +186,10 @@ public class ModRecipes {
 		haft_map.put(new ItemStack(Items.BLAZE_ROD), ModMaterials.HAFT_BLAZE_ROD);
 		haft_map.put(new ItemStack(Blocks.END_ROD), ModMaterials.HAFT_END_ROD);
 
-		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 0), ModMaterials.HANDLE_CLOTH);
-		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 1), ModMaterials.HANDLE_LEATHER);
-		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 2), ModMaterials.HANDLE_WOOD);
-		handle_map.put(new ItemStack(ModItems.HANDLE, 1, 3), ModMaterials.HANDLE_BONE);
+		handle_map.put(new ItemStack(ModItems.handle, 1, 0), ModMaterials.HANDLE_CLOTH);
+		handle_map.put(new ItemStack(ModItems.handle, 1, 1), ModMaterials.HANDLE_LEATHER);
+		handle_map.put(new ItemStack(ModItems.handle, 1, 2), ModMaterials.HANDLE_WOOD);
+		handle_map.put(new ItemStack(ModItems.handle, 1, 3), ModMaterials.HANDLE_BONE);
 
 		adornment_map.put(new ItemStack(Items.DIAMOND), ModMaterials.ADORNMENT_DIAMOND);
 		adornment_map.put(new ItemStack(Items.EMERALD), ModMaterials.ADORNMENT_EMERALD);

@@ -225,7 +225,7 @@ public class HammerModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.HAMMER) {
+			if (stack.getItem() != ModItems.hammer) {
 				return originalModel;
 			}
 

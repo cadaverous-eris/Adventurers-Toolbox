@@ -39,7 +39,7 @@ public class GuideBookRecipeWrapper extends BlankRecipeWrapper {
 		this.inputs.add(book);
 
 		this.output.add(new ArrayList<ItemStack>());
-		this.output.get(0).add(new ItemStack(ModItems.GUIDE_BOOK));
+		this.output.get(0).add(new ItemStack(ModItems.guide_book));
 
 	}
 

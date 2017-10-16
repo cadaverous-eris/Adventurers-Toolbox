@@ -207,7 +207,7 @@ public class ClimbingPickModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.CLIMBING_PICK) {
+			if (stack.getItem() != ModItems.climbing_pick) {
 				return originalModel;
 			}
 

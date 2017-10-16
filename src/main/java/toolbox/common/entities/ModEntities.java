@@ -21,7 +21,7 @@ public final class ModEntities {
 	
 	@SideOnly(Side.CLIENT)
 	public static void initRenderers() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityRock.class, new RenderProjectileItem.Factory(new ItemStack(ModItems.ROCK)));
+		RenderingRegistry.registerEntityRenderingHandler(EntityRock.class, new RenderProjectileItem.Factory(new ItemStack(ModItems.rock)));
 	}
 
 }

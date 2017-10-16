@@ -225,7 +225,7 @@ public class AxeModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.AXE) {
+			if (stack.getItem() != ModItems.axe) {
 				return originalModel;
 			}
 

@@ -225,7 +225,7 @@ public class SwordModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.SWORD) {
+			if (stack.getItem() != ModItems.sword) {
 				return originalModel;
 			}
 

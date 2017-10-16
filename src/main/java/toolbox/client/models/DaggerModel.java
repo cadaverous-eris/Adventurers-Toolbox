@@ -208,7 +208,7 @@ public class DaggerModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.DAGGER) {
+			if (stack.getItem() != ModItems.dagger) {
 				return originalModel;
 			}
 

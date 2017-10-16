@@ -34,7 +34,7 @@ public class ClimbingPickRecipe extends ToolRecipe {
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();
 			if (!temp.isEmpty()) {
-				if (!slots[i] && headMat == null && temp.getItem() == ModItems.CLIMBING_PICK_HEAD) {
+				if (!slots[i] && headMat == null && temp.getItem() == ModItems.climbing_pick_head) {
 					for (ItemStack test : ModRecipes.head_map.keySet()) {
 						if (headMat == null && ItemStack.areItemsEqual(test, temp) && ItemStack.areItemStackTagsEqual(test, temp)) {
 							headMat = ModRecipes.head_map.get(test);
@@ -74,7 +74,7 @@ public class ClimbingPickRecipe extends ToolRecipe {
 
 	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inv) {
-		ItemStack out = new ItemStack(ModItems.CLIMBING_PICK);
+		ItemStack out = new ItemStack(ModItems.climbing_pick);
 		
 		if (headMat == null || haftMat == null || handleMat == null) {
 			return ItemStack.EMPTY;

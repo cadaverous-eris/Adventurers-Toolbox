@@ -225,7 +225,7 @@ public class ShovelModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.SHOVEL) {
+			if (stack.getItem() != ModItems.shovel) {
 				return originalModel;
 			}
 

@@ -33,10 +33,10 @@ public class HammerHandler {
 
 			ItemStack stack = event.getPlayer().getHeldItemMainhand();
 
-			if (stack.getItem() == ModItems.HAMMER) {
+			if (stack.getItem() == ModItems.hammer) {
 				
 				World world = event.getPlayer().getEntityWorld();
-				List<BlockPos> positions = ModItems.HAMMER.getExtraBlocks(world, event.getTarget(), event.getPlayer());
+				List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, event.getTarget(), event.getPlayer());
 				
 				for (BlockPos pos : positions) {
 					event.getContext().drawSelectionBox(event.getPlayer(), new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.getPartialTicks());
@@ -55,7 +55,7 @@ public class HammerHandler {
 			return;
 		}
 		
-		if (event.getItemStack().getItem() == ModItems.HAMMER && !event.getEntityPlayer().getCooldownTracker().hasCooldown(ModItems.HAMMER)) {
+		if (event.getItemStack().getItem() == ModItems.hammer && !event.getEntityPlayer().getCooldownTracker().hasCooldown(ModItems.hammer)) {
 
 			if (!event.getWorld().isRemote) {
 				BlockPos pos = event.getPos().offset(event.getFace());
@@ -65,8 +65,8 @@ public class HammerHandler {
 
 			event.getEntityPlayer().swingArm(event.getHand());
 			event.getEntityPlayer().setActiveHand(event.getHand());
-			event.getEntityPlayer().getCooldownTracker().setCooldown(ModItems.HAMMER, 200);
-			ModItems.HAMMER.damageItem(event.getItemStack(), 10, event.getEntityPlayer());
+			event.getEntityPlayer().getCooldownTracker().setCooldown(ModItems.hammer, 200);
+			ModItems.hammer.damageItem(event.getItemStack(), 10, event.getEntityPlayer());
 			
 			event.setCancellationResult(EnumActionResult.SUCCESS);
 			event.setResult(Event.Result.ALLOW);

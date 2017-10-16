@@ -99,9 +99,9 @@ public class WorldListener implements IWorldEventListener {
 		if (player == null) {
 			return;
 		}
-		if (player.getHeldItemMainhand().getItem() == ModItems.HAMMER) {
-			RayTraceResult rt = ModItems.HAMMER.rayTraceBlocks(world, player);
-			List<BlockPos> positions = ModItems.HAMMER.getExtraBlocks(world, rt, player);
+		if (player.getHeldItemMainhand().getItem() == ModItems.hammer) {
+			RayTraceResult rt = ModItems.hammer.rayTraceBlocks(world, player);
+			List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, rt, player);
 
 			for (EntityPlayerMP entityplayermp : this.mcServer.getPlayerList().getPlayers()) {
 				if (entityplayermp != null && entityplayermp.world == this.world) {

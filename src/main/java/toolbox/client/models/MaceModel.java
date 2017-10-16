@@ -225,7 +225,7 @@ public class MaceModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.MACE) {
+			if (stack.getItem() != ModItems.mace) {
 				return originalModel;
 			}
 

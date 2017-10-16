@@ -29,6 +29,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -58,6 +59,7 @@ import toolbox.common.materials.ModMaterials;
 import toolbox.common.recipes.ModRecipes;
 import toolbox.common.recipes.ShapedNBTOreRecipe;
 import toolbox.common.recipes.ShapelessNBTOreRecipe;
+import toolbox.compat.tconstruct.TConstructCompat;
 
 public class CommonProxy {
 
@@ -79,7 +81,8 @@ public class CommonProxy {
         ModMaterials.init();
         Toolbox.logger.log(Level.INFO, "Initialized tool part materials with " + Materials.head_registry.size() + " head materials, " + Materials.haft_registry.size() + " haft materials, " + Materials.handle_registry.size() + " handle materials, and " + Materials.adornment_registry.size() + " adornment materials");
         ModEntities.init();
-
+		
+		if(Loader.isModLoaded("tconstruct")) TConstructCompat.preInit();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -88,6 +91,7 @@ public class CommonProxy {
 
         ModRecipes.init();
 
+		if(Loader.isModLoaded("tconstruct")) TConstructCompat.init();
         //Toolbox.HEAD_CRAFTED.registerStat();
 
     }
@@ -353,79 +357,79 @@ public class CommonProxy {
 
     private ItemStack getToolReplacement(Item item) {
         if (item == Items.DIAMOND_PICKAXE) {
-            return createDiamondTool(ModItems.PICKAXE);
+            return createDiamondTool(ModItems.pickaxe);
         }
         if (item == Items.GOLDEN_PICKAXE) {
-            return createGoldTool(ModItems.PICKAXE);
+            return createGoldTool(ModItems.pickaxe);
         }
         if (item == Items.IRON_PICKAXE) {
-            return createIronTool(ModItems.PICKAXE);
+            return createIronTool(ModItems.pickaxe);
         }
         if (item == Items.STONE_PICKAXE) {
-            return createStoneTool(ModItems.PICKAXE);
+            return createStoneTool(ModItems.pickaxe);
         }
         if (item == Items.WOODEN_PICKAXE) {
-            return createWoodTool(ModItems.PICKAXE);
+            return createWoodTool(ModItems.pickaxe);
         }
         if (item == Items.DIAMOND_AXE) {
-            return createDiamondTool(ModItems.AXE);
+            return createDiamondTool(ModItems.axe);
         }
         if (item == Items.GOLDEN_AXE) {
-            return createGoldTool(ModItems.AXE);
+            return createGoldTool(ModItems.axe);
         }
         if (item == Items.IRON_AXE) {
-            return createIronTool(ModItems.AXE);
+            return createIronTool(ModItems.axe);
         }
         if (item == Items.STONE_AXE) {
-            return createStoneTool(ModItems.AXE);
+            return createStoneTool(ModItems.axe);
         }
         if (item == Items.WOODEN_AXE) {
-            return createWoodTool(ModItems.AXE);
+            return createWoodTool(ModItems.axe);
         }
         if (item == Items.DIAMOND_SHOVEL) {
-            return createDiamondTool(ModItems.SHOVEL);
+            return createDiamondTool(ModItems.shovel);
         }
         if (item == Items.GOLDEN_SHOVEL) {
-            return createGoldTool(ModItems.SHOVEL);
+            return createGoldTool(ModItems.shovel);
         }
         if (item == Items.IRON_SHOVEL) {
-            return createIronTool(ModItems.SHOVEL);
+            return createIronTool(ModItems.shovel);
         }
         if (item == Items.STONE_SHOVEL) {
-            return createStoneTool(ModItems.SHOVEL);
+            return createStoneTool(ModItems.shovel);
         }
         if (item == Items.WOODEN_SHOVEL) {
-            return createWoodTool(ModItems.HOE);
+            return createWoodTool(ModItems.hoe);
         }
         if (item == Items.DIAMOND_HOE) {
-            return createDiamondTool(ModItems.HOE);
+            return createDiamondTool(ModItems.hoe);
         }
         if (item == Items.GOLDEN_HOE) {
-            return createGoldTool(ModItems.HOE);
+            return createGoldTool(ModItems.hoe);
         }
         if (item == Items.IRON_HOE) {
-            return createIronTool(ModItems.HOE);
+            return createIronTool(ModItems.hoe);
         }
         if (item == Items.STONE_HOE) {
-            return createStoneTool(ModItems.HOE);
+            return createStoneTool(ModItems.hoe);
         }
         if (item == Items.WOODEN_HOE) {
-            return createWoodTool(ModItems.HOE);
+            return createWoodTool(ModItems.hoe);
         }
         if (item == Items.DIAMOND_SWORD) {
-            return createDiamondSword(ModItems.SWORD);
+            return createDiamondSword(ModItems.sword);
         }
         if (item == Items.GOLDEN_SWORD) {
-            return createGoldSword(ModItems.SWORD);
+            return createGoldSword(ModItems.sword);
         }
         if (item == Items.IRON_SWORD) {
-            return createIronSword(ModItems.SWORD);
+            return createIronSword(ModItems.sword);
         }
         if (item == Items.STONE_SWORD) {
-            return createStoneSword(ModItems.SWORD);
+            return createStoneSword(ModItems.sword);
         }
         if (item == Items.WOODEN_SWORD) {
-            return createWoodSword(ModItems.SWORD);
+            return createWoodSword(ModItems.sword);
         }
 
         return ItemStack.EMPTY;

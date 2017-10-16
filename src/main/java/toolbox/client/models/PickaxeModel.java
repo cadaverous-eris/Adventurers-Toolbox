@@ -226,7 +226,7 @@ public class PickaxeModel implements IModel {
 		public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, @Nonnull ItemStack stack,
 				@Nullable World world, @Nullable EntityLivingBase entity) {
 
-			if (stack.getItem() != ModItems.PICKAXE) {
+			if (stack.getItem() != ModItems.pickaxe) {
 				return originalModel;
 			}
 

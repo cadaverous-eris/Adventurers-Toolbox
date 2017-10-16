@@ -6,8 +6,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.items.parts.ItemToolHandle;
@@ -22,41 +20,44 @@ import toolbox.common.items.tools.ItemMace;
 import toolbox.common.items.tools.ItemPickaxe;
 import toolbox.common.items.tools.ItemShovel;
 import toolbox.common.items.tools.ItemSword;
+import toolbox.compat.tconstruct.ItemCast;
 
 @Mod.EventBusSubscriber(modid = Toolbox.MODID)
 @ObjectHolder("toolbox")
 public class ModItems {
 
-	public static final ItemBase ROCK = null;
+	public static final ItemBase rock = null;
 
-	public static final ItemToolHead PICKAXE_HEAD = null;
-	public static final ItemToolHead AXE_HEAD = null;
-	public static final ItemToolHead SHOVEL_HEAD = null;
-	public static final ItemToolHead HOE_HEAD = null;
-	public static final ItemToolHead HANDPICK_HEAD = null;
-	public static final ItemToolHead HAMMER_HEAD = null;
-	public static final ItemToolHead CLIMBING_PICK_HEAD = null;
+	public static final ItemToolHead pickaxe_head = null;
+	public static final ItemToolHead axe_head = null;
+	public static final ItemToolHead shovel_head = null;
+	public static final ItemToolHead hoe_head = null;
+	public static final ItemToolHead handpick_head = null;
+	public static final ItemToolHead hammer_head = null;
+	public static final ItemToolHead climbing_pick_head = null;
 
-	public static final ItemToolHead SWORD_BLADE = null;
-	public static final ItemToolHead SWORD_CROSSGUARD = null;
-	public static final ItemToolHead DAGGER_BLADE = null;
-	public static final ItemToolHead MACE_HEAD = null;
+	public static final ItemToolHead sword_blade = null;
+	public static final ItemToolHead sword_crossguard = null;
+	public static final ItemToolHead dagger_blade = null;
+	public static final ItemToolHead mace_head = null;
 
-	public static final ItemToolHandle HANDLE = null;
+	public static final ItemToolHandle handle = null;
 
-	public static final ItemPickaxe PICKAXE = null;
-	public static final ItemAxe AXE = null;
-	public static final ItemShovel SHOVEL = null;
-	public static final ItemHoe HOE = null;
-	public static final ItemHandpick HANDPICK = null;
-	public static final ItemHammer HAMMER = null;
-	public static final ItemClimbingPick CLIMBING_PICK = null;
+	public static final ItemPickaxe pickaxe = null;
+	public static final ItemAxe axe = null;
+	public static final ItemShovel shovel = null;
+	public static final ItemHoe hoe = null;
+	public static final ItemHandpick handpick = null;
+	public static final ItemHammer hammer = null;
+	public static final ItemClimbingPick climbing_pick = null;
 
-	public static final ItemSword SWORD = null;
-	public static final ItemDagger DAGGER = null;
-	public static final ItemMace MACE = null;
+	public static final ItemSword sword = null;
+	public static final ItemDagger dagger = null;
+	public static final ItemMace mace = null;
 
-	public static final ItemGuideBook GUIDE_BOOK = null;
+	public static final ItemGuideBook guide_book = null;
+	
+	public static final ItemCast cast = null;
 
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -90,42 +91,45 @@ public class ModItems {
 		if(!Config.DISABLE_MACE) event.getRegistry().register (new ItemMace());
 
 		event.getRegistry().register (new ItemGuideBook());
+		
+		event.getRegistry().register (new ItemCast());
 	}
 	
 	@SubscribeEvent
 	public static void setupModels(ModelRegistryEvent event) {
 
-		ROCK.initModel();
+		rock.initModel();
 
-		if(!Config.DISABLE_PICKAXE) PICKAXE_HEAD.initModel();
-		if(!Config.DISABLE_AXE) AXE_HEAD.initModel();
-		if(!Config.DISABLE_SHOVEL) SHOVEL_HEAD.initModel();
-		if(!Config.DISABLE_HOE) HOE_HEAD.initModel();
-		if(!Config.DISABLE_HAND_PICK) HANDPICK_HEAD.initModel();
-		if(!Config.DISABLE_HAMMER) HAMMER_HEAD.initModel();
-		if(!Config.DISABLE_CLIMBING_PICK) CLIMBING_PICK_HEAD.initModel();
+		if(!Config.DISABLE_PICKAXE) pickaxe_head.initModel();
+		if(!Config.DISABLE_AXE) axe_head.initModel();
+		if(!Config.DISABLE_SHOVEL) shovel_head.initModel();
+		if(!Config.DISABLE_HOE) hoe_head.initModel();
+		if(!Config.DISABLE_HAND_PICK) handpick_head.initModel();
+		if(!Config.DISABLE_HAMMER) hammer_head.initModel();
+		if(!Config.DISABLE_CLIMBING_PICK) climbing_pick_head.initModel();
 
-		if(!Config.DISABLE_SWORD) SWORD_BLADE.initModel();
-		if(!Config.DISABLE_SWORD) SWORD_CROSSGUARD.initModel();
-		if(!Config.DISABLE_DAGGER) DAGGER_BLADE.initModel();
-		if(!Config.DISABLE_MACE) MACE_HEAD.initModel();
+		if(!Config.DISABLE_SWORD) sword_blade.initModel();
+		if(!Config.DISABLE_SWORD) sword_crossguard.initModel();
+		if(!Config.DISABLE_DAGGER) dagger_blade.initModel();
+		if(!Config.DISABLE_MACE) mace_head.initModel();
 
-		HANDLE.initModel();
+		handle.initModel();
 
-		if(!Config.DISABLE_PICKAXE) PICKAXE.initModel();
-		if(!Config.DISABLE_AXE) AXE.initModel();
-		if(!Config.DISABLE_SHOVEL) SHOVEL.initModel();
-		if(!Config.DISABLE_HOE) HOE.initModel();
-		if(!Config.DISABLE_HAND_PICK) HANDPICK.initModel();
-		if(!Config.DISABLE_HAMMER) HAMMER.initModel();
-		if(!Config.DISABLE_HAND_PICK) CLIMBING_PICK.initModel();
+		if(!Config.DISABLE_PICKAXE) pickaxe.initModel();
+		if(!Config.DISABLE_AXE) axe.initModel();
+		if(!Config.DISABLE_SHOVEL) shovel.initModel();
+		if(!Config.DISABLE_HOE) hoe.initModel();
+		if(!Config.DISABLE_HAND_PICK) handpick.initModel();
+		if(!Config.DISABLE_HAMMER) hammer.initModel();
+		if(!Config.DISABLE_HAND_PICK) climbing_pick.initModel();
 
-		if(!Config.DISABLE_SWORD) SWORD.initModel();
-		if(!Config.DISABLE_DAGGER) DAGGER.initModel();
-		if(!Config.DISABLE_MACE) MACE.initModel();
+		if(!Config.DISABLE_SWORD) sword.initModel();
+		if(!Config.DISABLE_DAGGER) dagger.initModel();
+		if(!Config.DISABLE_MACE) mace.initModel();
 
-		GUIDE_BOOK.initModel();
+		guide_book.initModel();
 
+		cast.initModel();
 	}
 
 }

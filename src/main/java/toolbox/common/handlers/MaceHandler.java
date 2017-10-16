@@ -17,7 +17,7 @@ public class MaceHandler {
 			Entity entity = ((EntityDamageSource) source).getImmediateSource();
 			if (entity != null && entity instanceof EntityLivingBase) {
 				EntityLivingBase attacker = (EntityLivingBase) entity;
-				if (attacker.getHeldItemMainhand().getItem() == ModItems.MACE) {
+				if (attacker.getHeldItemMainhand().getItem() == ModItems.mace) {
 					if (event.getEntityLiving().getTotalArmorValue() > 0) {
 						event.setAmount(event.getAmount() * event.getEntityLiving().getTotalArmorValue() / 12F);
 					}

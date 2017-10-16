@@ -52,7 +52,7 @@ public class BookRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
 
 	@Override
 	public ItemStack getRecipeOutput() {
-		return new ItemStack(ModItems.GUIDE_BOOK);
+		return new ItemStack(ModItems.guide_book);
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class Toolbox {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public ItemStack getTabIconItem() {
-			ItemStack stack = new ItemStack(ModItems.PICKAXE_HEAD, 1, 3);
+			ItemStack stack = new ItemStack(ModItems.pickaxe_head, 1, 3);
 			return stack;
 		}
 	};
@@ -51,7 +51,7 @@ public class Toolbox {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public ItemStack getTabIconItem() {
-			ItemStack stack = new ItemStack(ModItems.PICKAXE);
+			ItemStack stack = new ItemStack(ModItems.pickaxe);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(IHeadTool.HEAD_TAG, "iron");
 			tag.setString(IHaftTool.HAFT_TAG, "wood");
@@ -66,7 +66,7 @@ public class Toolbox {
 		@Override
 		@SideOnly(Side.CLIENT)
 		public ItemStack getTabIconItem() {
-			ItemStack stack = new ItemStack(ModItems.SWORD);
+			ItemStack stack = new ItemStack(ModItems.sword);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(IBladeTool.BLADE_TAG, "iron");
 			tag.setString(ICrossguardTool.CROSSGUARD_TAG, "gold");
@@ -87,13 +87,13 @@ public class Toolbox {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		int meta = 0;
-		for (int i : ModItems.PICKAXE_HEAD.meta_map.keySet()) {
-			if (ModItems.PICKAXE_HEAD.meta_map.get(i) == ModMaterials.HEAD_GOLD) {
+		for (int i : ModItems.pickaxe_head.meta_map.keySet()) {
+			if (ModItems.pickaxe_head.meta_map.get(i) == ModMaterials.HEAD_GOLD) {
 				meta = i;
 				break;
 			}
 		}
-		//HEAD_CRAFTED = new Advancement("achievement.toolbox.head_crafted", "toolbox.head_crafted", -4, 0, new ItemStack(ModItems.PICKAXE_HEAD, 1, meta), null);
+		//HEAD_CRAFTED = new Advancement("achievement.toolbox.head_crafted", "toolbox.head_crafted", -4, 0, new ItemStack(ModItems.pickaxe_head, 1, meta), null);
 		
 		proxy.init(event);
 	}

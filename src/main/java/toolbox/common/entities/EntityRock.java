@@ -35,7 +35,7 @@ public class EntityRock extends EntityThrowable {
 		if (id == 3) {
 			for (int i = 0; i < 8; ++i) {
 				this.world.spawnParticle(EnumParticleTypes.ITEM_CRACK, this.posX, this.posY, this.posZ, 0.0D, 0.0D,
-						0.0D, Item.getIdFromItem(ModItems.ROCK), 0);
+						0.0D, Item.getIdFromItem(ModItems.rock), 0);
 			}
 		}
 	}
@@ -50,7 +50,7 @@ public class EntityRock extends EntityThrowable {
 
 		if (!this.world.isRemote) {
 			if (this.rand.nextFloat() < 0.5F) {
-				EntityItem rock = new EntityItem(world, posX, posY, posZ, new ItemStack(ModItems.ROCK));
+				EntityItem rock = new EntityItem(world, posX, posY, posZ, new ItemStack(ModItems.rock));
 				world.spawnEntity(rock);
 			} else {
 				this.world.setEntityState(this, (byte) 3);
