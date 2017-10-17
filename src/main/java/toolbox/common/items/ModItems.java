@@ -55,6 +55,8 @@ public class ModItems {
 	public static final ItemDagger dagger = null;
 	public static final ItemMace mace = null;
 
+	public static final ItemSchematic schematic = null;
+	
 	public static final ItemGuideBook guide_book = null;
 	
 	public static final ItemCast cast = null;
@@ -63,18 +65,49 @@ public class ModItems {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(new ItemRock());
 		
-		if(!Config.DISABLE_PICKAXE) event.getRegistry().register(new ItemToolHead("pickaxe_head"));
-		if(!Config.DISABLE_AXE) event.getRegistry().register(new ItemToolHead("axe_head"));
-		if(!Config.DISABLE_SHOVEL) event.getRegistry().register(new ItemToolHead("shovel_head"));
-		if(!Config.DISABLE_HOE) event.getRegistry().register(new ItemToolHead("hoe_head"));
-		if(!Config.DISABLE_HANDPICK) event.getRegistry().register(new ItemToolHead("handpick_head"));
-		if(!Config.DISABLE_HAMMER) event.getRegistry().register(new ItemToolHead("hammer_head"));
-		if(!Config.DISABLE_CLIMBING_PICK) event.getRegistry().register(new ItemToolHead("climbing_pick_head"));
+		if(!Config.DISABLE_PICKAXE) {
+			event.getRegistry().register(new ItemToolHead("pickaxe_head"));
+			ItemSchematic.subtypes.add("pickaxe_head");
+		}
+		if(!Config.DISABLE_AXE) {
+			event.getRegistry().register(new ItemToolHead("axe_head"));
+			ItemSchematic.subtypes.add("axe_head");
+		}
+		if(!Config.DISABLE_SHOVEL) {
+			event.getRegistry().register(new ItemToolHead("shovel_head"));
+			ItemSchematic.subtypes.add("shovel_head");
+		}
+		if(!Config.DISABLE_HOE) {
+			event.getRegistry().register(new ItemToolHead("hoe_head"));
+			ItemSchematic.subtypes.add("hoe_head");
+		}
+		if(!Config.DISABLE_HANDPICK) {
+			event.getRegistry().register(new ItemToolHead("handpick_head"));
+			ItemSchematic.subtypes.add("handpick_head");
+		}
+		if(!Config.DISABLE_HAMMER) {
+			event.getRegistry().register(new ItemToolHead("hammer_head"));
+			ItemSchematic.subtypes.add("hammer_head");
+		}
+		if(!Config.DISABLE_CLIMBING_PICK) {
+			event.getRegistry().register(new ItemToolHead("climbing_pick_head"));
+			ItemSchematic.subtypes.add("climbing_pick_head");
+		}
 
-		if(!Config.DISABLE_SWORD) event.getRegistry().register(new ItemToolHead("sword_blade"));
-		if(!Config.DISABLE_SWORD) event.getRegistry().register(new ItemToolHead("sword_crossguard"));
-		if(!Config.DISABLE_DAGGER) event.getRegistry().register(new ItemToolHead("dagger_blade"));
-		if(!Config.DISABLE_MACE) event.getRegistry().register(new ItemToolHead("mace_head"));
+		if(!Config.DISABLE_SWORD) {
+			event.getRegistry().register(new ItemToolHead("sword_blade"));
+			ItemSchematic.subtypes.add("sword_blade");
+			event.getRegistry().register(new ItemToolHead("sword_crossguard"));
+			ItemSchematic.subtypes.add("sword_crossguard");
+		}
+		if(!Config.DISABLE_DAGGER) {
+			event.getRegistry().register(new ItemToolHead("dagger_blade"));
+			ItemSchematic.subtypes.add("dagger_blade");
+		}
+		if(!Config.DISABLE_MACE) {
+			event.getRegistry().register(new ItemToolHead("mace_head"));
+			ItemSchematic.subtypes.add("mace_head");
+		}
 		
 		event.getRegistry().register(new ItemToolHandle());
 
@@ -90,6 +123,8 @@ public class ModItems {
 		if(!Config.DISABLE_DAGGER) event.getRegistry().register(new ItemDagger());
 		if(!Config.DISABLE_MACE) event.getRegistry().register(new ItemMace());
 
+		if (Config.ENABLE_SCHEMATICS) event.getRegistry().register(new ItemSchematic());
+		
 		event.getRegistry().register(new ItemGuideBook());
 		
 		event.getRegistry().register(new ItemCast());
@@ -127,6 +162,8 @@ public class ModItems {
 		if(!Config.DISABLE_DAGGER) dagger.initModel();
 		if(!Config.DISABLE_MACE) mace.initModel();
 
+		if (Config.ENABLE_SCHEMATICS) schematic.initModel();
+		
 		guide_book.initModel();
 		
 		cast.initModel();

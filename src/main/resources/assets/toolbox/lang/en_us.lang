@@ -65,6 +65,8 @@ item.toolbox.sword.name=Sword
 item.toolbox.dagger.name=Dagger
 item.toolbox.mace.name=Mace
 
+item.toolbox.schematic.name=Schematic
+
 item.toolbox.guide_book.name=Toolmakers' Treatise
 
 item.toolbox.cast_pickaxe_head.name=Pickaxe Head Cast

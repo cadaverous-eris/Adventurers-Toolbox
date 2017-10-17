@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "toolbox:items/blueprint"
+        "layer0": "toolbox:items/schematic"
     }
 }
