@@ -39,7 +39,6 @@ public class TConstructCompat {
 				slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
 				int i = 0;
 				for (HeadMaterial mat : Materials.head_registry.values()) {
-					System.out.println(i + " " + mat.getName());
 					ItemStack head = new ItemStack(type.getItem(), 1, i);
 					Fluid fluid = FluidRegistry.getFluid(mat.getName());
 					if (fluid != null && !Config.DISABLED_MATERIALS.contains(mat.getName())) {
