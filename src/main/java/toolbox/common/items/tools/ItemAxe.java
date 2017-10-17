@@ -144,7 +144,7 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_AXE) {
+		if(!Config.DISABLED_TOOLS.contains("axe")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

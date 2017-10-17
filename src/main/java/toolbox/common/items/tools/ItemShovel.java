@@ -153,7 +153,7 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_SHOVEL) {
+		if(!Config.DISABLED_TOOLS.contains("shovel")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

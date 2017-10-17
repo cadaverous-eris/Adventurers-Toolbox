@@ -157,7 +157,7 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_CLIMBING_PICK) {
+		if(!Config.DISABLED_TOOLS.contains("climbing_pick")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

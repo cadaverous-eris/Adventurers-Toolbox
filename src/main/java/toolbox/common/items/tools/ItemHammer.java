@@ -166,7 +166,7 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_HAMMER) {
+		if(!Config.DISABLED_TOOLS.contains("hammer")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

@@ -138,7 +138,7 @@ public class ItemDagger extends ItemWeaponBase implements IBladeTool, IHandleToo
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_DAGGER) {
+		if(!Config.DISABLED_TOOLS.contains("dagger")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(BLADE_TAG, Materials.randomHead().getName());

@@ -5,15 +5,19 @@ import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import api.materials.Materials;
+import api.materials.PartMaterial;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
+import toolbox.common.Config;
 
 public class ModMaterials {
-	
+
 	public static final HeadMaterial HEAD_WOOD = new HeadMaterial("wood", 0, 59, 2.0F, 0.0F, 15,
 			new ItemStack(Blocks.PLANKS), "plankWood", "stickWood", Toolbox.MODID);
 	public static final HeadMaterial HEAD_STONE = new HeadMaterial("stone", 1, 131, 4.0F, 1.0F, 5,
@@ -66,7 +70,7 @@ public class ModMaterials {
 			1.1F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_ENDER_PEARL = new AdornmentMaterial("ender_pearl", 0, 3F, 1F, 0F,
 			2F, Toolbox.MODID);
-	
+
 	public static void init() {
 		initHeadMaterials();
 		initHaftMaterials();
@@ -75,21 +79,29 @@ public class ModMaterials {
 	}
 
 	private static void initHeadMaterials() {
-		Materials.registerHeadMat(HEAD_WOOD);
-		Materials.registerHeadMat(HEAD_STONE);
-		Materials.registerHeadMat(HEAD_IRON);
-		Materials.registerHeadMat(HEAD_GOLD);
+		List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
-		Materials.registerHeadMat(HEAD_COPPER);
-		Materials.registerHeadMat(HEAD_TIN);
-		Materials.registerHeadMat(HEAD_BRONZE);
-		Materials.registerHeadMat(HEAD_ALUMINUM);
-		Materials.registerHeadMat(HEAD_NICKEL);
-		Materials.registerHeadMat(HEAD_LEAD);
-		Materials.registerHeadMat(HEAD_SILVER);
-		Materials.registerHeadMat(HEAD_STEEL);
-		Materials.registerHeadMat(HEAD_ELECTRUM);
-		Materials.registerHeadMat(HEAD_SOULFORGED_STEEL);
+		headMaterials.add(HEAD_WOOD);
+		headMaterials.add(HEAD_STONE);
+		headMaterials.add(HEAD_IRON);
+		headMaterials.add(HEAD_GOLD);
+
+		headMaterials.add(HEAD_COPPER);
+		headMaterials.add(HEAD_TIN);
+		headMaterials.add(HEAD_BRONZE);
+		headMaterials.add(HEAD_ALUMINUM);
+		headMaterials.add(HEAD_NICKEL);
+		headMaterials.add(HEAD_LEAD);
+		headMaterials.add(HEAD_SILVER);
+		headMaterials.add(HEAD_STEEL);
+		headMaterials.add(HEAD_ELECTRUM);
+		headMaterials.add(HEAD_SOULFORGED_STEEL);
+
+		for (HeadMaterial mat : headMaterials) {
+			if (!Config.DISABLED_MATERIALS.contains(mat.getName())) {
+				Materials.registerHeadMat(mat);
+			}
+		}
 	}
 
 	private static void initHaftMaterials() {

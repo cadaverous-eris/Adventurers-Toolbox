@@ -159,7 +159,7 @@ public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_HANDPICK) {
+		if(!Config.DISABLED_TOOLS.contains("handpick")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

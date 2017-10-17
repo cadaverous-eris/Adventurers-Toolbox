@@ -91,8 +91,9 @@ public class CommonProxy {
 						+ " handle materials, and " + Materials.adornment_registry.size() + " adornment materials");
 		ModEntities.init();
 
-		if (Loader.isModLoaded("tconstruct"))
+		if (Loader.isModLoaded("tconstruct") && Config.ENABLE_TINKERS_COMPAT) {
 			TConstructCompat.preInit();
+		}
 	}
 
 	public void init(FMLInitializationEvent event) {
@@ -101,8 +102,9 @@ public class CommonProxy {
 
 		ModRecipes.init();
 
-		if (Loader.isModLoaded("tconstruct"))
+		if (Loader.isModLoaded("tconstruct") && Config.ENABLE_TINKERS_COMPAT) {
 			TConstructCompat.init();
+		}
 		// Toolbox.HEAD_CRAFTED.registerStat();
 
 	}
