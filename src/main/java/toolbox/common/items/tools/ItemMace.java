@@ -136,7 +136,7 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_MACE) {
+		if(!Config.DISABLED_TOOLS.contains("mace")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

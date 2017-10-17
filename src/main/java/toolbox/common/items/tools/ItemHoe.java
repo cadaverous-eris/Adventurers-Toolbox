@@ -118,7 +118,7 @@ public class ItemHoe extends ItemBase implements IHeadTool, IHaftTool, IHandleTo
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_HOE) {
+		if(!Config.DISABLED_TOOLS.contains("hoe")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

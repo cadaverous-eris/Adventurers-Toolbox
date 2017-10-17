@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+import scala.actors.threadpool.Arrays;
 
 public class Config {
 	
@@ -18,18 +20,14 @@ public class Config {
 	
 	public static boolean ENABLE_SCHEMATICS;
 	
-	public static boolean DISABLE_HANDPICK;
-	public static boolean DISABLE_PICKAXE;
-	public static boolean DISABLE_AXE;
-	public static boolean DISABLE_SHOVEL;
-	public static boolean DISABLE_HOE;
-	public static boolean DISABLE_HAMMER;
-	public static boolean DISABLE_CLIMBING_PICK;
-	public static boolean DISABLE_SWORD;
-	public static boolean DISABLE_DAGGER;
-	public static boolean DISABLE_MACE;
+	public static boolean ENABLE_TINKERS_COMPAT;
+	public static boolean DISABLE_TOOL_HEAD_RECIPES;
+	
+	public static List<String> DISABLED_TOOLS = new ArrayList<String>();
+	public static List<String> DISABLED_MATERIALS = new ArrayList<String>();
 	
 	public static void readConfig() {
+		
 		Configuration cfg = CommonProxy.config;
 		try {
 			cfg.load();
@@ -50,17 +48,11 @@ public class Config {
 		DISABLE_VANILLA_TOOLS = cfg.getBoolean("Disable Vanilla Tools", CATEGORY_GENERAL, true, "This option disables recipes for vanilla tools.\nIt also attempts to replace all instances of vanilla tools in crafting recipes (including mod recipes) with suitable replacements from Adventurer's Toolbox.\n");
 		HIDE_UNCRAFTABLE_HEADS = cfg.getBoolean("Hide Uncraftables", CATEGORY_GENERAL, true, "This option prevents tool heads from showing up in the creative tab if they are made from materials that aren't present in your game.\n");
 		ENABLE_SCHEMATICS = cfg.getBoolean("Enable Schematic Mode", CATEGORY_GENERAL, false, "This option replaces tool part recipes with a system using schematic items.\nThis can be helpful if you are experiencing recipe conflicts, or if you want tools to have costs more similar to vanilla.\n");
+		ENABLE_TINKERS_COMPAT = cfg.getBoolean("Enable Tinkers Compatibility", CATEGORY_GENERAL, false, "This option adds casts and recipes to the Tinkers' Construct smeltery\n");
+		DISABLE_TOOL_HEAD_RECIPES = cfg.getBoolean("Disable Metal Tool Head Recipes", CATEGORY_GENERAL, false, "This option disables the crafting recipes for metal tool heads.\nUse if you want to only be able to use the smeltery\n");
 		
-		DISABLE_HANDPICK = cfg.getBoolean("Disable Handpicks", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's handpicks from your game.\n");
-		DISABLE_PICKAXE = cfg.getBoolean("Disable Pickaxes", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's pickaxes from your game.\n");
-		DISABLE_AXE = cfg.getBoolean("Disable Axes", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's axes from your game.\n");
-		DISABLE_SHOVEL = cfg.getBoolean("Disable Shovels", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's shovels from your game.\n");
-		DISABLE_HOE = cfg.getBoolean("Disable Hoes", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's hoes from your game.\n");
-		DISABLE_HAMMER = cfg.getBoolean("Disable Hammers", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's hammers from your game.\n");
-		DISABLE_CLIMBING_PICK = cfg.getBoolean("Disable Climbing Picks", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's climbing picks from your game.\n");
-		DISABLE_SWORD = cfg.getBoolean("Disable Swords", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's swords from your game.\n");
-		DISABLE_DAGGER = cfg.getBoolean("Disable Daggers", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's daggers from your game.\n");
-		DISABLE_MACE = cfg.getBoolean("Disable Maces", CATEGORY_TOOLS, false, "This option removes Adventurer's Toolbox's maces from your game.\n");
+		DISABLED_TOOLS = Arrays.asList(cfg.getStringList("Disabled Tools", CATEGORY_TOOLS, new String[0], "Add tool names to this list on each new line, don't use commas (Find tool names on GitHib)\n"));
+		DISABLED_MATERIALS = Arrays.asList(cfg.getStringList("Disabled Materials", CATEGORY_TOOLS, new String[0], "Add material names to this list on each new line, don't use commas (Find material names on GitHib)\n"));
 		
 		PROPERTY_ORDER_GENERAL.add("Disable Vanilla Tools");
 		PROPERTY_ORDER_GENERAL.add("Hide Uncraftables");

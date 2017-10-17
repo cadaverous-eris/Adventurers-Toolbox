@@ -40,7 +40,7 @@ public class ModRecipes {
 
 	public static void init() {
 
-		if (!Config.DISABLE_PICKAXE) {
+		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			for (int i : ModItems.pickaxe_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.pickaxe_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -51,7 +51,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_AXE) {
+		if (!Config.DISABLED_TOOLS.contains("axe")) {
 			for (int i : ModItems.axe_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.axe_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -62,7 +62,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_SHOVEL) {
+		if (!Config.DISABLED_TOOLS.contains("shovel")) {
 			for (int i : ModItems.shovel_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.shovel_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -73,7 +73,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_HOE) {
+		if (!Config.DISABLED_TOOLS.contains("hoe")) {
 			for (int i : ModItems.hoe_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.hoe_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -83,7 +83,7 @@ public class ModRecipes {
 				}
 			}
 		}
-		if (!Config.DISABLE_HANDPICK) {
+		if (!Config.DISABLED_TOOLS.contains("handpick")) {
 			for (int i : ModItems.handpick_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.handpick_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -94,7 +94,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_HAMMER) {
+		if (!Config.DISABLED_TOOLS.contains("hammer")) {
 			for (int i : ModItems.hammer_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.hammer_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -105,7 +105,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_CLIMBING_PICK) {
+		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) {
 			for (int i : ModItems.climbing_pick_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.climbing_pick_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -116,7 +116,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_SWORD) {
+		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			for (int i : ModItems.sword_blade.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.sword_blade.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -127,7 +127,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_SWORD) {
+		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			for (int i : ModItems.sword_crossguard.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.sword_crossguard.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -138,7 +138,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_DAGGER) {
+		if (!Config.DISABLED_TOOLS.contains("dagger")) {
 			for (int i : ModItems.dagger_blade.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.dagger_blade.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -149,7 +149,7 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLE_MACE) {
+		if (!Config.DISABLED_TOOLS.contains("mace")) {
 			for (int i : ModItems.mace_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.mace_head.meta_map.get(i);
 				if (Config.ENABLE_SCHEMATICS) {
@@ -179,52 +179,52 @@ public class ModRecipes {
 	}
 
 	public static void initToolRecipes() {
-		if (!Config.DISABLE_PICKAXE) {
+		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			RecipeSorter.register("toolbox:pickaxe", PickaxeRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new PickaxeRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe")));
 		}
-		if (!Config.DISABLE_AXE) {
+		if (!Config.DISABLED_TOOLS.contains("axe")) {
 			RecipeSorter.register("toolbox:axe", AxeRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new AxeRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "axe")));
 		}
-		if (!Config.DISABLE_SHOVEL) {
+		if (!Config.DISABLED_TOOLS.contains("shovel")) {
 			RecipeSorter.register("toolbox:shovel", ShovelRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new ShovelRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel")));
 		}
-		if (!Config.DISABLE_HOE) {
+		if (!Config.DISABLED_TOOLS.contains("hoe")) {
 			RecipeSorter.register("toolbox:hoe", HoeRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new HoeRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe")));
 		}
-		if (!Config.DISABLE_HANDPICK) {
+		if (!Config.DISABLED_TOOLS.contains("handpick")) {
 			RecipeSorter.register("toolbox:handpick", HandpickRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new HandpickRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick")));
 		}
-		if (!Config.DISABLE_HAMMER) {
+		if (!Config.DISABLED_TOOLS.contains("hammer")) {
 			RecipeSorter.register("toolbox:hammer", HammerRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new HammerRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer")));
 		}
-		if (!Config.DISABLE_CLIMBING_PICK) {
+		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) {
 			RecipeSorter.register("toolbox:climbing_pick", ClimbingPickRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new ClimbingPickRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "climbing_pick")));
 		}
-		if (!Config.DISABLE_SWORD) {
+		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			RecipeSorter.register("toolbox:sword", SwordRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new SwordRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "sword")));
 		}
-		if (!Config.DISABLE_DAGGER) {
+		if (!Config.DISABLED_TOOLS.contains("dagger")) {
 			RecipeSorter.register("toolbox:dagger", DaggerRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new DaggerRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger")));
 		}
-		if (!Config.DISABLE_MACE) {
+		if (!Config.DISABLED_TOOLS.contains("mace")) {
 			RecipeSorter.register("toolbox:mace", MaceRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new MaceRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "mace")));

@@ -161,7 +161,7 @@ public class ItemPickaxe extends ItemToolBase implements IHeadTool, IHaftTool, I
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if (!Config.DISABLE_PICKAXE) {
+		if(!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());

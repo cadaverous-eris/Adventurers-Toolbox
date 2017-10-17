@@ -65,69 +65,69 @@ public class ModItems {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		event.getRegistry().register(new ItemRock());
 		
-		if(!Config.DISABLE_PICKAXE) {
+		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			event.getRegistry().register(new ItemToolHead("pickaxe_head"));
 			ItemSchematic.subtypes.add("pickaxe_head");
 		}
-		if(!Config.DISABLE_AXE) {
+		if (!Config.DISABLED_TOOLS.contains("axe")) {
 			event.getRegistry().register(new ItemToolHead("axe_head"));
 			ItemSchematic.subtypes.add("axe_head");
 		}
-		if(!Config.DISABLE_SHOVEL) {
+		if (!Config.DISABLED_TOOLS.contains("shovel")) {
 			event.getRegistry().register(new ItemToolHead("shovel_head"));
 			ItemSchematic.subtypes.add("shovel_head");
 		}
-		if(!Config.DISABLE_HOE) {
+		if (!Config.DISABLED_TOOLS.contains("hoe")) {
 			event.getRegistry().register(new ItemToolHead("hoe_head"));
 			ItemSchematic.subtypes.add("hoe_head");
 		}
-		if(!Config.DISABLE_HANDPICK) {
+		if (!Config.DISABLED_TOOLS.contains("handpick")) {
 			event.getRegistry().register(new ItemToolHead("handpick_head"));
 			ItemSchematic.subtypes.add("handpick_head");
 		}
-		if(!Config.DISABLE_HAMMER) {
+		if (!Config.DISABLED_TOOLS.contains("hammer")) {
 			event.getRegistry().register(new ItemToolHead("hammer_head"));
 			ItemSchematic.subtypes.add("hammer_head");
 		}
-		if(!Config.DISABLE_CLIMBING_PICK) {
+		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) {
 			event.getRegistry().register(new ItemToolHead("climbing_pick_head"));
 			ItemSchematic.subtypes.add("climbing_pick_head");
 		}
 
-		if(!Config.DISABLE_SWORD) {
+		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			event.getRegistry().register(new ItemToolHead("sword_blade"));
 			ItemSchematic.subtypes.add("sword_blade");
 			event.getRegistry().register(new ItemToolHead("sword_crossguard"));
 			ItemSchematic.subtypes.add("sword_crossguard");
 		}
-		if(!Config.DISABLE_DAGGER) {
+		if (!Config.DISABLED_TOOLS.contains("dagger")) {
 			event.getRegistry().register(new ItemToolHead("dagger_blade"));
 			ItemSchematic.subtypes.add("dagger_blade");
 		}
-		if(!Config.DISABLE_MACE) {
+		if (!Config.DISABLED_TOOLS.contains("mace")) {
 			event.getRegistry().register(new ItemToolHead("mace_head"));
 			ItemSchematic.subtypes.add("mace_head");
 		}
-		
-		event.getRegistry().register(new ItemToolHandle());
-
-		if(!Config.DISABLE_PICKAXE) event.getRegistry().register(new ItemPickaxe());
-		if(!Config.DISABLE_AXE) event.getRegistry().register(new ItemAxe());
-		if(!Config.DISABLE_SHOVEL) event.getRegistry().register(new ItemShovel());
-		if(!Config.DISABLE_HOE) event.getRegistry().register(new ItemHoe());
-		if(!Config.DISABLE_HANDPICK) event.getRegistry().register(new ItemHandpick());
-		if(!Config.DISABLE_HAMMER) event.getRegistry().register(new ItemHammer());
-		if(!Config.DISABLE_CLIMBING_PICK) event.getRegistry().register(new ItemClimbingPick());
-
-		if(!Config.DISABLE_SWORD) event.getRegistry().register(new ItemSword());
-		if(!Config.DISABLE_DAGGER) event.getRegistry().register(new ItemDagger());
-		if(!Config.DISABLE_MACE) event.getRegistry().register(new ItemMace());
 
 		if (Config.ENABLE_SCHEMATICS) event.getRegistry().register(new ItemSchematic());
-		
+
+		event.getRegistry().register(new ItemToolHandle());
+
 		event.getRegistry().register(new ItemGuideBook());
 		
-		event.getRegistry().register(new ItemCast());
+		if (Config.ENABLE_TINKERS_COMPAT) event.getRegistry().register(new ItemCast());
+		
+		if (!Config.DISABLED_TOOLS.contains("pickaxe")) event.getRegistry().register(new ItemPickaxe());
+		if (!Config.DISABLED_TOOLS.contains("axe")) event.getRegistry().register(new ItemAxe());
+		if (!Config.DISABLED_TOOLS.contains("shovel")) event.getRegistry().register(new ItemShovel());
+		if (!Config.DISABLED_TOOLS.contains("hoe")) event.getRegistry().register(new ItemHoe());
+		if (!Config.DISABLED_TOOLS.contains("handpick")) event.getRegistry().register(new ItemHandpick());
+		if (!Config.DISABLED_TOOLS.contains("hammer")) event.getRegistry().register(new ItemHammer());
+		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) event.getRegistry().register(new ItemClimbingPick());
+
+		if (!Config.DISABLED_TOOLS.contains("sword")) event.getRegistry().register(new ItemSword());
+		if (!Config.DISABLED_TOOLS.contains("dagger")) event.getRegistry().register(new ItemDagger());
+		if (!Config.DISABLED_TOOLS.contains("mace")) event.getRegistry().register(new ItemMace());
 	}
 	
 	@SubscribeEvent
@@ -135,38 +135,56 @@ public class ModItems {
 
 		rock.initModel();
 
-		if(!Config.DISABLE_PICKAXE) pickaxe_head.initModel();
-		if(!Config.DISABLE_AXE) axe_head.initModel();
-		if(!Config.DISABLE_SHOVEL) shovel_head.initModel();
-		if(!Config.DISABLE_HOE) hoe_head.initModel();
-		if(!Config.DISABLE_HANDPICK) handpick_head.initModel();
-		if(!Config.DISABLE_HAMMER) hammer_head.initModel();
-		if(!Config.DISABLE_CLIMBING_PICK) climbing_pick_head.initModel();
+		if(!Config.DISABLED_TOOLS.contains("pickaxe")) {
+			pickaxe_head.initModel();
+			pickaxe.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("axe")) {
+			axe_head.initModel();
+			axe.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("shovel")) {
+			shovel_head.initModel();
+			shovel.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("hoe")) {
+			hoe_head.initModel();
+			hoe.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("handpick")) {
+			handpick_head.initModel();
+			handpick.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("hammer")) {
+			hammer_head.initModel();
+			hammer.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("climbing_pick")) {
+			climbing_pick_head.initModel();
+			climbing_pick.initModel();
+		}
 
-		if(!Config.DISABLE_SWORD) sword_blade.initModel();
-		if(!Config.DISABLE_SWORD) sword_crossguard.initModel();
-		if(!Config.DISABLE_DAGGER) dagger_blade.initModel();
-		if(!Config.DISABLE_MACE) mace_head.initModel();
+		if(!Config.DISABLED_TOOLS.contains("sword")) {
+			sword_blade.initModel();
+			sword_crossguard.initModel();
+			sword.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("dagger")) {
+			dagger_blade.initModel();
+			dagger.initModel();
+		}
+		if(!Config.DISABLED_TOOLS.contains("mace")) {
+			mace_head.initModel();
+			mace.initModel();
+		}
 
 		handle.initModel();
 
-		if(!Config.DISABLE_PICKAXE) pickaxe.initModel();
-		if(!Config.DISABLE_AXE) axe.initModel();
-		if(!Config.DISABLE_SHOVEL) shovel.initModel();
-		if(!Config.DISABLE_HOE) hoe.initModel();
-		if(!Config.DISABLE_HANDPICK) handpick.initModel();
-		if(!Config.DISABLE_HAMMER) hammer.initModel();
-		if(!Config.DISABLE_HANDPICK) climbing_pick.initModel();
-
-		if(!Config.DISABLE_SWORD) sword.initModel();
-		if(!Config.DISABLE_DAGGER) dagger.initModel();
-		if(!Config.DISABLE_MACE) mace.initModel();
-
 		if (Config.ENABLE_SCHEMATICS) schematic.initModel();
-		
+
 		guide_book.initModel();
 		
-		cast.initModel();
+		if(Config.ENABLE_TINKERS_COMPAT) cast.initModel();
 	}
 
 }
