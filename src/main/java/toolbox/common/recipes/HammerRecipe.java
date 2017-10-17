@@ -32,6 +32,7 @@ public class HammerRecipe extends ToolRecipe {
 		haftMat = null;
 		handleMat = null;
 		adornmentMat = null;
+		int haftSlot = -1;
 		List<ItemStack> items = new ArrayList<ItemStack>();
 		boolean[] slots = new boolean[inv.getSizeInventory()];
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -52,6 +53,7 @@ public class HammerRecipe extends ToolRecipe {
 								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							haftMat = ModRecipes.haft_map.get(test);
 							slots[i] = true;
+							haftSlot = i;
 						}
 					}
 				}
@@ -61,6 +63,25 @@ public class HammerRecipe extends ToolRecipe {
 								&& ItemStack.areItemStackTagsEqual(test, temp)) {
 							handleMat = ModRecipes.handle_map.get(test);
 							slots[i] = true;
+						}
+					}
+				}
+				if (!slots[i] && handleMat == null && haftMat != null && haftSlot > -1) {
+					ItemStack haft = inv.getStackInSlot(haftSlot).copy();
+					for (ItemStack test : ModRecipes.handle_map.keySet()) {
+						if (handleMat == null && ItemStack.areItemsEqual(test, haft)
+								&& ItemStack.areItemStackTagsEqual(test, haft)) {
+							HandleMaterial tempHandleMat = ModRecipes.handle_map.get(test);
+							for (ItemStack test2 : ModRecipes.haft_map.keySet()) {
+								if (ItemStack.areItemsEqual(test2, temp)
+										&& ItemStack.areItemStackTagsEqual(test2, temp)) {
+									haftMat = ModRecipes.haft_map.get(test2);
+									handleMat = tempHandleMat;
+									slots[i] = true;
+									haftSlot = i;
+									break;
+								}
+							}
 						}
 					}
 				}
