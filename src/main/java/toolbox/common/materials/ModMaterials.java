@@ -12,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
@@ -45,13 +46,14 @@ public class ModMaterials {
 			"ingotSteel", "nuggetSteel", Toolbox.MODID);
 	public static final HeadMaterial HEAD_ELECTRUM = new HeadMaterial("electrum", 1, 96, 8.0F, 1.0F, 26,
 			ItemStack.EMPTY, "ingotElectrum", "nuggetElectrum", Toolbox.MODID);
-	public static final HeadMaterial HEAD_SOULFORGED_STEEL = new HeadMaterial("soulforged_steel", 4, 700, 9.0F, 3F, 22, ItemStack.EMPTY,
+	public static final HeadMaterial HEAD_SOULFORGED_STEEL = new HeadMaterial("soulforged_steel", 4, 600, 9.0F, 3F, 22, ItemStack.EMPTY,
 			"ingotSoulforgedSteel", "nuggetSoulforgedSteel", Toolbox.MODID);
 
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 1.0F, 1.0F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0.8F, 1.5F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BLAZE_ROD = new HaftMaterial("blaze_rod", 1.125F, 1.2F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_END_ROD = new HaftMaterial("end_rod", 1.25F, 1.5F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_IMPROVED = new HaftMaterial("refined", 1.3F, 0.8F, Toolbox.MODID);
 
 	public static final HandleMaterial HANDLE_WOOD = new HandleMaterial("wood", 1.0F, Toolbox.MODID);
 	public static final HandleMaterial HANDLE_BONE = new HandleMaterial("bone", 0.9375F, Toolbox.MODID);
@@ -109,6 +111,7 @@ public class ModMaterials {
 		Materials.registerHaftMat(HAFT_BONE);
 		Materials.registerHaftMat(HAFT_BLAZE_ROD);
 		Materials.registerHaftMat(HAFT_END_ROD);
+		if(Loader.isModLoaded("betterwithmods")) Materials.registerHaftMat(HAFT_IMPROVED);
 	}
 
 	private static void initHandleMaterials() {

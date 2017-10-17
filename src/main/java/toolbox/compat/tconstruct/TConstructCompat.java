@@ -10,6 +10,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import slimeknights.mantle.util.RecipeMatch;
+import toolbox.common.Config;
 import toolbox.compat.tconstruct.ItemCast.EnumType;
 
 public class TConstructCompat {
@@ -20,7 +21,7 @@ public class TConstructCompat {
 			Fluid soulforgedSteel = new Fluid("soulforged_steel", new ResourceLocation("tconstruct:blocks/fluids/molten_metal"), new ResourceLocation("tconstruct:blocks/fluids/molten_metal_flow"));
 			FluidRegistry.registerFluid(soulforgedSteel);
 			FluidRegistry.addBucketForFluid(soulforgedSteel);
-			
+
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString("fluid", soulforgedSteel.getName());
 			tag.setString("ore", "SoulforgedSteel");
@@ -32,15 +33,21 @@ public class TConstructCompat {
 	public static void init() {
 		slimeknights.tconstruct.library.smeltery.CastingRecipe recipe;
 		for (EnumType type : ItemCast.EnumType.VALUES) {
-			int i = 0;
-			for (HeadMaterial mat : Materials.head_registry.values()) {
-				ItemStack head = new ItemStack(type.getItem(), 1, i);
-				Fluid fluid = FluidRegistry.getFluid(mat.getName());
-				if (fluid != null) {
-					recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(head, RecipeMatch.of(ItemCast.getStack(type, 1)), fluid, type.getCost());
-					slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+			ItemStack cast = ItemCast.getStack(type, 1);
+			if(!Config.DISABLED_TOOLS.contains(type.getTool())) {
+				recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(cast, RecipeMatch.of(new ItemStack(type.getItem(), 1, 5)), FluidRegistry.getFluid("gold"), 144 * 2);
+				slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+				int i = 0;
+				for (HeadMaterial mat : Materials.head_registry.values()) {
+					System.out.println(i + " " + mat.getName());
+					ItemStack head = new ItemStack(type.getItem(), 1, i);
+					Fluid fluid = FluidRegistry.getFluid(mat.getName());
+					if (fluid != null && !Config.DISABLED_MATERIALS.contains(mat.getName())) {
+						recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(head, RecipeMatch.of(ItemCast.getStack(type, 1)), fluid, type.getCost());
+						slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+					}
+					i++;
 				}
-				i++;
 			}
 		}
 	}

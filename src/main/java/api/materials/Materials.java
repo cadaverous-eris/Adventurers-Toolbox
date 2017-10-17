@@ -20,6 +20,7 @@ public class Materials {
 
 	public static void registerHaftMat(HaftMaterial mat) {
 		haft_registry.put(mat.getName(), mat);
+		System.out.println(mat.getName());
 	}
 
 	public static void registerHandleMat(HandleMaterial mat) {

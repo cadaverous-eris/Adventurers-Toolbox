@@ -10,9 +10,11 @@ import api.materials.HeadMaterial;
 import api.materials.Materials;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
@@ -185,6 +187,8 @@ public class ModRecipes {
 		haft_map.put(new ItemStack(Items.BONE), ModMaterials.HAFT_BONE);
 		haft_map.put(new ItemStack(Items.BLAZE_ROD), ModMaterials.HAFT_BLAZE_ROD);
 		haft_map.put(new ItemStack(Blocks.END_ROD), ModMaterials.HAFT_END_ROD);
+		Item haft = ForgeRegistries.ITEMS.getValue(new ResourceLocation("betterwithmods:material"));
+		if(haft != null) haft_map.put(new ItemStack(haft, 1, 36), ModMaterials.HAFT_IMPROVED);
 
 		handle_map.put(new ItemStack(ModItems.handle, 1, 0), ModMaterials.HANDLE_CLOTH);
 		handle_map.put(new ItemStack(ModItems.handle, 1, 1), ModMaterials.HANDLE_LEATHER);
