@@ -1,11 +1,11 @@
 package toolbox.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import scala.actors.threadpool.Arrays;
 
 public class Config {
 	

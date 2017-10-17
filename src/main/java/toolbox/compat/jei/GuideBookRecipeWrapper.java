@@ -5,6 +5,7 @@ import java.util.List;
 
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -19,14 +20,14 @@ import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.recipes.ModRecipes;
 
-public class GuideBookRecipeWrapper extends BlankRecipeWrapper {
+public class GuideBookRecipeWrapper implements IRecipeWrapper {
 
 	private final List<List<ItemStack>> inputs;
-	private final List<List<ItemStack>> output;
+	private final ItemStack output;
 
 	public GuideBookRecipeWrapper() {
 		this.inputs = new ArrayList<List<ItemStack>>();
-		this.output = new ArrayList<List<ItemStack>>();
+		this.output = new ItemStack(ModItems.guide_book);
 
 		List<ItemStack> heads = new ArrayList<ItemStack>();
 		for (ItemStack stack : ModRecipes.head_map.keySet()) {
@@ -38,15 +39,12 @@ public class GuideBookRecipeWrapper extends BlankRecipeWrapper {
 		book.add(new ItemStack(Items.BOOK));
 		this.inputs.add(book);
 
-		this.output.add(new ArrayList<ItemStack>());
-		this.output.get(0).add(new ItemStack(ModItems.guide_book));
-
 	}
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
 		ingredients.setInputLists(ItemStack.class, inputs);
-		ingredients.setOutputLists(ItemStack.class, output);
+		ingredients.setOutput(ItemStack.class, output);
 	}
 
 }

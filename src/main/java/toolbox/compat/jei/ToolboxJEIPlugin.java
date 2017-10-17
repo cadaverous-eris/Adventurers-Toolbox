@@ -14,8 +14,11 @@ import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.item.Item;
 import toolbox.common.items.ModItems;
+import toolbox.common.recipes.BookRecipe;
 
 @JEIPlugin
 public class ToolboxJEIPlugin extends BlankModPlugin {
@@ -30,17 +33,36 @@ public class ToolboxJEIPlugin extends BlankModPlugin {
 		IJeiHelpers helper = reg.getJeiHelpers();
 		IGuiHelper guiHelper = helper.getGuiHelper();
 		
-		List<IRecipeWrapper> bookRecipe = new ArrayList<IRecipeWrapper>();
-		bookRecipe.add(new GuideBookRecipeWrapper());
-		reg.addRecipes(bookRecipe, VanillaRecipeCategoryUid.CRAFTING);
+		reg.handleRecipes(BookRecipe.class, new IRecipeWrapperFactory<BookRecipe>() {
+
+			@Override
+			public IRecipeWrapper getRecipeWrapper(BookRecipe recipe) {
+				return new GuideBookRecipeWrapper();
+			}
+			
+		}, VanillaRecipeCategoryUid.CRAFTING);
 		
 	}
 	
 	@Override
 	public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
 		this.subtypeRegistry = subtypeRegistry;
+		List<Item> nbtSubtypeItems = new ArrayList<Item>();
+		if (ModItems.schematic != null) nbtSubtypeItems.add(ModItems.schematic);
+		if (ModItems.cast != null) nbtSubtypeItems.add(ModItems.cast);
+		if (ModItems.axe != null) nbtSubtypeItems.add(ModItems.axe);
+		if (ModItems.pickaxe != null) nbtSubtypeItems.add(ModItems.pickaxe);
+		if (ModItems.shovel != null) nbtSubtypeItems.add(ModItems.shovel);
+		if (ModItems.hoe != null) nbtSubtypeItems.add(ModItems.hoe);
+		if (ModItems.handpick != null) nbtSubtypeItems.add(ModItems.handpick);
+		if (ModItems.climbing_pick != null) nbtSubtypeItems.add(ModItems.climbing_pick);
+		if (ModItems.hammer != null) nbtSubtypeItems.add(ModItems.hammer);
+		if (ModItems.sword != null) nbtSubtypeItems.add(ModItems.sword);
+		if (ModItems.dagger != null) nbtSubtypeItems.add(ModItems.dagger);
+		if (ModItems.mace != null) nbtSubtypeItems.add(ModItems.mace);
+		
 		subtypeRegistry.useNbtForSubtypes(
-
+			nbtSubtypeItems.toArray(new Item[nbtSubtypeItems.size()])
 		);
 	}
 	
