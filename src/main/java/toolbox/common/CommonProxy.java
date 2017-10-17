@@ -48,7 +48,6 @@ import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
 import toolbox.Toolbox;
 import toolbox.common.entities.ModEntities;
-import toolbox.common.handlers.CraftingEventHandler;
 import toolbox.common.handlers.HammerHandler;
 import toolbox.common.handlers.HandpickHarvestHandler;
 import toolbox.common.handlers.MaceHandler;
@@ -82,7 +81,6 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new HammerHandler());
 		MinecraftForge.EVENT_BUS.register(new MaceHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldHandler());
-		MinecraftForge.EVENT_BUS.register(new CraftingEventHandler());
 
 		ModMaterials.init();
 		Toolbox.logger.log(Level.INFO,
