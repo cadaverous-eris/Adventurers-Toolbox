@@ -27,6 +27,11 @@ public class Config {
 	public static List<String> DISABLED_MATERIALS = new ArrayList<String>();
 	
 	public static boolean ENABLE_SCHEMATICS;
+	public static List<String> SPAWN_SCHEMATICS = new ArrayList<String>();
+	public static List<String> CRAFTED_SCHEMATICS = new ArrayList<String>();
+	public static List<String> DUNGEON_SCHEMATICS = new ArrayList<String>();
+	public static List<String> BLACKSMITH_SCHEMATICS = new ArrayList<String>();
+	public static List<String> BONUS_CHEST_SCHEMATICS = new ArrayList<String>();
 	
 	public static boolean ENABLE_TINKERS_COMPAT;
 	public static boolean DISABLE_TOOL_HEAD_RECIPES;
@@ -59,7 +64,12 @@ public class Config {
 		DISABLED_TOOLS = Arrays.asList(cfg.getStringList("Disabled Tools", CATEGORY_TOOLS, new String[0], "Add tool names to this list on each new line, don't use commas (Find tool names on GitHib).\n"));
 		DISABLED_MATERIALS = Arrays.asList(cfg.getStringList("Disabled Materials", CATEGORY_TOOLS, new String[0], "Add material names to this list on each new line, don't use commas (Find material names on GitHib).\n"));
 		
-		ENABLE_SCHEMATICS = cfg.getBoolean("Enable Schematic Mode", CATEGORY_GENERAL, true, "This option replaces tool part recipes with a system using schematic items.\nThis can be helpful if you are experiencing recipe conflicts, or if you want tools to have costs more similar to vanilla.\n");
+		ENABLE_SCHEMATICS = cfg.getBoolean("Enable Schematic Mode", CATEGORY_SCHEMATICS, true, "This option replaces tool part recipes with a system using schematic items.\nThis can be helpful if you are experiencing recipe conflicts, or if you want tools to have costs more similar to vanilla.\n");
+		SPAWN_SCHEMATICS = Arrays.asList(cfg.getStringList("Spawn Schematics", CATEGORY_SCHEMATICS, new String[] { "pickaxe_head", "axe_head", "shovel_head", "hoe_head", "sword_blade", "sword_crossguard" }, "Add schematic types to this list to add them to players' inventories when first joining a world. One per line.\n"));
+		CRAFTED_SCHEMATICS = Arrays.asList(cfg.getStringList("Crafted Schematics", CATEGORY_SCHEMATICS, new String[] { "pickaxe_head", "axe_head", "shovel_head", "hoe_head", "sword_blade", "sword_crossguard" }, "Add schematic types to this list to add Crafting recipes for them. One per line.\n"));
+		DUNGEON_SCHEMATICS = Arrays.asList(cfg.getStringList("Dungeon Schematics", CATEGORY_SCHEMATICS, new String[] { "handpick_head", "hammer_head", "climbing_pick_head", "dagger_blade", "mace_head" }, "Add schematic types to this list to add them to dungeon chest loot. One per line.\n"));
+		BLACKSMITH_SCHEMATICS = Arrays.asList(cfg.getStringList("Blacksmith Schematics", CATEGORY_SCHEMATICS, new String[] { "pickaxe_head", "axe_head", "shovel_head", "hoe_head", "sword_blade", "sword_crossguard", "handpick_head", "hammer_head", "climbing_pick_head", "dagger_blade", "mace_head" }, "Add schematic types to this list to add them to village blacksmith chest loot. One per line.\n"));
+		BONUS_CHEST_SCHEMATICS = Arrays.asList(cfg.getStringList("Bonus Chest Schematics", CATEGORY_SCHEMATICS, new String[] { "climbing_pick_head", "dagger_blade" }, "Add schematic types to this list to add them to spawn bonus chest loot. One per line.\n"));
 		
 		ENABLE_TINKERS_COMPAT = cfg.getBoolean("Enable Tinkers Compatibility", CATEGORY_COMPAT, false, "This option adds casts and recipes to the Tinkers' Construct smeltery.\n");
 		DISABLE_TOOL_HEAD_RECIPES = cfg.getBoolean("Disable Metal Tool Head Recipes", CATEGORY_COMPAT, false, "This option disables the crafting recipes for metal tool heads.\nUse if you want to only be able to use the smeltery.\n");
@@ -72,6 +82,11 @@ public class Config {
 		PROPERTY_ORDER_TOOLS.add("Disabled Materials");
 		
 		PROPERTY_ORDER_SCHEMATICS.add("Enable Schematic Mode");
+		PROPERTY_ORDER_SCHEMATICS.add("Spawn Schematics");
+		PROPERTY_ORDER_SCHEMATICS.add("Crafted Schematics");
+		PROPERTY_ORDER_SCHEMATICS.add("Dungeon Schematics");
+		PROPERTY_ORDER_SCHEMATICS.add("Blacksmith Schematics");
+		PROPERTY_ORDER_SCHEMATICS.add("Bonus Chest Schematics");
 		
 		PROPERTY_ORDER_COMPAT.add("Enable Tinkers Compatibility");
 		PROPERTY_ORDER_COMPAT.add("Disable Metal Tool Head Recipes");

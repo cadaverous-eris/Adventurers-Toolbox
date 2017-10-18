@@ -59,5 +59,13 @@ public class ItemSchematic extends ItemBase {
 		ret.setCount(1);
 		return ret;
 	}
+	
+	public ItemStack createStack(String type) {
+		ItemStack stack = new ItemStack(this);
+		NBTTagCompound nbt = new NBTTagCompound();
+		nbt.setString(type_tag, type);
+		stack.setTagCompound(nbt);
+		return stack;
+	}
 
 }

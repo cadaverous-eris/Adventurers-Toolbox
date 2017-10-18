@@ -176,8 +176,32 @@ public class ModRecipes {
 		initToolRecipes();
 
 		initMaterialItems();
+		
+		registerSchematicRecipe("pickaxe", "pickaxe_head", "PPP", " S ", " S ");
+		registerSchematicRecipe("axe", "axe_head", "PP", "PS", " S");
+		registerSchematicRecipe("shovel", "shovel_head", "P", "S", "S");
+		registerSchematicRecipe("hoe", "hoe_head", "PP", " S", " S");
+		registerSchematicRecipe("handpick", "handpick_head", "PP", " S");
+		registerSchematicRecipe("hammer", "hammer_head", "PPP", "PSP", " S ");
+		registerSchematicRecipe("climbing_pick", "climbing_pick_head", "PP ", " SP", " S ");
+		registerSchematicRecipe("sword", "sword_blade", "P", "P", "S");
+		registerSchematicRecipe("sword", "sword_crossguard", "PSP", " S ", " P ");
+		registerSchematicRecipe("dagger", "dagger_blade", "P", "S");
+		registerSchematicRecipe("mace", "mace_head", "PP", "PP", " S");
 	}
-
+	
+	private static void registerSchematicRecipe(String toolType, String schematicType, String row1, String row2, String row3) {
+		if (Config.ENABLE_SCHEMATICS && !Config.DISABLED_TOOLS.contains(toolType) && Config.CRAFTED_SCHEMATICS.contains(schematicType) && ItemSchematic.subtypes.contains(schematicType)) {
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, ModItems.schematic.createStack(schematicType), row1, row2, row3, 'P', new ItemStack(Items.PAPER), 'S', new ItemStack(Items.STICK)).setRegistryName(schematicType + "_schematic"));
+		}
+	}
+	
+	private static void registerSchematicRecipe(String toolType, String schematicType, String row1, String row2) {
+		if (Config.ENABLE_SCHEMATICS && !Config.DISABLED_TOOLS.contains(toolType) && Config.CRAFTED_SCHEMATICS.contains(schematicType) && ItemSchematic.subtypes.contains(schematicType)) {
+			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, ModItems.schematic.createStack(schematicType), row1, row2, 'P', new ItemStack(Items.PAPER), 'S', new ItemStack(Items.STICK)).setRegistryName(schematicType + "_schematic"));
+		}
+	}
+	
 	public static void initToolRecipes() {
 		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			RecipeSorter.register("toolbox:pickaxe", PickaxeRecipe.class, RecipeSorter.Category.SHAPELESS,
