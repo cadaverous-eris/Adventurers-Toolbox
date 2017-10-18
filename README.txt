@@ -1,5 +1,5 @@
-#Adventurer's Toolbox
+# Adventurer's Toolbox
 A mod that adds totally modular tools to the game, with an option to completely replace vanilla tools.
 
-##Trello
+## Trello
 https://trello.com/b/ap2GinOK/adventurers-toolbox
