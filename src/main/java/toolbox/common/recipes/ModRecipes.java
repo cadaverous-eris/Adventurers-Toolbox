@@ -7,19 +7,16 @@ import api.materials.AdornmentMaterial;
 import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
-import api.materials.Materials;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IngredientNBT;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.RecipeSorter;
@@ -33,10 +30,10 @@ import toolbox.common.materials.ModMaterials;
 
 public class ModRecipes {
 
-	public static Map<ItemStack, HeadMaterial> head_map = new HashMap<ItemStack, HeadMaterial>();
-	public static Map<ItemStack, HaftMaterial> haft_map = new HashMap<ItemStack, HaftMaterial>();
-	public static Map<ItemStack, HandleMaterial> handle_map = new HashMap<ItemStack, HandleMaterial>();
-	public static Map<ItemStack, AdornmentMaterial> adornment_map = new HashMap<ItemStack, AdornmentMaterial>();
+	public static Map<ItemStack, HeadMaterial> head_map = new HashMap<>();
+	public static Map<ItemStack, HaftMaterial> haft_map = new HashMap<>();
+	public static Map<ItemStack, HandleMaterial> handle_map = new HashMap<>();
+	public static Map<ItemStack, AdornmentMaterial> adornment_map = new HashMap<>();
 
 	public static void init() {
 

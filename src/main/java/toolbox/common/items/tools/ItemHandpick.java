@@ -1,41 +1,28 @@
 package toolbox.common.items.tools;
 
 import java.util.List;
-import java.util.Set;
 
 import com.google.common.collect.Multimap;
 
-import api.materials.AdornmentMaterial;
-import api.materials.HaftMaterial;
-import api.materials.HandleMaterial;
-import api.materials.HeadMaterial;
 import api.materials.Materials;
 import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import toolbox.common.Config;
-import toolbox.common.items.ItemBase;
 
 public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 

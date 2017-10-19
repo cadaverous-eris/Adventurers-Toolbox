@@ -7,7 +7,6 @@ import api.materials.AdornmentMaterial;
 import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
-import api.materials.Materials;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -33,7 +32,7 @@ public class HammerRecipe extends ToolRecipe {
 		handleMat = null;
 		adornmentMat = null;
 		int haftSlot = -1;
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		boolean[] slots = new boolean[inv.getSizeInventory()];
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();

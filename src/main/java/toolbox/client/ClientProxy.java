@@ -18,7 +18,6 @@ import toolbox.client.models.SwordModel;
 import toolbox.client.models.ToolHeadModel;
 import toolbox.common.CommonProxy;
 import toolbox.common.entities.ModEntities;
-import toolbox.common.items.ModItems;
 
 public class ClientProxy extends CommonProxy {
 

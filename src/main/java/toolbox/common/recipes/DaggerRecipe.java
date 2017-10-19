@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import toolbox.common.items.ModItems;
 import toolbox.common.items.tools.IAdornedTool;
 import toolbox.common.items.tools.IBladeTool;
-import toolbox.common.items.tools.ICrossguardTool;
 import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.materials.ModMaterials;
 
@@ -28,7 +27,7 @@ public class DaggerRecipe extends ToolRecipe {
 		bladeMat = null;
 		handleMat = null;
 		adornmentMat = null;
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		boolean[] slots = new boolean[inv.getSizeInventory()];
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();

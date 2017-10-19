@@ -9,17 +9,13 @@ import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import toolbox.common.items.ModItems;
 import toolbox.common.items.tools.IAdornedTool;
 import toolbox.common.items.tools.IHaftTool;
 import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.items.tools.IHeadTool;
-import toolbox.common.items.tools.ItemAxe;
-import toolbox.common.items.tools.ItemPickaxe;
 import toolbox.common.materials.ModMaterials;
 
 public class AxeRecipe extends ToolRecipe {
@@ -36,7 +32,7 @@ public class AxeRecipe extends ToolRecipe {
 		handleMat = null;
 		adornmentMat = null;
 		int haftSlot = -1;
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		boolean[] slots = new boolean[inv.getSizeInventory()];
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();

@@ -22,7 +22,7 @@ public class ItemToolHead extends ItemToolPart {
 
 	// This could be a list, but I made it a map because later I want to add an
 	// int ID to all materials
-	public Map<Integer, HeadMaterial> meta_map = new HashMap<Integer, HeadMaterial>();
+	public Map<Integer, HeadMaterial> meta_map = new HashMap<>();
 
 	protected void initMats() {
 		int i = 0;

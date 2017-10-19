@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import api.materials.AdornmentMaterial;
-import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
-import api.materials.Materials;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,8 +15,6 @@ import toolbox.common.items.tools.IAdornedTool;
 import toolbox.common.items.tools.IBladeTool;
 import toolbox.common.items.tools.ICrossguardTool;
 import toolbox.common.items.tools.IHandleTool;
-import toolbox.common.items.tools.ItemPickaxe;
-import toolbox.common.items.tools.ItemSword;
 import toolbox.common.materials.ModMaterials;
 
 public class SwordRecipe extends ToolRecipe {
@@ -34,7 +30,7 @@ public class SwordRecipe extends ToolRecipe {
 		crossguardMat = null;
 		handleMat = null;
 		adornmentMat = null;
-		List<ItemStack> items = new ArrayList<ItemStack>();
+		List<ItemStack> items = new ArrayList<>();
 		boolean[] slots = new boolean[inv.getSizeInventory()];
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack temp = inv.getStackInSlot(i).copy();

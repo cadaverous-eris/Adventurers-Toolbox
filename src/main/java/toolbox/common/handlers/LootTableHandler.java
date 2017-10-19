@@ -1,14 +1,6 @@
 package toolbox.common.handlers;
 
-import java.util.Collection;
-import java.util.Random;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootPool;
@@ -19,7 +11,6 @@ import net.minecraft.world.storage.loot.functions.SetNBT;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.items.ItemSchematic;

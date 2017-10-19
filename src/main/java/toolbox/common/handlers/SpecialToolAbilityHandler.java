@@ -2,34 +2,20 @@ package toolbox.common.handlers;
 
 import java.util.Random;
 
-import api.materials.Materials;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import toolbox.common.items.ModItems;
 import toolbox.common.items.tools.IAdornedTool;
 import toolbox.common.items.tools.IHaftTool;
-import toolbox.common.items.tools.ItemAxe;
-import toolbox.common.items.tools.ItemHandpick;
-import toolbox.common.items.tools.ItemHoe;
-import toolbox.common.items.tools.ItemPickaxe;
-import toolbox.common.items.tools.ItemShovel;
 import toolbox.common.materials.ModMaterials;
 
 public class SpecialToolAbilityHandler {

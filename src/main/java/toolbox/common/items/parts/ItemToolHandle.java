@@ -3,10 +3,8 @@ package toolbox.common.items.parts;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.materials.HandleMaterial;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.client.model.ModelLoader;
@@ -22,8 +20,6 @@ public class ItemToolHandle extends ItemToolPart {
 		subItems = new ArrayList<String>();
 		subItems.add("cloth");
 		subItems.add("leather");
-		//subItems.add("wood");
-		//subItems.add("bone");
 	}
 	
 	@Override

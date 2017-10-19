@@ -5,7 +5,6 @@ import api.materials.HaftMaterial;
 import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import api.materials.Materials;
-import api.materials.PartMaterial;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.init.Blocks;

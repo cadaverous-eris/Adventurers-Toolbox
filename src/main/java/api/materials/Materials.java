@@ -9,10 +9,10 @@ public class Materials {
 	
 	private static Random rand = new Random();
 
-	public static Map<String, HeadMaterial> head_registry = new HashMap<String, HeadMaterial>();
-	public static Map<String, HaftMaterial> haft_registry = new HashMap<String, HaftMaterial>();
-	public static Map<String, HandleMaterial> handle_registry = new HashMap<String, HandleMaterial>();
-	public static Map<String, AdornmentMaterial> adornment_registry = new HashMap<String, AdornmentMaterial>();
+	public static Map<String, HeadMaterial> head_registry = new HashMap<>();
+	public static Map<String, HaftMaterial> haft_registry = new HashMap<>();
+	public static Map<String, HandleMaterial> handle_registry = new HashMap<>();
+	public static Map<String, AdornmentMaterial> adornment_registry = new HashMap<>();
 
 	public static void registerHeadMat(HeadMaterial mat) {
 		head_registry.put(mat.getName(), mat);

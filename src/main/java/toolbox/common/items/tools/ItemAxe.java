@@ -4,10 +4,6 @@ import java.util.List;
 
 import com.google.common.collect.Multimap;
 
-import api.materials.AdornmentMaterial;
-import api.materials.HaftMaterial;
-import api.materials.HandleMaterial;
-import api.materials.HeadMaterial;
 import api.materials.Materials;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,7 +16,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;

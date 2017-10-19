@@ -4,7 +4,6 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public abstract class ToolRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {

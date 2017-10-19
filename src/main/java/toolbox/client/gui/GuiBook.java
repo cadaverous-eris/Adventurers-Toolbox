@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiScreenBook;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -15,7 +14,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
-import toolbox.common.Config;
 import toolbox.common.items.ModItems;
 import toolbox.common.materials.ModMaterials;
 
@@ -122,7 +120,7 @@ public class GuiBook extends GuiScreen {
 		}
 	}
 
-	private static Map<String, BookChapter> chapters = new HashMap<String, BookChapter>();
+	private static Map<String, BookChapter> chapters = new HashMap<>();
 
 	private String currentChapter;
 	private int currentPageNum;
@@ -342,7 +340,7 @@ public class GuiBook extends GuiScreen {
 		float textScale = 0.5F;
 		GlStateManager.scale(textScale, textScale, textScale);
 		String text = I18n.format(page.getText());
-		List<String> paragraphs = new ArrayList<String>();
+		List<String> paragraphs = new ArrayList<>();
 
 		while (text.indexOf("|") > -1) {
 			int i = text.indexOf("|");

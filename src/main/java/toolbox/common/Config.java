@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
 
 public class Config {
 	
@@ -14,24 +13,24 @@ public class Config {
 	private final static String CATEGORY_SCHEMATICS = "all.schematics";
 	private final static String CATEGORY_COMPAT = "all.compat";
 	
-	private final static List<String> PROPERTY_ORDER_GENERAL = new ArrayList<String>();
-	private final static List<String> PROPERTY_ORDER_TOOLS = new ArrayList<String>();
-	private final static List<String> PROPERTY_ORDER_SCHEMATICS = new ArrayList<String>();
-	private final static List<String> PROPERTY_ORDER_COMPAT = new ArrayList<String>();
+	private final static List<String> PROPERTY_ORDER_GENERAL = new ArrayList<>();
+	private final static List<String> PROPERTY_ORDER_TOOLS = new ArrayList<>();
+	private final static List<String> PROPERTY_ORDER_SCHEMATICS = new ArrayList<>();
+	private final static List<String> PROPERTY_ORDER_COMPAT = new ArrayList<>();
 	
 	public static boolean DISABLE_VANILLA_TOOLS;
 	public static boolean HIDE_UNCRAFTABLE_HEADS;
 	public static boolean SPAWN_WITH_BOOK;
 	
-	public static List<String> DISABLED_TOOLS = new ArrayList<String>();
-	public static List<String> DISABLED_MATERIALS = new ArrayList<String>();
+	public static List<String> DISABLED_TOOLS = new ArrayList<>();
+	public static List<String> DISABLED_MATERIALS = new ArrayList<>();
 	
 	public static boolean ENABLE_SCHEMATICS;
-	public static List<String> SPAWN_SCHEMATICS = new ArrayList<String>();
-	public static List<String> CRAFTED_SCHEMATICS = new ArrayList<String>();
-	public static List<String> DUNGEON_SCHEMATICS = new ArrayList<String>();
-	public static List<String> BLACKSMITH_SCHEMATICS = new ArrayList<String>();
-	public static List<String> BONUS_CHEST_SCHEMATICS = new ArrayList<String>();
+	public static List<String> SPAWN_SCHEMATICS = new ArrayList<>();
+	public static List<String> CRAFTED_SCHEMATICS = new ArrayList<>();
+	public static List<String> DUNGEON_SCHEMATICS = new ArrayList<>();
+	public static List<String> BLACKSMITH_SCHEMATICS = new ArrayList<>();
+	public static List<String> BONUS_CHEST_SCHEMATICS = new ArrayList<>();
 	
 	public static boolean ENABLE_TINKERS_COMPAT;
 	public static boolean DISABLE_TOOL_HEAD_RECIPES;

@@ -2,7 +2,6 @@ package toolbox.common.handlers;
 
 import java.util.Random;
 
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
