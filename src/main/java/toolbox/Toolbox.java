@@ -25,13 +25,14 @@ import toolbox.common.items.tools.IHaftTool;
 import toolbox.common.items.tools.IHandleTool;
 import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.materials.ModMaterials;
+import toolbox.common.network.PacketHandler;
 
 @Mod(modid = Toolbox.MODID, name = Toolbox.NAME, version = Toolbox.VERSION, useMetadata = false)
 public class Toolbox {
 	
 	public static final String MODID = "toolbox";
 	public static final String NAME = "Adventurer's Toolbox";
-	public static final String VERSION = "0.1";
+	public static final String VERSION = "0.2";
 	
 	@SidedProxy(clientSide = "toolbox.client.ClientProxy", serverSide = "toolbox.common.CommonProxy")
 	public static CommonProxy proxy;
@@ -84,6 +85,8 @@ public class Toolbox {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		PacketHandler.registerMessages();
+		
 		proxy.preInit(event);
 	}
 	

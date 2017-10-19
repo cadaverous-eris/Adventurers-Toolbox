@@ -2,7 +2,7 @@
 {
   "modid": "toolbox",
   "name": "Adventurer's Toolbox",
-  "description": "A customizable tools mod.",
+  "description": "A modular tools mod.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
