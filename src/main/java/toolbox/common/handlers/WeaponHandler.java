@@ -51,6 +51,11 @@ public class WeaponHandler {
 		Entity targetEntity = event.getTarget();
 		EntityPlayer player = event.getEntityPlayer();
 		if (player.getHeldItemMainhand().getItem() == ModItems.mace || player.getHeldItemMainhand().getItem() == ModItems.dagger) {
+			event.setCanceled(true);
+			if (player.getDistance(targetEntity) > 2.5F) {
+				return;
+			}
+			
 			if (targetEntity.canBeAttackedWithItem()) {
 				if (!targetEntity.hitByEntity(player)) {
 					float f = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
@@ -120,10 +125,11 @@ public class WeaponHandler {
 
 						if (flag5) {
 							if (i > 0) {
+								float f3 = player.getHeldItemMainhand().getItem() == ModItems.dagger ? 0.25F : 0.5F;
 								if (targetEntity instanceof EntityLivingBase) {
-									((EntityLivingBase) targetEntity).knockBack(player, (float) i * 0.5F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F), (double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
+									((EntityLivingBase) targetEntity).knockBack(player, (float) i * f3, (double) MathHelper.sin(player.rotationYaw * 0.017453292F), (double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
 								} else {
-									targetEntity.addVelocity((double) (-MathHelper.sin(player.rotationYaw * 0.017453292F) * (float) i * 0.5F), 0.1D, (double) (MathHelper.cos(player.rotationYaw * 0.017453292F) * (float) i * 0.5F));
+									targetEntity.addVelocity((double) (-MathHelper.sin(player.rotationYaw * 0.017453292F) * (float) i * f3), 0.1D, (double) (MathHelper.cos(player.rotationYaw * 0.017453292F) * (float) i * f3));
 								}
 
 								player.motionX *= 0.6D;
@@ -207,7 +213,6 @@ public class WeaponHandler {
 							}
 						}
 					}
-					event.setCanceled(true);
 				}
 			}
 		}
