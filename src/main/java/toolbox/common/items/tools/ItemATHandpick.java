@@ -5,31 +5,41 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATHandpick extends ItemPickaxe implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
-	public ItemAxe() {
-		super("axe");
-		this.toolClass = "axe";
+	private String name = "handpick";
+	public static final String DAMAGE_TAG = "Damage";
+
+	public ItemATHandpick() {
+		super(ToolMaterial.WOOD);
+
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.toolsTab);
 		this.setMaxDamage(0);
 	}
 
@@ -39,11 +49,11 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 
 	public int getDurability(ItemStack stack) {
 		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
-				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
+				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod() * 0.75F);
 	}
 
 	public float getEfficiency(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod();
+		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod() * 0.5F;
 	}
 
 	public float getAttackDamage(ItemStack stack) {
@@ -62,8 +72,8 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		for (String type : getToolClasses(stack)) {
-			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.WOOD
-					|| state.getMaterial() == Material.VINE || state.getMaterial() == Material.PLANTS) {
+			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.ROCK
+					|| state.getMaterial() == Material.IRON) {
 				return getEfficiency(stack);
 			}
 		}
@@ -88,11 +98,10 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 	public int getHarvestLevel(ItemStack stack, String toolClass,
 			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
 			@javax.annotation.Nullable IBlockState blockState) {
-		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
-			return getHarvestLevel(stack);
+		if (toolClass != null && getToolClasses(stack).contains(toolClass)) {
+			return this.getHarvestLevel(stack);
 		} else {
-			return level;
+			return super.getHarvestLevel(stack, toolClass, player, blockState);
 		}
 	}
 
@@ -103,9 +112,9 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Tool modifier", (double) 6.0F + this.getAttackDamage(stack), 0));
+					"Tool modifier", (double) 0.5F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) Math.min(-3.2F + (0.075F * getHarvestLevel(stack)), -3.0F), 0));
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -2.6F, 0));
 		}
 
 		return multimap;
@@ -139,7 +148,7 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(!Config.DISABLED_TOOLS.contains("axe")) {
+		if(!Config.DISABLED_TOOLS.contains("handpick")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());
@@ -161,18 +170,16 @@ public class ItemAxe extends ItemToolBase implements IHeadTool, IHaftTool, IHand
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
-		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER || enchantment.type == EnumEnchantmentType.WEAPON;
+		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER;
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-		super.hitEntity(stack, target, attacker);
-
-		if (target instanceof EntityPlayer) {
-			((EntityPlayer) target).disableShield(true);
-		}
-
+	public boolean isEnchantable(ItemStack stack) {
 		return true;
+	}
+
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
 
 }

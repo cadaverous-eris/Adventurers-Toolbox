@@ -5,10 +5,12 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+import com.google.common.collect.HashMultimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -18,19 +20,29 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
-	public ItemMace() {
-		super("mace");
-		setMaxDamage(0);
+	private String name = "mace";
+	public static final String DAMAGE_TAG = "Damage";
+	
+	public ItemATMace() {
+		super(ToolMaterial.WOOD);
+
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
+		this.setMaxDamage(0);
 	}
 
 	public int getHarvestLevel(ItemStack stack) {
@@ -94,7 +106,7 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
 			ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
@@ -158,6 +170,11 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 	}
 
 	@Override
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+
+	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		super.hitEntity(stack, target, attacker);
 
@@ -168,6 +185,10 @@ public class ItemMace extends ItemWeaponBase implements IHeadTool, IHaftTool, IH
 		}
 
 		return true;
+	}
+
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
 
 }

@@ -5,38 +5,40 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATPickaxe extends ItemPickaxe implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
-	public ItemShovel() {
-		super("shovel");
-		this.toolClass = "shovel";
+	private String name = "pickaxe";
+	public static final String DAMAGE_TAG = "Damage";
+
+	public ItemATPickaxe() {
+		super(ToolMaterial.WOOD);
+
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.toolsTab);
 		this.setMaxDamage(0);
 	}
 
@@ -69,10 +71,8 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		for (String type : getToolClasses(stack)) {
-			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.GROUND
-					|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SAND
-					|| state.getMaterial() == Material.SNOW || state.getMaterial() == Material.CRAFTED_SNOW
-					|| state.getMaterial() == Material.CLAY) {
+			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.ROCK
+					|| state.getMaterial() == Material.IRON) {
 				return getEfficiency(stack);
 			}
 		}
@@ -97,11 +97,10 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	public int getHarvestLevel(ItemStack stack, String toolClass,
 			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
 			@javax.annotation.Nullable IBlockState blockState) {
-		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
-			return getHarvestLevel(stack);
+		if (toolClass != null && getToolClasses(stack).contains(toolClass)) {
+			return this.getHarvestLevel(stack);
 		} else {
-			return level;
+			return super.getHarvestLevel(stack, toolClass, player, blockState);
 		}
 	}
 
@@ -112,9 +111,9 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Tool modifier", (double) 1.5F + this.getAttackDamage(stack), 0));
+					"Tool modifier", (double) 1.0F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -3.0F, 0));
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -2.8F, 0));
 		}
 
 		return multimap;
@@ -148,7 +147,7 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(!Config.DISABLED_TOOLS.contains("shovel")) {
+		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());
@@ -174,37 +173,12 @@ public class ItemShovel extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState blockIn) {
-		Block block = blockIn.getBlock();
-		return block == Blocks.SNOW_LAYER ? true : block == Blocks.SNOW;
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
 	}
 
-	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
-		ItemStack itemstack = player.getHeldItem(hand);
-
-		if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack)) {
-			return EnumActionResult.FAIL;
-		} else {
-			IBlockState iblockstate = worldIn.getBlockState(pos);
-			Block block = iblockstate.getBlock();
-
-			if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR
-					&& block == Blocks.GRASS) {
-				IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
-				worldIn.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-				if (!worldIn.isRemote) {
-					worldIn.setBlockState(pos, iblockstate1, 11);
-					damageItem(itemstack, 1, player);
-				}
-
-				return EnumActionResult.SUCCESS;
-			} else {
-				return EnumActionResult.PASS;
-			}
-		}
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
 
 }

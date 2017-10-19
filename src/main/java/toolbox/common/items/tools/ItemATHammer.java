@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
@@ -19,6 +20,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketBlockChange;
@@ -28,18 +30,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
-	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
+	private String toolClass = "pickaxe";
+	private String name = "hammer";
+	public static final String DAMAGE_TAG = "Damage";
+	
+	public ItemATHammer() {
+		super(ToolMaterial.WOOD);
 
-	public ItemHammer() {
-		super("hammer");
-		this.toolClass = "pickaxe";
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.toolsTab);
 		this.setMaxDamage(0);
 	}
 
@@ -98,24 +108,13 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state) {
-		return harvestableMaterials.contains(state.getMaterial());
-	}
-
-	@Override
-	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-		return canHarvestBlock(state);
-	}
-
-	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass,
 			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
 			@javax.annotation.Nullable IBlockState blockState) {
-		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
-			return getHarvestLevel(stack);
+		if (toolClass != null && getToolClasses(stack).contains(toolClass)) {
+			return this.getHarvestLevel(stack);
 		} else {
-			return level;
+			return super.getHarvestLevel(stack, toolClass, player, blockState);
 		}
 	}
 
@@ -185,6 +184,11 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
 		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
 	}
 
 	@Override
@@ -304,6 +308,10 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 
 		list.add(pos2);
 
+	}
+
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
 
 }

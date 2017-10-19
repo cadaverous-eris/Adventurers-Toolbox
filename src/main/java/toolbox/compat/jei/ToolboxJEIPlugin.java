@@ -55,7 +55,6 @@ public class ToolboxJEIPlugin extends BlankModPlugin {
 		if (ModItems.shovel != null) nbtSubtypeItems.add(ModItems.shovel);
 		if (ModItems.hoe != null) nbtSubtypeItems.add(ModItems.hoe);
 		if (ModItems.handpick != null) nbtSubtypeItems.add(ModItems.handpick);
-		if (ModItems.climbing_pick != null) nbtSubtypeItems.add(ModItems.climbing_pick);
 		if (ModItems.hammer != null) nbtSubtypeItems.add(ModItems.hammer);
 		if (ModItems.sword != null) nbtSubtypeItems.add(ModItems.sword);
 		if (ModItems.dagger != null) nbtSubtypeItems.add(ModItems.dagger);

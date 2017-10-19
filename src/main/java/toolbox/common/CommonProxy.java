@@ -37,7 +37,7 @@ import toolbox.Toolbox;
 import toolbox.common.entities.ModEntities;
 import toolbox.common.handlers.HammerHandler;
 import toolbox.common.handlers.HandpickHarvestHandler;
-import toolbox.common.handlers.MaceHandler;
+import toolbox.common.handlers.WeaponHandler;
 import toolbox.common.handlers.SpecialToolAbilityHandler;
 import toolbox.common.handlers.WorldHandler;
 import toolbox.common.items.ItemBase;
@@ -65,7 +65,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new HandpickHarvestHandler());
 		MinecraftForge.EVENT_BUS.register(new SpecialToolAbilityHandler());
 		MinecraftForge.EVENT_BUS.register(new HammerHandler());
-		MinecraftForge.EVENT_BUS.register(new MaceHandler());
+		MinecraftForge.EVENT_BUS.register(new WeaponHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldHandler());
 
 		ModMaterials.init();
@@ -188,7 +188,7 @@ public class CommonProxy {
 		}
 	}
 
-	public ItemStack createWoodTool(ItemBase item) {
+	public ItemStack createWoodTool(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_WOOD.getName());
@@ -199,7 +199,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createStoneTool(ItemBase item) {
+	public ItemStack createStoneTool(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_STONE.getName());
@@ -210,7 +210,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createIronTool(ItemBase item) {
+	public ItemStack createIronTool(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_IRON.getName());
@@ -221,7 +221,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createDiamondTool(ItemBase item) {
+	public ItemStack createDiamondTool(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_IRON.getName());
@@ -232,7 +232,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createGoldTool(ItemBase item) {
+	public ItemStack createGoldTool(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_GOLD.getName());
@@ -243,7 +243,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createWoodSword(ItemBase item) {
+	public ItemStack createWoodSword(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_WOOD.getName());
@@ -254,7 +254,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createStoneSword(ItemBase item) {
+	public ItemStack createStoneSword(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_STONE.getName());
@@ -265,7 +265,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createIronSword(ItemBase item) {
+	public ItemStack createIronSword(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_IRON.getName());
@@ -276,7 +276,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createDiamondSword(ItemBase item) {
+	public ItemStack createDiamondSword(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_IRON.getName());
@@ -287,7 +287,7 @@ public class CommonProxy {
 		return tool;
 	}
 
-	public ItemStack createGoldSword(ItemBase item) {
+	public ItemStack createGoldSword(Item item) {
 		ItemStack tool = new ItemStack(item);
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_GOLD.getName());

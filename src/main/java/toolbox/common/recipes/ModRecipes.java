@@ -102,17 +102,6 @@ public class ModRecipes {
 			}
 		}
 
-		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) {
-			for (int i : ModItems.climbing_pick_head.meta_map.keySet()) {
-				HeadMaterial mat = ModItems.climbing_pick_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.climbing_pick_head, 1, i), mat.getCraftingItem(), "climbing_pick_head", 2).setRegistryName(new ResourceLocation(Toolbox.MODID, "climbing_pick_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.climbing_pick_head, 1, i), "PPS", "S  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "climbing_pick_head_" + mat.getName())));
-				}
-			}
-		}
-
 		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			for (int i : ModItems.sword_blade.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.sword_blade.meta_map.get(i);
@@ -229,11 +218,6 @@ public class ModRecipes {
 			RecipeSorter.register("toolbox:hammer", HammerRecipe.class, RecipeSorter.Category.SHAPELESS,
 					"after:minecraft:shapeless");
 			ForgeRegistries.RECIPES.register(new HammerRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer")));
-		}
-		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) {
-			RecipeSorter.register("toolbox:climbing_pick", ClimbingPickRecipe.class, RecipeSorter.Category.SHAPELESS,
-					"after:minecraft:shapeless");
-			ForgeRegistries.RECIPES.register(new ClimbingPickRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "climbing_pick")));
 		}
 		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			RecipeSorter.register("toolbox:sword", SwordRecipe.class, RecipeSorter.Category.SHAPELESS,

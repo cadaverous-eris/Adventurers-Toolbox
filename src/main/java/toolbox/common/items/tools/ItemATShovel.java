@@ -9,70 +9,78 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemDagger extends ItemWeaponBase implements IBladeTool, IHandleTool, IAdornedTool {
+public class ItemATShovel extends ItemSpade implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
-	public ItemDagger() {
-		super("dagger");
+	private String name = "shovel";
+	public static final String DAMAGE_TAG = "Damage";
+	
+	public ItemATShovel() {
+		super(ToolMaterial.WOOD);
+
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.toolsTab);
 		this.setMaxDamage(0);
 	}
 
-	public int getDurability(ItemStack stack) {
-		return (int) (IBladeTool.getBladeMat(stack).getDurability() * IHandleTool.getHandleMat(stack).getDurabilityMod()
-				* IAdornedTool.getAdornmentMat(stack).getDurabilityMod() * 0.75F);
+	public int getHarvestLevel(ItemStack stack) {
+		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
 	}
 
-	public float getEfficiencyMod(ItemStack stack) {
-		return (IAdornedTool.getAdornmentMat(stack).getEfficiencyMod() - 1F) / 2F;
+	public int getDurability(ItemStack stack) {
+		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
+				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
+	}
+
+	public float getEfficiency(ItemStack stack) {
+		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod();
 	}
 
 	public float getAttackDamage(ItemStack stack) {
-		return IBladeTool.getBladeMat(stack).getAttackDamage()
-				+ IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
+		return IHeadTool.getHeadMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
 	}
 
 	public int getEnchantability(ItemStack stack) {
-		return (int) (IBladeTool.getBladeMat(stack).getEnchantability()
+		return (int) (IHeadTool.getHeadMat(stack).getEnchantability() * IHaftTool.getHaftMat(stack).getEnchantabilityMod()
 				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {
-		return IBladeTool.getBladeMat(stack).getRepairItem();
+		return IHeadTool.getHeadMat(stack).getRepairItem();
 	}
 
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		Block block = state.getBlock();
-
-		if (block == Blocks.WEB) {
-			return 15.0F;
-		} else {
-			Material material = state.getMaterial();
-			return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL
-					&& material != Material.LEAVES && material != Material.GOURD ? 1.0F : 1.5F;
+		for (String type : getToolClasses(stack)) {
+			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.GROUND
+					|| state.getMaterial() == Material.GRASS || state.getMaterial() == Material.SAND
+					|| state.getMaterial() == Material.SNOW || state.getMaterial() == Material.CRAFTED_SNOW
+					|| state.getMaterial() == Material.CLAY) {
+				return getEfficiency(stack);
+			}
 		}
-	}
-
-	@Override
-	public boolean canHarvestBlock(IBlockState blockIn) {
-		return blockIn.getBlock() == Blocks.WEB;
+		return 1.0F;
 	}
 
 	@Override
@@ -90,15 +98,26 @@ public class ItemDagger extends ItemWeaponBase implements IBladeTool, IHandleToo
 	}
 
 	@Override
+	public int getHarvestLevel(ItemStack stack, String toolClass,
+			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
+			@javax.annotation.Nullable IBlockState blockState) {
+		if (toolClass != null && getToolClasses(stack).contains(toolClass)) {
+			return getHarvestLevel(stack);
+		} else {
+			return super.getHarvestLevel(stack, toolClass, player, blockState);
+		}
+	}
+
+	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
 			ItemStack stack) {
 		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Weapon modifier", (double) 0.0F + this.getAttackDamage(stack), 0));
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER,
-					"Weapon modifier", (double) (-1.8000000953674316D + getEfficiencyMod(stack)), 0));
+					"Tool modifier", (double) 1.5F + this.getAttackDamage(stack), 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -3.0F, 0));
 		}
 
 		return multimap;
@@ -123,6 +142,8 @@ public class ItemDagger extends ItemWeaponBase implements IBladeTool, IHandleToo
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
+			tooltip.add(I18n.translateToLocal("desc.efficiency.name") + ": " + getEfficiency(stack));
+			tooltip.add(I18n.translateToLocal("desc.harvest_level.name") + ": " + getHarvestLevel(stack));
 		}
 
 	}
@@ -130,10 +151,11 @@ public class ItemDagger extends ItemWeaponBase implements IBladeTool, IHandleToo
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(!Config.DISABLED_TOOLS.contains("dagger")) {
+		if(!Config.DISABLED_TOOLS.contains("shovel")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString(BLADE_TAG, Materials.randomHead().getName());
+			tag.setString(HEAD_TAG, Materials.randomHead().getName());
+			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
 			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
 			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
 			stack1.setTagCompound(tag);
@@ -145,21 +167,27 @@ public class ItemDagger extends ItemWeaponBase implements IBladeTool, IHandleToo
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		return I18n.translateToLocal(IBladeTool.getBladeMat(stack).getName() + ".name") + " "
+		return I18n.translateToLocal(IHeadTool.getHeadMat(stack).getName() + ".name") + " "
 				+ super.getItemStackDisplayName(stack);
 	}
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
-		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.WEAPON;
+		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER;
 	}
 
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
-		if (player.getDistance(entity) > 2) {
-			return true;
-		}
-		return false;
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
 	}
 
+	@Override
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		Block block = blockIn.getBlock();
+		return block == Blocks.SNOW_LAYER ? true : block == Blocks.SNOW;
+	}
+
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
+	}
 }

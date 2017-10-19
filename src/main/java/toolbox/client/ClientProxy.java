@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toolbox.client.gui.GuiBook;
 import toolbox.client.handler.ExtraBlockBreakHandler;
 import toolbox.client.models.AxeModel;
-import toolbox.client.models.ClimbingPickModel;
 import toolbox.client.models.DaggerModel;
 import toolbox.client.models.HammerModel;
 import toolbox.client.models.HandpickModel;
@@ -34,7 +33,6 @@ public class ClientProxy extends CommonProxy {
 		ModelLoaderRegistry.registerLoader(HoeModel.LoaderHoe.INSTANCE);
 		ModelLoaderRegistry.registerLoader(HandpickModel.LoaderHandpick.INSTANCE);
 		ModelLoaderRegistry.registerLoader(HammerModel.LoaderHammer.INSTANCE);
-		ModelLoaderRegistry.registerLoader(ClimbingPickModel.LoaderClimbingPick.INSTANCE);
 		
 		ModelLoaderRegistry.registerLoader(SwordModel.LoaderSword.INSTANCE);
 		ModelLoaderRegistry.registerLoader(DaggerModel.LoaderDagger.INSTANCE);

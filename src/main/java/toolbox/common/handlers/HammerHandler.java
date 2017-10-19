@@ -63,7 +63,7 @@ public class HammerHandler {
 			event.getEntityPlayer().swingArm(event.getHand());
 			event.getEntityPlayer().setActiveHand(event.getHand());
 			event.getEntityPlayer().getCooldownTracker().setCooldown(ModItems.hammer, 200);
-			ModItems.hammer.damageItem(event.getItemStack(), 10, event.getEntityPlayer());
+			ModItems.hammer.setDamage(event.getItemStack(), ModItems.hammer.getDamage(event.getItemStack()) - 10);
 			
 			event.setCancellationResult(EnumActionResult.SUCCESS);
 			event.setResult(Event.Result.ALLOW);

@@ -104,7 +104,6 @@ public class GuiBook extends GuiScreen {
 		chapters.get("tool").addPage(new BookPageTool("guide.tool.hoe.name", "guide.tool.hoe.desc", ModItems.hoe));
 		chapters.get("tool").addPage(new BookPageTool("guide.tool.handpick.name", "guide.tool.handpick.desc", ModItems.handpick));
 		chapters.get("tool").addPage(new BookPageTool("guide.tool.hammer.name", "guide.tool.hammer.desc", ModItems.hammer));
-		chapters.get("tool").addPage(new BookPageTool("guide.tool.climbing_pick.name", "guide.tool.climbing_pick.desc", ModItems.climbing_pick));
 
 		chapters.get("weapon")
 				.addPage(new BookPageTool("guide.weapon.sword.name", "guide.weapon.sword.desc", ModItems.sword));

@@ -5,71 +5,83 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.HashMultimap;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardTool, IHandleTool, IAdornedTool {
 
-	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
+	private String name = "sword";
+	public static final String DAMAGE_TAG = "Damage";
 
-	public ItemHandpick() {
-		super("handpick");
-		this.toolClass = "pickaxe";
+	public ItemATSword() {
+		super(ToolMaterial.WOOD);
+
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
 		this.setMaxDamage(0);
-		this.setMaxStackSize(1);
-	}
-
-	public int getHarvestLevel(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
 	}
 
 	public int getDurability(ItemStack stack) {
-		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
-				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod() * 0.75F);
+		return (int) ((((IBladeTool.getBladeMat(stack).getDurability() * 2F) + ICrossguardTool.getCrossguardMat(stack).getDurability()) / 3F)
+				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
 	}
 
-	public float getEfficiency(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod() * 0.5F;
+	public float getEfficiencyMod(ItemStack stack) {
+		return (IAdornedTool.getAdornmentMat(stack).getEfficiencyMod() - 1F) / 2F;
 	}
 
 	public float getAttackDamage(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
+		return IBladeTool.getBladeMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
 	}
 
 	public int getEnchantability(ItemStack stack) {
-		return (int) (IHeadTool.getHeadMat(stack).getEnchantability() * IHaftTool.getHaftMat(stack).getEnchantabilityMod()
-				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
+		return (int) ((((IBladeTool.getBladeMat(stack).getEnchantability() * 2F) + ICrossguardTool.getCrossguardMat(stack).getEnchantability())
+				/ 3F) * IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getRepairItem();
+		return IBladeTool.getBladeMat(stack).getRepairItem();
 	}
 
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
-		for (String type : getToolClasses(stack)) {
-			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.ROCK
-					|| state.getMaterial() == Material.IRON) {
-				return getEfficiency(stack);
-			}
+		Block block = state.getBlock();
+
+		if (block == Blocks.WEB) {
+			return 15.0F;
+		} else {
+			Material material = state.getMaterial();
+			return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL
+					&& material != Material.LEAVES && material != Material.GOURD ? 1.0F : 1.5F;
 		}
-		return 1.0F;
+	}
+
+	@Override
+	public boolean canHarvestBlock(IBlockState blockIn) {
+		return blockIn.getBlock() == Blocks.WEB;
 	}
 
 	@Override
@@ -87,32 +99,15 @@ public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, 
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-		return harvestableMaterials.contains(state.getMaterial());
-	}
-
-	@Override
-	public int getHarvestLevel(ItemStack stack, String toolClass,
-			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
-			@javax.annotation.Nullable IBlockState blockState) {
-		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
-			return getHarvestLevel(stack);
-		} else {
-			return level;
-		}
-	}
-
-	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
 			ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Tool modifier", (double) 0.5F + this.getAttackDamage(stack), 0));
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -2.6F, 0));
+					"Weapon modifier", (double) 3.0F + this.getAttackDamage(stack), 0));
+			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER,
+					"Weapon modifier", (double) (-2.4000000953674316D + getEfficiencyMod(stack)), 0));
 		}
 
 		return multimap;
@@ -131,14 +126,11 @@ public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
 		if (GuiScreen.isShiftKeyDown()) {
 			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
-			tooltip.add(I18n.translateToLocal("desc.efficiency.name") + ": " + getEfficiency(stack));
-			tooltip.add(I18n.translateToLocal("desc.harvest_level.name") + ": " + getHarvestLevel(stack));
 		}
 
 	}
@@ -146,11 +138,11 @@ public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(!Config.DISABLED_TOOLS.contains("handpick")) {
+		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setString(HEAD_TAG, Materials.randomHead().getName());
-			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
+			tag.setString(BLADE_TAG, Materials.randomHead().getName());
+			tag.setString(CROSSGUARD_TAG, Materials.randomHead().getName());
 			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
 			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
 			stack1.setTagCompound(tag);
@@ -162,13 +154,22 @@ public class ItemHandpick extends ItemToolBase implements IHeadTool, IHaftTool, 
 
 	@Override
 	public String getItemStackDisplayName(ItemStack stack) {
-		return I18n.translateToLocal(IHeadTool.getHeadMat(stack).getName() + ".name") + " "
+		return I18n.translateToLocal(IBladeTool.getBladeMat(stack).getName() + ".name") + " "
 				+ super.getItemStackDisplayName(stack);
 	}
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
-		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER;
+		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.WEAPON;
+	}
+
+	@Override
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
 
 }

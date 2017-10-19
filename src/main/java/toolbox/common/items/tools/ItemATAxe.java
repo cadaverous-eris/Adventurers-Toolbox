@@ -5,62 +5,65 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import toolbox.Toolbox;
 import toolbox.common.Config;
 
-public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTool, IHandleTool {
+public class ItemATAxe extends ItemAxe implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
-	public static final ImmutableSet<net.minecraft.block.material.Material> harvestableMaterials = ImmutableSet.of(net.minecraft.block.material.Material.IRON, net.minecraft.block.material.Material.ROCK, net.minecraft.block.material.Material.ICE, net.minecraft.block.material.Material.GLASS, net.minecraft.block.material.Material.ANVIL, net.minecraft.block.material.Material.PACKED_ICE, net.minecraft.block.material.Material.PISTON);
+	private String name = "axe";
+	public static final String DAMAGE_TAG = "Damage";
 
-	public ItemClimbingPick() {
-		super("climbing_pick");
-		this.toolClass = "pickaxe";
+	public ItemATAxe() {
+		super(ToolMaterial.WOOD);
+
+		setRegistryName(name);
+		setUnlocalizedName(Toolbox.MODID + "." + name);
+		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.toolsTab);
 		this.setMaxDamage(0);
 	}
 
 	public int getHarvestLevel(ItemStack stack) {
-		return 0;
+		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
 	}
 
 	public int getDurability(ItemStack stack) {
 		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
-				* IHandleTool.getHandleMat(stack).getDurabilityMod());
+				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
 	}
 
 	public float getEfficiency(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getEfficiency() * 0.5F;
+		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod();
 	}
 
 	public float getAttackDamage(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getAttackDamage();
+		return IHeadTool.getHeadMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
 	}
 
 	public int getEnchantability(ItemStack stack) {
-		return (int) (IHeadTool.getHeadMat(stack).getEnchantability()
-				* IHaftTool.getHaftMat(stack).getEnchantabilityMod());
+		return (int) (IHeadTool.getHeadMat(stack).getEnchantability() * IHaftTool.getHaftMat(stack).getEnchantabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {
@@ -70,8 +73,8 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 	@Override
 	public float getDestroySpeed(ItemStack stack, IBlockState state) {
 		for (String type : getToolClasses(stack)) {
-			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.ROCK
-					|| state.getMaterial() == Material.IRON) {
+			if (state.getBlock().isToolEffective(type, state) || state.getMaterial() == Material.WOOD
+					|| state.getMaterial() == Material.VINE || state.getMaterial() == Material.PLANTS) {
 				return getEfficiency(stack);
 			}
 		}
@@ -93,16 +96,11 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 	}
 
 	@Override
-	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
-		return harvestableMaterials.contains(state.getMaterial());
-	}
-
-	@Override
 	public int getHarvestLevel(ItemStack stack, String toolClass,
 			@javax.annotation.Nullable net.minecraft.entity.player.EntityPlayer player,
 			@javax.annotation.Nullable IBlockState blockState) {
 		int level = super.getHarvestLevel(stack, toolClass, player, blockState);
-		if (level == -1 && toolClass.equals(this.toolClass)) {
+		if (level == -1 && toolClass != null && getToolClasses(stack).contains(toolClass)) {
 			return getHarvestLevel(stack);
 		} else {
 			return level;
@@ -116,9 +114,9 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Tool modifier", (double) 3.0F + this.getAttackDamage(stack), 0));
+					"Tool modifier", (double) 6.0F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -3F, 0));
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) Math.min(-3.2F + (0.075F * getHarvestLevel(stack)), -3.0F), 0));
 		}
 
 		return multimap;
@@ -143,6 +141,8 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
 						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
 			}
+			tooltip.add(I18n.translateToLocal("desc.efficiency.name") + ": " + getEfficiency(stack));
+			tooltip.add(I18n.translateToLocal("desc.harvest_level.name") + ": " + getHarvestLevel(stack));
 		}
 
 	}
@@ -150,12 +150,13 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		if(!Config.DISABLED_TOOLS.contains("climbing_pick")) {
+		if (!Config.DISABLED_TOOLS.contains("axe")) {
 			ItemStack stack1 = new ItemStack(this);
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setString(HEAD_TAG, Materials.randomHead().getName());
 			tag.setString(HAFT_TAG, Materials.randomHaft().getName());
 			tag.setString(HANDLE_TAG, Materials.randomHandle().getName());
+			tag.setString(ADORNMENT_TAG, Materials.randomAdornment().getName());
 			stack1.setTagCompound(tag);
 			if (isInCreativeTab(tab)) {
 				subItems.add(stack1);
@@ -171,72 +172,15 @@ public class ItemClimbingPick extends ItemToolBase implements IHeadTool, IHaftTo
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
-		return enchantment.type.canEnchantItem(stack.getItem());
+		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.DIGGER || enchantment.type == EnumEnchantmentType.WEAPON;
 	}
 
 	@Override
-	public EnumAction getItemUseAction(ItemStack stack) {
-		return EnumAction.BOW;
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
 	}
 
-	@Override
-	public int getMaxItemUseDuration(ItemStack stack) {
-		return 72000;
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
-
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
-		RayTraceResult rt = this.rayTrace(worldIn, playerIn, false);
-		if (rt == null || rt.typeOfHit != RayTraceResult.Type.BLOCK) {
-			return new ActionResult(EnumActionResult.FAIL, itemstack);
-		}
-		BlockPos pos = rt.getBlockPos();
-
-		if (playerIn.getDistance(pos.getX() + 0.5, pos.getY() - 1.0, pos.getZ() + 0.5) < 1.5) {
-			playerIn.setActiveHand(handIn);
-			return new ActionResult(EnumActionResult.SUCCESS, itemstack);
-		}
-
-		return new ActionResult(EnumActionResult.FAIL, itemstack);
-	}
-
-	@Override
-	public void onUsingTick(ItemStack stack, EntityLivingBase entitylivingbase, int count) {
-		World world = entitylivingbase.getEntityWorld();
-
-		if (count % 2 != 0) {
-			return;
-		}
-
-		if (entitylivingbase instanceof EntityPlayer) {
-			EntityPlayer player = (EntityPlayer) entitylivingbase;
-			RayTraceResult rt = this.rayTrace(world, player, false);
-			if (rt != null && rt.typeOfHit == RayTraceResult.Type.BLOCK) {
-				BlockPos pos = rt.getBlockPos();
-				if (player.getDistance(pos.getX() + 0.5, pos.getY() - 1.0, pos.getZ() + 0.5) < 1.5) {
-					if (player.motionY < -0.08) {
-						player.motionY *= 0.1;
-						player.fallDistance = 0;
-						player.velocityChanged = true;
-						if (this.itemRand.nextFloat() < 0.1F) {
-							this.damageItem(stack, 1, player);
-						}
-					}
-				} else {
-					player.stopActiveHand();
-				}
-			}
-		}
-	}
-
-	@Override
-	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		if (!slotChanged && oldStack.getItem() == newStack.getItem()) {
-			return false;
-		}
-		System.out.println("awdawd");
-		return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
-	}
-
 }

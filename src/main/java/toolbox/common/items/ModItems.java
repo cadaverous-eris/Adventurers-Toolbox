@@ -10,16 +10,15 @@ import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.items.parts.ItemToolHandle;
 import toolbox.common.items.parts.ItemToolHead;
-import toolbox.common.items.tools.ItemAxe;
-import toolbox.common.items.tools.ItemClimbingPick;
-import toolbox.common.items.tools.ItemDagger;
-import toolbox.common.items.tools.ItemHammer;
-import toolbox.common.items.tools.ItemHandpick;
-import toolbox.common.items.tools.ItemHoe;
-import toolbox.common.items.tools.ItemMace;
-import toolbox.common.items.tools.ItemPickaxe;
-import toolbox.common.items.tools.ItemShovel;
-import toolbox.common.items.tools.ItemSword;
+import toolbox.common.items.tools.ItemATAxe;
+import toolbox.common.items.tools.ItemATDagger;
+import toolbox.common.items.tools.ItemATHammer;
+import toolbox.common.items.tools.ItemATHandpick;
+import toolbox.common.items.tools.ItemATHoe;
+import toolbox.common.items.tools.ItemATMace;
+import toolbox.common.items.tools.ItemATPickaxe;
+import toolbox.common.items.tools.ItemATShovel;
+import toolbox.common.items.tools.ItemATSword;
 import toolbox.compat.tconstruct.ItemCast;
 
 @Mod.EventBusSubscriber(modid = Toolbox.MODID)
@@ -43,17 +42,16 @@ public class ModItems {
 
 	public static final ItemToolHandle handle = null;
 
-	public static final ItemPickaxe pickaxe = null;
-	public static final ItemAxe axe = null;
-	public static final ItemShovel shovel = null;
-	public static final ItemHoe hoe = null;
-	public static final ItemHandpick handpick = null;
-	public static final ItemHammer hammer = null;
-	public static final ItemClimbingPick climbing_pick = null;
+	public static final ItemATPickaxe pickaxe = null;
+	public static final ItemATAxe axe = null;
+	public static final ItemATShovel shovel = null;
+	public static final ItemATHoe hoe = null;
+	public static final ItemATHandpick handpick = null;
+	public static final ItemATHammer hammer = null;
 
-	public static final ItemSword sword = null;
-	public static final ItemDagger dagger = null;
-	public static final ItemMace mace = null;
+	public static final ItemATSword sword = null;
+	public static final ItemATDagger dagger = null;
+	public static final ItemATMace mace = null;
 
 	public static final ItemSchematic schematic = null;
 	
@@ -89,10 +87,6 @@ public class ModItems {
 			event.getRegistry().register(new ItemToolHead("hammer_head"));
 			ItemSchematic.subtypes.add("hammer_head");
 		}
-		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) {
-			event.getRegistry().register(new ItemToolHead("climbing_pick_head"));
-			ItemSchematic.subtypes.add("climbing_pick_head");
-		}
 
 		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			event.getRegistry().register(new ItemToolHead("sword_blade"));
@@ -117,17 +111,16 @@ public class ModItems {
 		
 		if (Config.ENABLE_TINKERS_COMPAT) event.getRegistry().register(new ItemCast());
 		
-		if (!Config.DISABLED_TOOLS.contains("pickaxe")) event.getRegistry().register(new ItemPickaxe());
-		if (!Config.DISABLED_TOOLS.contains("axe")) event.getRegistry().register(new ItemAxe());
-		if (!Config.DISABLED_TOOLS.contains("shovel")) event.getRegistry().register(new ItemShovel());
-		if (!Config.DISABLED_TOOLS.contains("hoe")) event.getRegistry().register(new ItemHoe());
-		if (!Config.DISABLED_TOOLS.contains("handpick")) event.getRegistry().register(new ItemHandpick());
-		if (!Config.DISABLED_TOOLS.contains("hammer")) event.getRegistry().register(new ItemHammer());
-		if (!Config.DISABLED_TOOLS.contains("climbing_pick")) event.getRegistry().register(new ItemClimbingPick());
+		if (!Config.DISABLED_TOOLS.contains("pickaxe")) event.getRegistry().register(new ItemATPickaxe());
+		if (!Config.DISABLED_TOOLS.contains("axe")) event.getRegistry().register(new ItemATAxe());
+		if (!Config.DISABLED_TOOLS.contains("shovel")) event.getRegistry().register(new ItemATShovel());
+		if (!Config.DISABLED_TOOLS.contains("hoe")) event.getRegistry().register(new ItemATHoe());
+		if (!Config.DISABLED_TOOLS.contains("handpick")) event.getRegistry().register(new ItemATHandpick());
+		if (!Config.DISABLED_TOOLS.contains("hammer")) event.getRegistry().register(new ItemATHammer());
 
-		if (!Config.DISABLED_TOOLS.contains("sword")) event.getRegistry().register(new ItemSword());
-		if (!Config.DISABLED_TOOLS.contains("dagger")) event.getRegistry().register(new ItemDagger());
-		if (!Config.DISABLED_TOOLS.contains("mace")) event.getRegistry().register(new ItemMace());
+		if (!Config.DISABLED_TOOLS.contains("sword")) event.getRegistry().register(new ItemATSword());
+		if (!Config.DISABLED_TOOLS.contains("dagger")) event.getRegistry().register(new ItemATDagger());
+		if (!Config.DISABLED_TOOLS.contains("mace")) event.getRegistry().register(new ItemATMace());
 	}
 	
 	@SubscribeEvent
@@ -159,11 +152,6 @@ public class ModItems {
 			hammer_head.initModel();
 			hammer.initModel();
 		}
-		if(!Config.DISABLED_TOOLS.contains("climbing_pick")) {
-			climbing_pick_head.initModel();
-			climbing_pick.initModel();
-		}
-
 		if(!Config.DISABLED_TOOLS.contains("sword")) {
 			sword_blade.initModel();
 			sword_crossguard.initModel();
