@@ -243,6 +243,10 @@ public class ItemHammer extends ItemToolBase implements IHeadTool, IHaftTool, IH
 	public List<BlockPos> getExtraBlocks(World world, RayTraceResult rt, EntityPlayer player) {
 		List<BlockPos> positions = new ArrayList<BlockPos>();
 		BlockPos pos = rt.getBlockPos();
+		
+		if (rt == null || rt.getBlockPos() == null || rt.sideHit == null) {
+			return positions;
+		}
 
 		if (player.isSneaking()) {
 			return positions;

@@ -1,10 +1,12 @@
 package toolbox.client;
 
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toolbox.client.gui.GuiBook;
+import toolbox.client.handler.ExtraBlockBreakHandler;
 import toolbox.client.models.AxeModel;
 import toolbox.client.models.ClimbingPickModel;
 import toolbox.client.models.DaggerModel;
@@ -39,15 +41,13 @@ public class ClientProxy extends CommonProxy {
 		ModelLoaderRegistry.registerLoader(MaceModel.LoaderMace.INSTANCE);
 		
 		ModEntities.initRenderers();
-		
 	}
 
 	@Override
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		
-		
-		
+		MinecraftForge.EVENT_BUS.register(ExtraBlockBreakHandler.INSTANCE);
 	}
 
 	@Override
