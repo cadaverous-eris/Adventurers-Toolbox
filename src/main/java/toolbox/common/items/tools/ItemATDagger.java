@@ -43,6 +43,7 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);
 		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.weaponsTab);
 		this.setMaxDamage(0);
 	}
 
@@ -108,7 +109,7 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Weapon modifier", (double) 0.0F + this.getAttackDamage(stack), 0));
+					"Weapon modifier", (double) 0.5F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER,
 					"Weapon modifier", (double) (-1.8000000953674316D + getEfficiencyMod(stack)), 0));
 		}
