@@ -78,8 +78,6 @@ public class Toolbox {
 		}
 	};
 	
-	//public static Advancement HEAD_CRAFTED;
-	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		PacketHandler.registerMessages();
@@ -96,7 +94,6 @@ public class Toolbox {
 				break;
 			}
 		}
-		//HEAD_CRAFTED = new Advancement("achievement.toolbox.head_crafted", "toolbox.head_crafted", -4, 0, new ItemStack(ModItems.pickaxe_head, 1, meta), null);
 		proxy.init(event);
 	}
 	

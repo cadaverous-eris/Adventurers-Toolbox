@@ -14,7 +14,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IWorldEventListener;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import toolbox.common.items.ModItems;
+import toolbox.common.network.MessageExtraBlockBreak;
+import toolbox.common.network.PacketHandler;
 
 public class WorldListener implements IWorldEventListener {
 
@@ -100,20 +103,7 @@ public class WorldListener implements IWorldEventListener {
 			RayTraceResult rt = ModItems.hammer.rayTraceBlocks(world, player);
 			List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, rt, player);
 
-			for (EntityPlayerMP entityplayermp : this.mcServer.getPlayerList().getPlayers()) {
-				if (entityplayermp != null && entityplayermp.world == this.world) {
-					double d0 = (double)pos.getX() - entityplayermp.posX;
-	                double d1 = (double)pos.getY() - entityplayermp.posY;
-	                double d2 = (double)pos.getZ() - entityplayermp.posZ;
-	                
-	                if (d0 * d0 + d1 * d1 + d2 * d2 < 1024.0D) {
-	                	for (int i = 0; i < positions.size(); i++) {
-	        				BlockPos pos2 = positions.get(i);
-	        				entityplayermp.connection.sendPacket(new SPacketBlockBreakAnim(Integer.MAX_VALUE - i, pos2, progress - 1));
-	        			}
-	                }
-				}
-			}
+	        PacketHandler.INSTANCE.sendToAllAround(new MessageExtraBlockBreak(player.getEntityId(), positions.toArray(new BlockPos[positions.size()]), progress - 1), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 32D));
 		}
 	}
 
