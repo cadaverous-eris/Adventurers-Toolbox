@@ -32,15 +32,14 @@ public class WeaponHandler {
 	@SubscribeEvent
 	public void onHurt(LivingHurtEvent event) {
 		DamageSource source = event.getSource();
-		if (source != null && source instanceof EntityDamageSource) {
-			Entity entity = ((EntityDamageSource) source).getImmediateSource();
+		if (source != null && source.getImmediateSource() != null) {
+			Entity entity = source.getImmediateSource();
 			if (entity != null && entity instanceof EntityLivingBase) {
 				EntityLivingBase attacker = (EntityLivingBase) entity;
 				if (attacker.getHeldItemMainhand().getItem() == ModItems.mace) {
-					if (event.getEntityLiving().getTotalArmorValue() > 0) {
-						float amount = Math.max(event.getAmount() - (20F / ((event.getEntityLiving().getTotalArmorValue() + 1F)) - 1F), (event.getAmount() / 3F));
-						event.setAmount(amount);
-					}
+					float amount = Math.max(event.getAmount() - (20F / ((event.getEntityLiving().getTotalArmorValue() + 1F)) - 1F), (event.getAmount() / 3F));
+					event.setAmount(amount);
+					System.out.println(amount);
 				}
 			}
 		}
@@ -96,14 +95,6 @@ public class WeaponHandler {
 						f = f + f1;
 						boolean flag3 = false;
 						double d0 = (double) (player.distanceWalkedModified - player.prevDistanceWalkedModified);
-
-						if (flag && !flag2 && !flag1 && player.onGround && d0 < (double) player.getAIMoveSpeed()) {
-							ItemStack itemstack = player.getHeldItem(EnumHand.MAIN_HAND);
-
-							if (itemstack.getItem() instanceof ItemSword) {
-								flag3 = true;
-							}
-						}
 
 						float f4 = 0.0F;
 						boolean flag4 = false;
