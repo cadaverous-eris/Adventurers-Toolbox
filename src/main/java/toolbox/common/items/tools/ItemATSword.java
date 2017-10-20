@@ -41,6 +41,7 @@ public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardToo
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);
 		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.weaponsTab);
 		this.setMaxDamage(0);
 	}
 

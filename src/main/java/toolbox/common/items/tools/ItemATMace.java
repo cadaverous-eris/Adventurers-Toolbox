@@ -42,6 +42,7 @@ public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHand
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);
 		this.maxStackSize = 1;
+		setCreativeTab(Toolbox.weaponsTab);
 		this.setMaxDamage(0);
 	}
 
@@ -110,9 +111,9 @@ public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHand
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Weapon modifier", (double) 7.0F + this.getAttackDamage(stack), 0));
+					"Weapon modifier", (double) 8.5F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) (-3.4F + ((getEfficiency(stack) / 6F) * 0.125F)), 0));
+					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) (-3.4F + ((getEfficiency(stack) / 2.7F) * 0.125F)), 0));
 		}
 
 		return multimap;
