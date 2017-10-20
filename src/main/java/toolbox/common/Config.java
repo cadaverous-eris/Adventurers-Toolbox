@@ -79,6 +79,7 @@ public class Config {
 		
 		PROPERTY_ORDER_TOOLS.add("Disabled Tools");
 		PROPERTY_ORDER_TOOLS.add("Disabled Materials");
+		PROPERTY_ORDER_TOOLS.add("Replace Wood Tools with Flint Tools");
 		
 		PROPERTY_ORDER_SCHEMATICS.add("Enable Schematic Mode");
 		PROPERTY_ORDER_SCHEMATICS.add("Spawn Schematics");

@@ -20,6 +20,8 @@ public class ModMaterials {
 
 	public static final HeadMaterial HEAD_WOOD = new HeadMaterial("wood", 0, 59, 2.0F, 0.0F, 15,
 			new ItemStack(Blocks.PLANKS), "plankWood", "stickWood", Toolbox.MODID);
+	public static final HeadMaterial HEAD_FLINT = new HeadMaterial("flint", 0, 59, 2.0F, 0.0F, 15,
+			new ItemStack(Items.FLINT), "flint", "gravel", Toolbox.MODID);
 	public static final HeadMaterial HEAD_STONE = new HeadMaterial("stone", 1, 131, 4.0F, 1.0F, 5,
 			new ItemStack(Blocks.COBBLESTONE), "cobblestone", "pebble", Toolbox.MODID);
 	public static final HeadMaterial HEAD_IRON = new HeadMaterial("iron", 2, 250, 6.0F, 2.0F, 14,
@@ -82,7 +84,11 @@ public class ModMaterials {
 	private static void initHeadMaterials() {
 		List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
+		OreDictionary.registerOre("flint", Items.FLINT);
+		OreDictionary.registerOre("gravel", Blocks.GRAVEL);
+		
 		headMaterials.add(HEAD_WOOD);
+		headMaterials.add(HEAD_FLINT);
 		headMaterials.add(HEAD_STONE);
 		headMaterials.add(HEAD_IRON);
 		headMaterials.add(HEAD_GOLD);
@@ -100,6 +106,7 @@ public class ModMaterials {
 
 		for (HeadMaterial mat : headMaterials) {
 			if (!Config.DISABLED_MATERIALS.contains(mat.getName())) {
+				System.out.println("Registering " + mat.getName());
 				Materials.registerHeadMat(mat);
 			}
 		}
