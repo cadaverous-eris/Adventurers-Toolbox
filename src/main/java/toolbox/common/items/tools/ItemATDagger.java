@@ -129,19 +129,6 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
-		if (GuiScreen.isShiftKeyDown()) {
-			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
-				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
-						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
-			}
-		}
-
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		if(!Config.DISABLED_TOOLS.contains("dagger")) {
 			ItemStack stack1 = new ItemStack(this);

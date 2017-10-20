@@ -131,19 +131,6 @@ public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHand
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-
-		if (GuiScreen.isShiftKeyDown()) {
-			if (!flagIn.isAdvanced() || !stack.hasTagCompound() || !stack.getTagCompound().hasKey(DAMAGE_TAG)) {
-				tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
-						+ (getDurability(stack) - getDamage(stack)) + " / " + getDurability(stack));
-			}
-		}
-
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		if(!Config.DISABLED_TOOLS.contains("mace")) {
 			ItemStack stack1 = new ItemStack(this);
@@ -180,8 +167,8 @@ public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHand
 		super.hitEntity(stack, target, attacker);
 
 		for (ItemStack armor : target.getArmorInventoryList()) {
-			if (armor.isItemStackDamageable() && this.itemRand.nextFloat() < 1F) {
-				armor.damageItem((int) this.getAttackDamage(stack) + 1, target);
+			if (armor.isItemStackDamageable() && this.itemRand.nextFloat() < 0.3F) {
+				armor.damageItem((int) (this.getAttackDamage(stack) / 2) + 1, target);
 			}
 		}
 

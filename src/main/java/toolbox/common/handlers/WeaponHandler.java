@@ -39,7 +39,6 @@ public class WeaponHandler {
 				if (attacker.getHeldItemMainhand().getItem() == ModItems.mace) {
 					float amount = Math.max(event.getAmount() - (20F / ((event.getEntityLiving().getTotalArmorValue() + 1F)) - 1F), (event.getAmount() / 3F));
 					event.setAmount(amount);
-					System.out.println(amount);
 				}
 			}
 		}
