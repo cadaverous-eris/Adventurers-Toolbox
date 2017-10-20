@@ -55,7 +55,6 @@ public class ItemCast extends ItemBase {
 		AXE_HEAD(ModItems.axe_head, "axe", ingotCost * 3 + nuggetCost * 1),
 		SHOVEL_HEAD(ModItems.shovel_head, "shovel", ingotCost * 1 + nuggetCost * 3),
 		HOE_HEAD(ModItems.hoe_head, "hoe", ingotCost * 2 + nuggetCost * 1),
-		CLIMBING_PICK_HEAD(ModItems.climbing_pick_head, "climbing_pick", ingotCost * 2 + nuggetCost * 2),
 		HANDPICK_HEAD(ModItems.handpick_head, "handpick", ingotCost * 1 + nuggetCost * 2),
 		HAMMER_HEAD(ModItems.hammer_head, "hammer", ingotCost * 7 + nuggetCost * 2),
 		SWORD_BLADE(ModItems.sword_blade, "sword", ingotCost * 2 + nuggetCost * 3),
