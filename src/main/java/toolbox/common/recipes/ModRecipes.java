@@ -23,6 +23,7 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import toolbox.Toolbox;
+import toolbox.common.CommonProxy;
 import toolbox.common.Config;
 import toolbox.common.items.ItemSchematic;
 import toolbox.common.items.ModItems;
@@ -40,10 +41,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			for (int i : ModItems.pickaxe_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.pickaxe_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.pickaxe_head, 1, i), mat.getCraftingItem(), "pickaxe_head", 3).setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.pickaxe_head, 1, i), "PPP", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.pickaxe_head, 1, i), mat.getCraftingItem(), "pickaxe_head", 3).setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.pickaxe_head, 1, i), "PPP", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "pickaxe_head_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -51,10 +54,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("axe")) {
 			for (int i : ModItems.axe_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.axe_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.axe_head, 1, i), mat.getCraftingItem(), "axe_head", 3).setRegistryName(new ResourceLocation(Toolbox.MODID, "axe_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.axe_head, 1, i), "PPS", "P  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "axe_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.axe_head, 1, i), mat.getCraftingItem(), "axe_head", 3).setRegistryName(new ResourceLocation(Toolbox.MODID, "axe_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.axe_head, 1, i), "PPS", "P  ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "axe_head_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -62,10 +67,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("shovel")) {
 			for (int i : ModItems.shovel_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.shovel_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.shovel_head, 1, i), mat.getCraftingItem(), "shovel_head", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.shovel_head, 1, i), "SPS", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.shovel_head, 1, i), mat.getCraftingItem(), "shovel_head", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.shovel_head, 1, i), "SPS", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "shovel_head_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -73,20 +80,24 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("hoe")) {
 			for (int i : ModItems.hoe_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.hoe_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.hoe_head, 1, i), mat.getCraftingItem(), "hoe_head", 2).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hoe_head, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.hoe_head, 1, i), mat.getCraftingItem(), "hoe_head", 2).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hoe_head, 1, i), "PP ", "  S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hoe_head_" + mat.getName())));
+					}
 				}
 			}
 		}
 		if (!Config.DISABLED_TOOLS.contains("handpick")) {
 			for (int i : ModItems.handpick_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.handpick_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.handpick_head, 1, i), mat.getCraftingItem(), "handpick_head", 2).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.handpick_head, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.handpick_head, 1, i), mat.getCraftingItem(), "handpick_head", 2).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.handpick_head, 1, i), " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "handpick_head_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -94,10 +105,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("hammer")) {
 			for (int i : ModItems.hammer_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.hammer_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.hammer_head, 1, i), mat.getCraftingItem(), "hammer_head", 8).setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hammer_head, 1, i), "PSP", "PPP", "PSP", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.hammer_head, 1, i), mat.getCraftingItem(), "hammer_head", 8).setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.hammer_head, 1, i), "PSP", "PPP", "PSP", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "hammer_head_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -105,10 +118,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			for (int i : ModItems.sword_blade.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.sword_blade.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.sword_blade, 1, i), mat.getCraftingItem(), "sword_blade", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "sword_blade_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.sword_blade, 1, i), " S ", " P ", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "sword_blade_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.sword_blade, 1, i), mat.getCraftingItem(), "sword_blade", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "sword_blade_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.sword_blade, 1, i), " S ", " P ", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "sword_blade_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -116,10 +131,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("sword")) {
 			for (int i : ModItems.sword_crossguard.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.sword_crossguard.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.sword_crossguard, 1, i), mat.getCraftingItem(), "sword_crossguard", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.sword_crossguard, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.sword_crossguard, 1, i), mat.getCraftingItem(), "sword_crossguard", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.sword_crossguard, 1, i), "SPS", "   ", " S ", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "crossguard_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -127,10 +144,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("dagger")) {
 			for (int i : ModItems.dagger_blade.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.dagger_blade.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.dagger_blade, 1, i), mat.getCraftingItem(), "dagger_blade", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger_blade_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.dagger_blade, 1, i), " S ", " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger_blade_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.dagger_blade, 1, i), mat.getCraftingItem(), "dagger_blade", 1).setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger_blade_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.dagger_blade, 1, i), " S ", " P ", "S S", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "dagger_blade_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -138,10 +157,12 @@ public class ModRecipes {
 		if (!Config.DISABLED_TOOLS.contains("mace")) {
 			for (int i : ModItems.mace_head.meta_map.keySet()) {
 				HeadMaterial mat = ModItems.mace_head.meta_map.get(i);
-				if (Config.ENABLE_SCHEMATICS) {
-					ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.mace_head, 1, i), mat.getCraftingItem(), "hammer_head", 4).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
-				} else {
-					ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.mace_head, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
+				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
+					if (Config.ENABLE_SCHEMATICS) {
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.mace_head, 1, i), mat.getCraftingItem(), "hammer_head", 4).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
+					} else {
+						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.mace_head, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
+					}
 				}
 			}
 		}
@@ -162,7 +183,7 @@ public class ModRecipes {
 		initToolRecipes();
 
 		initMaterialItems();
-		
+
 		registerSchematicRecipe("pickaxe", "pickaxe_head", "PPP", " S ", " S ");
 		registerSchematicRecipe("axe", "axe_head", "PP", "PS", " S");
 		registerSchematicRecipe("shovel", "shovel_head", "P", "S", "S");
@@ -175,19 +196,19 @@ public class ModRecipes {
 		registerSchematicRecipe("dagger", "dagger_blade", "P", "S");
 		registerSchematicRecipe("mace", "mace_head", "PP", "PP", " S");
 	}
-	
+
 	private static void registerSchematicRecipe(String toolType, String schematicType, String row1, String row2, String row3) {
 		if (Config.ENABLE_SCHEMATICS && !Config.DISABLED_TOOLS.contains(toolType) && Config.CRAFTED_SCHEMATICS.contains(schematicType) && ItemSchematic.subtypes.contains(schematicType)) {
 			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, ModItems.schematic.createStack(schematicType), row1, row2, row3, 'P', new ItemStack(Items.PAPER), 'S', new ItemStack(Items.STICK)).setRegistryName(schematicType + "_schematic"));
 		}
 	}
-	
+
 	private static void registerSchematicRecipe(String toolType, String schematicType, String row1, String row2) {
 		if (Config.ENABLE_SCHEMATICS && !Config.DISABLED_TOOLS.contains(toolType) && Config.CRAFTED_SCHEMATICS.contains(schematicType) && ItemSchematic.subtypes.contains(schematicType)) {
 			ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, ModItems.schematic.createStack(schematicType), row1, row2, 'P', new ItemStack(Items.PAPER), 'S', new ItemStack(Items.STICK)).setRegistryName(schematicType + "_schematic"));
 		}
 	}
-	
+
 	public static void initToolRecipes() {
 		if (!Config.DISABLED_TOOLS.contains("pickaxe")) {
 			RecipeSorter.register("toolbox:pickaxe", PickaxeRecipe.class, RecipeSorter.Category.SHAPELESS,
@@ -255,7 +276,7 @@ public class ModRecipes {
 		adornment_map.put(new ItemStack(Items.PRISMARINE_CRYSTALS), ModMaterials.ADORNMENT_PRISMARINE);
 		adornment_map.put(new ItemStack(Items.ENDER_PEARL), ModMaterials.ADORNMENT_ENDER_PEARL);
 	}
-	
+
 	private static IRecipe getToolHeadSchematicRecipe(ItemStack output, String material, String type, int cost) {
 		NonNullList<Ingredient> inputs = NonNullList.withSize(cost + 1, Ingredient.EMPTY);
 		ItemStack schematic = new ItemStack(ModItems.schematic);
@@ -263,13 +284,13 @@ public class ModRecipes {
 		nbt.setString(ItemSchematic.type_tag, type);
 		schematic.setTagCompound(nbt);
 		Ingredient schematicIngredient = new IngredientNBT(schematic) {
-			
+
 		};
 		inputs.set(0, schematicIngredient);
 		for (int i = 1; i <= cost; i++) {
 			inputs.set(i, new OreIngredient(material));
 		}
-		
+
 		return new ShapelessOreRecipe(null, inputs, output);
 	}
 

@@ -1,5 +1,6 @@
 package toolbox.common;
 
+import api.materials.HeadMaterial;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,8 @@ import toolbox.compat.tconstruct.TConstructCompat;
 public class CommonProxy {
 
 	public static Configuration config;
+	
+	public static List<HeadMaterial> smelteryMaterials = new ArrayList<>();
 
 	public void preInit(FMLPreInitializationEvent event) {
 
@@ -84,11 +87,11 @@ public class CommonProxy {
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(Toolbox.instance, new GuiProxy());
 
-		ModRecipes.init();
-
 		if (Loader.isModLoaded("tconstruct") && Config.ENABLE_TINKERS_COMPAT) {
 			TConstructCompat.init();
 		}
+		
+		ModRecipes.init();
 		// Toolbox.HEAD_CRAFTED.registerStat();
 
 	}

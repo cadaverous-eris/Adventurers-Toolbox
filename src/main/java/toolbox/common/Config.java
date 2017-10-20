@@ -71,7 +71,7 @@ public class Config {
 		BONUS_CHEST_SCHEMATICS = Arrays.asList(cfg.getStringList("Bonus Chest Schematics", CATEGORY_SCHEMATICS, new String[] { "climbing_pick_head", "dagger_blade" }, "Add schematic types to this list to add them to spawn bonus chest loot. One per line.\n"));
 		
 		ENABLE_TINKERS_COMPAT = cfg.getBoolean("Enable Tinkers Compatibility", CATEGORY_COMPAT, false, "This option adds casts and recipes to the Tinkers' Construct smeltery.\n");
-		DISABLE_TOOL_HEAD_RECIPES = cfg.getBoolean("Disable Metal Tool Head Recipes", CATEGORY_COMPAT, false, "This option disables the crafting recipes for metal tool heads.\nUse if you want to only be able to use the smeltery.\n");
+		DISABLE_TOOL_HEAD_RECIPES = cfg.getBoolean("Disable Metal Tool Head Recipes", CATEGORY_COMPAT, false, "This option disables the crafting recipes for any materials that get added as a casting recipe\n");
 		
 		PROPERTY_ORDER_GENERAL.add("Disable Vanilla Tools");
 		PROPERTY_ORDER_GENERAL.add("Hide Uncraftables");

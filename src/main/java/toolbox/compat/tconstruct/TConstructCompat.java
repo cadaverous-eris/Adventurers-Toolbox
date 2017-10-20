@@ -10,7 +10,9 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import slimeknights.mantle.util.RecipeMatch;
+import toolbox.common.CommonProxy;
 import toolbox.common.Config;
+import toolbox.common.materials.ModMaterials;
 import toolbox.compat.tconstruct.ItemCast.EnumType;
 
 public class TConstructCompat {
@@ -41,7 +43,8 @@ public class TConstructCompat {
 				for (HeadMaterial mat : Materials.head_registry.values()) {
 					ItemStack head = new ItemStack(type.getItem(), 1, i);
 					Fluid fluid = FluidRegistry.getFluid(mat.getName());
-					if (fluid != null && !Config.DISABLED_MATERIALS.contains(mat.getName())) {
+					if (fluid != null && !Config.DISABLED_MATERIALS.contains(mat.getName()) && !mat.equals(ModMaterials.HEAD_STONE)) {
+						CommonProxy.smelteryMaterials.add(mat);
 						recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(head, RecipeMatch.of(ItemCast.getStack(type, 1)), fluid, type.getCost());
 						slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
 					}
