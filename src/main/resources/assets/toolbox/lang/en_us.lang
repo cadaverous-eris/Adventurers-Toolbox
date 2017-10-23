@@ -3,10 +3,6 @@ itemGroup.partsTab=Tool Parts
 itemGroup.toolsTab=Adventurer's Toolbox Tools
 itemGroup.weaponsTab=Adventurer's Toolbox Weapons
 
-#Achievement
-achievement.toolbox.head_crafted=Getting a Head in Life
-achievement.toolbox.head_crafted.desc=Craft a tool head
-
 #Tooltip
 desc.attack_damage.name=Attack Damage
 desc.attack_speed.name=Attack Speed
