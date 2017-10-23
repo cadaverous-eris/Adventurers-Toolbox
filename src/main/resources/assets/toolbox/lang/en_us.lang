@@ -14,6 +14,12 @@ desc.durability.name=Durability
 desc.harvest_level.name=Harvest Level
 desc.efficiency.name=Mining Speed
 desc.enchantability.name=Enchantability
+desc.head.name=Head
+desc.blade.name=Blade
+desc.crossguard.name=Crossguard
+desc.haft.name=Haft
+desc.handle.name=Handle
+desc.adornment.name=Adornment
 
 #Material
 wood.name=Wooden
@@ -119,6 +125,7 @@ guide.mat.silver.name=Silver
 guide.mat.steel.name=Steel
 guide.mat.electrum.name=Electrum
 guide.mat.soulforged_steel.name=Soulforged Steel
+guide.mat.flint.name=Flint
 
 guide.mat.blaze_rod.name=Blaze Rod
 guide.mat.end_rod.name=End Rod

@@ -6,6 +6,10 @@ import java.util.Map.Entry;
 
 import com.google.common.collect.Multimap;
 
+import api.materials.AdornmentMaterial;
+import api.materials.HaftMaterial;
+import api.materials.HandleMaterial;
+import api.materials.HeadMaterial;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
@@ -40,7 +44,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import toolbox.common.items.ItemBase;
 import toolbox.common.items.tools.IAdornedTool;
+import toolbox.common.items.tools.IBladeTool;
+import toolbox.common.items.tools.ICrossguardTool;
 import toolbox.common.items.tools.IHaftTool;
+import toolbox.common.items.tools.IHandleTool;
+import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.items.tools.ItemATAxe;
 import toolbox.common.items.tools.ItemATDagger;
 import toolbox.common.items.tools.ItemATHammer;
@@ -92,6 +100,37 @@ public class SpecialToolAbilityHandler {
 				}
 				tooltip.add(s);
 				int i1 = 0;
+				
+				if (shift) {
+					tooltip.add("");
+					if (item instanceof IHeadTool) {
+						HeadMaterial mat = IHeadTool.getHeadMat(stack);
+						tooltip.add(TextFormatting.YELLOW + " " + I18n.translateToLocal("desc.head.name") + ": " + I18n.translateToLocal("guide.mat." + mat.getName() + ".name"));
+					}
+					if (item instanceof IBladeTool) {
+						HeadMaterial mat = IBladeTool.getBladeMat(stack);
+						tooltip.add(TextFormatting.YELLOW + " " + I18n.translateToLocal("desc.blade.name") + ": " + I18n.translateToLocal("guide.mat." + mat.getName() + ".name"));
+					}
+					if (item instanceof ICrossguardTool) {
+						HeadMaterial mat = ICrossguardTool.getCrossguardMat(stack);
+						tooltip.add(TextFormatting.YELLOW + " " + I18n.translateToLocal("desc.crossguard.name") + ": " + I18n.translateToLocal("guide.mat." + mat.getName() + ".name"));
+					}
+					if (item instanceof IHaftTool) {
+						HaftMaterial mat = IHaftTool.getHaftMat(stack);
+						tooltip.add(TextFormatting.YELLOW + " " + I18n.translateToLocal("desc.haft.name") + ": " + I18n.translateToLocal("guide.mat." + mat.getName() + ".name"));
+					}
+					if (item instanceof IHandleTool) {
+						HandleMaterial mat = IHandleTool.getHandleMat(stack);
+						tooltip.add(TextFormatting.YELLOW + " " + I18n.translateToLocal("desc.handle.name") + ": " + I18n.translateToLocal("guide.mat." + mat.getName() + ".name"));
+					}
+					if (item instanceof IAdornedTool) {
+						AdornmentMaterial mat = IAdornedTool.getAdornmentMat(stack);
+						if (!mat.getName().equals("null")) {
+							tooltip.add(TextFormatting.YELLOW + " " + I18n.translateToLocal("desc.adornment.name") + ": " + I18n.translateToLocal("guide.mat." + mat.getName() + ".name"));
+						}
+					}
+					tooltip.add("");
+				}
 
 				if (stack.hasTagCompound() && stack.getTagCompound().hasKey("HideFlags", 99)) {
 					i1 = stack.getTagCompound().getInteger("HideFlags");
@@ -137,7 +176,9 @@ public class SpecialToolAbilityHandler {
 				Multimap<String, AttributeModifier> multimap = stack
 						.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
 				if ((i1 & 2) == 0) {
-					tooltip.add("");
+					if (!tooltip.get(tooltip.size() - 1).isEmpty()) {
+						tooltip.add("");
+					}
 
 					if (item instanceof ItemATPickaxe || item instanceof ItemATHandpick || item instanceof ItemATHammer
 							|| item instanceof ItemATAxe || item instanceof ItemATShovel) {
@@ -196,14 +237,9 @@ public class SpecialToolAbilityHandler {
 										+ ItemStack.DECIMALFORMAT.format(d1));
 							}
 						}
-						// tooltip.add(I18n.translateToLocalFormatted("attribute.modifier.equals."
-						// + attributemodifier.getOperation(),
-						// ItemStack.DECIMALFORMAT.format(d1),
-						// I18n.translateToLocal("attribute.name." +
-						// (String)entry.getKey())));
 					}
 
-					if (shift && stack.isItemEnchantable()) {
+					if (shift) {
 						tooltip.add(I18n.translateToLocal("desc.enchantability.name") + ": "
 								+ item.getItemEnchantability(stack));
 					}
