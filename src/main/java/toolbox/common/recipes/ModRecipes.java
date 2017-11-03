@@ -159,7 +159,7 @@ public class ModRecipes {
 				HeadMaterial mat = ModItems.mace_head.meta_map.get(i);
 				if (!Config.DISABLE_TOOL_HEAD_RECIPES || !CommonProxy.smelteryMaterials.contains(mat)) {
 					if (Config.ENABLE_SCHEMATICS) {
-						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.mace_head, 1, i), mat.getCraftingItem(), "hammer_head", 4).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
+						ForgeRegistries.RECIPES.register(getToolHeadSchematicRecipe(new ItemStack(ModItems.mace_head, 1, i), mat.getCraftingItem(), "mace_head", 4).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
 					} else {
 						ForgeRegistries.RECIPES.register(new ShapedOreRecipe(null, new ItemStack(ModItems.mace_head, 1, i), "SPS", "PPP", "SPS", 'P', mat.getCraftingItem(), 'S', mat.getSmallCraftingItem()).setRegistryName(new ResourceLocation(Toolbox.MODID, "mace_head_" + mat.getName())));
 					}

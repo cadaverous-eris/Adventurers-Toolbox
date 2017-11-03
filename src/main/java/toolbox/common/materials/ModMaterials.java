@@ -73,6 +73,8 @@ public class ModMaterials {
 			1.1F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_ENDER_PEARL = new AdornmentMaterial("ender_pearl", 0, 3F, 1F, 0F,
 			2F, Toolbox.MODID);
+	
+	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
 	public static void init() {
 		initHeadMaterials();
@@ -82,7 +84,7 @@ public class ModMaterials {
 	}
 
 	private static void initHeadMaterials() {
-		List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
+		
 
 		OreDictionary.registerOre("flint", Items.FLINT);
 		OreDictionary.registerOre("gravel", Blocks.GRAVEL);
