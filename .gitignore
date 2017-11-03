@@ -16,6 +16,7 @@ out
 # gradle
 build
 .gradle
+gradle.properties
 
 # other
 .nb-gradle
@@ -23,4 +24,3 @@ eclipse
 run
 libs
 .nb-gradle-properties
-.properties
