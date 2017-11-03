@@ -118,32 +118,36 @@ public class CommonProxy {
 	protected void processRecipes() {
 		if (ForgeRegistries.RECIPES instanceof IForgeRegistryModifiable) {
 			IForgeRegistryModifiable registry = (IForgeRegistryModifiable) ForgeRegistries.RECIPES;
+			ItemStack[] headMaterials = null;
 			
-			//Alright, let''s check for all headMaterials we register so we know what to look for in the recipes.
-			if (ModMaterials.headMaterials.isEmpty()) {
-				return;
-			}
-			NonNullList<ItemStack> headMaterialOreList = NonNullList.create();
-			for (HeadMaterial headMaterial : ModMaterials.headMaterials) {
-				headMaterialOreList.addAll(OreDictionary.getOres(headMaterial.getCraftingItem()));
-				//We have one exception here, sticks. Sticks are in every recipe for tools ofcourse, but not for the head parts.
-				if (!headMaterial.getSmallCraftingItem().equals("stickWood")) {
-					headMaterialOreList.addAll(OreDictionary.getOres(headMaterial.getSmallCraftingItem()));
+			if (!Config.DISABLE_ALL_VANILLA_TOOLS) {
+				//Alright, let's check for all headMaterials we register so we know what to look for in the recipes.
+				if (ModMaterials.headMaterials.isEmpty()) {
+					return;
 				}
+				NonNullList<ItemStack> headMaterialOreList = NonNullList.create();
+				for (HeadMaterial headMaterial : ModMaterials.headMaterials) {
+					headMaterialOreList.addAll(OreDictionary.getOres(headMaterial.getCraftingItem()));
+					//We have one exception here, sticks. Sticks are in every recipe for tools ofcourse, but not for the head parts.
+					if (!headMaterial.getSmallCraftingItem().equals("stickWood")) {
+						headMaterialOreList.addAll(OreDictionary.getOres(headMaterial.getSmallCraftingItem()));
+					}
+				}
+				//Lastly, we want to add one vanilla tool material to the list of tools we want to remove: diamonds
+				headMaterialOreList.addAll(OreDictionary.getOres("gemDiamond"));
+				//Since we by default also have support for BWM, it might be useful to also add diamond ingots
+				headMaterialOreList.addAll(OreDictionary.getOres("ingotDiamond"));
+				
+				//End result, an array full of materials that match the materials
+				headMaterials = new ItemStack[headMaterialOreList.size()];
+				headMaterialOreList.toArray(headMaterials);
 			}
-			//Lastly, we want to add one vanilla tool material to the list of tools we want to remove: diamonds
-			headMaterialOreList.addAll(OreDictionary.getOres("gemDiamond"));
-			//Since we by default also have support for BWM, it might be useful to also add diamond ingots
-			headMaterialOreList.addAll(OreDictionary.getOres("ingotDiamond"));
-			
-			//End result, an array full of materials that match the materials
-			ItemStack[] headMaterials = new ItemStack[headMaterialOreList.size()];
-			headMaterialOreList.toArray(headMaterials);
 			
 			
 
 			for (Entry<ResourceLocation, IRecipe> recipeEntry : ForgeRegistries.RECIPES.getEntries()) {
 				IRecipe recipe = recipeEntry.getValue();
+				NonNullList<Ingredient> ingredients = recipe.getIngredients();
 
 				if ((recipe.getRecipeOutput().getItem() instanceof ItemHoe
 						|| recipe.getRecipeOutput().getItem() instanceof ItemAxe
@@ -151,20 +155,19 @@ public class CommonProxy {
 						|| recipe.getRecipeOutput().getItem() instanceof ItemPickaxe
 						|| recipe.getRecipeOutput().getItem() instanceof ItemSword)) {
 					
-					NonNullList<Ingredient> ingredients1 = recipe.getIngredients();
-					NonNullList<ItemStack> ingredientItems = NonNullList.create();
-					for (Ingredient ingredient : ingredients1) {
-						for (ItemStack ingredientMatchingStack : ingredient.getMatchingStacks()) {
-							ingredientItems.add(ingredientMatchingStack);
+					if (!Config.DISABLE_ALL_VANILLA_TOOLS) {
+					
+						NonNullList<ItemStack> ingredientItems = NonNullList.create();
+						for (Ingredient ingredient : ingredients) {
+							for (ItemStack ingredientMatchingStack : ingredient.getMatchingStacks()) {
+								ingredientItems.add(ingredientMatchingStack);
+							}
+						}
+						
+						if (!OreDictionary.containsMatch(false, ingredientItems, headMaterials)) {
+							continue; //We have no matching items so we do not remove this tool, next!
 						}
 					}
-					System.out.println("Ingredients: " + ingredientItems);
-					
-					if (OreDictionary.containsMatch(false, ingredientItems, headMaterials)) {
-						System.out.println("Found match between ingredients:" + ingredientItems + " & the headmaterials.");
-					}
-					
-					
 					registry.remove(recipeEntry.getKey());
 					registry.register(new IRecipe() {
 
@@ -209,7 +212,6 @@ public class CommonProxy {
 					}.setRegistryName(recipeEntry.getKey()));
 					removed_recipes.add(recipeEntry.getKey());
 				} else {
-					NonNullList<Ingredient> ingredients = recipe.getIngredients();
 					for (int i = 0; i < ingredients.size(); i++) {
 						ItemStack[] matchingStacks = ingredients.get(i).getMatchingStacks();
 						boolean flag = false;

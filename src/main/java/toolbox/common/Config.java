@@ -19,6 +19,7 @@ public class Config {
 	private final static List<String> PROPERTY_ORDER_COMPAT = new ArrayList<>();
 	
 	public static boolean DISABLE_VANILLA_TOOLS;
+	public static boolean DISABLE_ALL_VANILLA_TOOLS;
 	public static boolean HIDE_UNCRAFTABLE_HEADS;
 	public static boolean SPAWN_WITH_BOOK;
 	
@@ -56,7 +57,8 @@ public class Config {
 		cfg.addCustomCategoryComment(CATEGORY_SCHEMATICS, "Schematics Options");
 		cfg.addCustomCategoryComment(CATEGORY_COMPAT, "Compatability Options");
 
-		DISABLE_VANILLA_TOOLS = cfg.getBoolean("Disable Vanilla Tools", CATEGORY_GENERAL, true, "This option disables recipes for vanilla tools.\nIt also attempts to replace all instances of vanilla tools in crafting recipes (including mod recipes) with suitable replacements from Adventurer's Toolbox.\n");
+		DISABLE_VANILLA_TOOLS = cfg.getBoolean("Disable Vanilla Tools", CATEGORY_GENERAL, true, "This option disables recipes for vanilla tools that contain materials this mod supports.\nIt also attempts to replace all instances of vanilla tools in crafting recipes (including mod recipes) with suitable replacements from Adventurer's Toolbox.\n");
+		DISABLE_ALL_VANILLA_TOOLS = cfg.getBoolean("Disable All Vanilla Tools", CATEGORY_GENERAL, false, "This option disables and attempts to replace recipes for vanilla tools using any materials.\nThis only works if Disable Vanilla Tools is true.");
 		HIDE_UNCRAFTABLE_HEADS = cfg.getBoolean("Hide Uncraftables", CATEGORY_GENERAL, true, "This option prevents tool heads from showing up in the creative tab if they are made from materials that aren't present in your game.\n");
 		SPAWN_WITH_BOOK= cfg.getBoolean("Spawn With Book", CATEGORY_GENERAL, true, "Disable this if you don't want to be given the guide book when first joining a world.\n");
 		
@@ -74,6 +76,7 @@ public class Config {
 		DISABLE_TOOL_HEAD_RECIPES = cfg.getBoolean("Disable Metal Tool Head Recipes", CATEGORY_COMPAT, false, "This option disables the crafting recipes for any materials that get added as a casting recipe\n");
 		
 		PROPERTY_ORDER_GENERAL.add("Disable Vanilla Tools");
+		PROPERTY_ORDER_GENERAL.add("Disable All Vanilla Tools");
 		PROPERTY_ORDER_GENERAL.add("Hide Uncraftables");
 		PROPERTY_ORDER_GENERAL.add("Spawn With Book");
 		
