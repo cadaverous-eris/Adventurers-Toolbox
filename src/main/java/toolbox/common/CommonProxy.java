@@ -20,6 +20,7 @@ import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
@@ -118,99 +119,71 @@ public class CommonProxy {
 	protected void processRecipes() {
 		if (ForgeRegistries.RECIPES instanceof IForgeRegistryModifiable) {
 			IForgeRegistryModifiable registry = (IForgeRegistryModifiable) ForgeRegistries.RECIPES;
-			ItemStack[] headMaterials = null;
-			
-			if (!Config.DISABLE_ALL_VANILLA_TOOLS) {
-				//Alright, let's check for all headMaterials we register so we know what to look for in the recipes.
-				if (ModMaterials.headMaterials.isEmpty()) {
-					return;
-				}
-				NonNullList<ItemStack> headMaterialOreList = NonNullList.create();
-				for (HeadMaterial headMaterial : ModMaterials.headMaterials) {
-					headMaterialOreList.addAll(OreDictionary.getOres(headMaterial.getCraftingItem()));
-					//We have one exception here, sticks. Sticks are in every recipe for tools ofcourse, but not for the head parts.
-					if (!headMaterial.getSmallCraftingItem().equals("stickWood")) {
-						headMaterialOreList.addAll(OreDictionary.getOres(headMaterial.getSmallCraftingItem()));
-					}
-				}
-				//Lastly, we want to add one vanilla tool material to the list of tools we want to remove: diamonds
-				headMaterialOreList.addAll(OreDictionary.getOres("gemDiamond"));
-				//Since we by default also have support for BWM, it might be useful to also add diamond ingots
-				headMaterialOreList.addAll(OreDictionary.getOres("ingotDiamond"));
-				
-				//End result, an array full of materials that match the materials
-				headMaterials = new ItemStack[headMaterialOreList.size()];
-				headMaterialOreList.toArray(headMaterials);
-			}
-			
-			
 
 			for (Entry<ResourceLocation, IRecipe> recipeEntry : ForgeRegistries.RECIPES.getEntries()) {
 				IRecipe recipe = recipeEntry.getValue();
 				NonNullList<Ingredient> ingredients = recipe.getIngredients();
-
-				if ((recipe.getRecipeOutput().getItem() instanceof ItemHoe
-						|| recipe.getRecipeOutput().getItem() instanceof ItemAxe
-						|| recipe.getRecipeOutput().getItem() instanceof ItemSpade
-						|| recipe.getRecipeOutput().getItem() instanceof ItemPickaxe
-						|| recipe.getRecipeOutput().getItem() instanceof ItemSword)) {
+				
+				Item output = recipe.getRecipeOutput().getItem();
+				String rp = output.getRegistryName().getResourcePath();
+				
+				if ((output instanceof ItemHoe
+						|| output instanceof ItemAxe
+						|| output instanceof ItemSpade
+						|| output instanceof ItemPickaxe
+						|| output instanceof ItemSword)
+						|| (output instanceof ItemTool && (rp.contains("pick") || rp.contains("axe") || rp.contains("shovel") || rp.contains("spade")))
+						|| (output instanceof ItemTool && (output.getRegistryName().getResourceDomain().equals("thermalfoundation") && rp.contains("hammer")))) {
+					String materialName = output instanceof ItemHoe ? ((ItemHoe) output).getMaterialName() : output instanceof ItemSword ? ((ItemSword) output).getToolMaterialName() : ((ItemTool) output).getToolMaterialName();
 					
-					if (!Config.DISABLE_ALL_VANILLA_TOOLS) {
-					
-						NonNullList<ItemStack> ingredientItems = NonNullList.create();
-						for (Ingredient ingredient : ingredients) {
-							for (ItemStack ingredientMatchingStack : ingredient.getMatchingStacks()) {
-								ingredientItems.add(ingredientMatchingStack);
+					if (Materials.canReplaceMaterial(materialName)) {
+						System.out.println(materialName);
+						registry.remove(recipeEntry.getKey());
+						registry.register(new IRecipe() {
+	
+							private ResourceLocation registryName;
+							
+							@Override
+							public IRecipe setRegistryName(ResourceLocation name) {
+								this.registryName = name;
+								return this;
 							}
-						}
-						
-						if (!OreDictionary.containsMatch(false, ingredientItems, headMaterials)) {
-							continue; //We have no matching items so we do not remove this tool, next!
-						}
+	
+							@Override
+							public ResourceLocation getRegistryName() {
+								return this.registryName;
+							}
+	
+							@Override
+							public Class<IRecipe> getRegistryType() {
+								return IRecipe.class;
+							}
+	
+							@Override
+							public boolean matches(InventoryCrafting inv, World worldIn) {
+								return false;
+							}
+	
+							@Override
+							public ItemStack getCraftingResult(InventoryCrafting inv) {
+								return ItemStack.EMPTY;
+							}
+	
+							@Override
+							public boolean canFit(int width, int height) {
+								return false;
+							}
+	
+							@Override
+							public ItemStack getRecipeOutput() {
+								return ItemStack.EMPTY;
+							}
+							
+						}.setRegistryName(recipeEntry.getKey()));
+						removed_recipes.add(recipeEntry.getKey());
+					} else {
+						System.out.println(output.getRegistryName() + " -> " + materialName);
 					}
-					registry.remove(recipeEntry.getKey());
-					registry.register(new IRecipe() {
-
-						private ResourceLocation registryName;
-						
-						@Override
-						public IRecipe setRegistryName(ResourceLocation name) {
-							this.registryName = name;
-							return this;
-						}
-
-						@Override
-						public ResourceLocation getRegistryName() {
-							return this.registryName;
-						}
-
-						@Override
-						public Class<IRecipe> getRegistryType() {
-							return IRecipe.class;
-						}
-
-						@Override
-						public boolean matches(InventoryCrafting inv, World worldIn) {
-							return false;
-						}
-
-						@Override
-						public ItemStack getCraftingResult(InventoryCrafting inv) {
-							return ItemStack.EMPTY;
-						}
-
-						@Override
-						public boolean canFit(int width, int height) {
-							return false;
-						}
-
-						@Override
-						public ItemStack getRecipeOutput() {
-							return ItemStack.EMPTY;
-						}
-						
-					}.setRegistryName(recipeEntry.getKey()));
-					removed_recipes.add(recipeEntry.getKey());
 				} else {
 					for (int i = 0; i < ingredients.size(); i++) {
 						ItemStack[] matchingStacks = ingredients.get(i).getMatchingStacks();

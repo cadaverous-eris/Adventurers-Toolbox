@@ -7,6 +7,9 @@ import api.materials.HeadMaterial;
 import api.materials.Materials;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -19,36 +22,36 @@ import toolbox.common.Config;
 public class ModMaterials {
 
 	public static final HeadMaterial HEAD_WOOD = new HeadMaterial("wood", 0, 59, 2.0F, 0.0F, 15,
-			new ItemStack(Blocks.PLANKS), "plankWood", "stickWood", Toolbox.MODID);
+			new ItemStack(Blocks.PLANKS), "plankWood", "stickWood", Lists.<String>newArrayList("wood"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_FLINT = new HeadMaterial("flint", 0, 59, 2.0F, 0.0F, 15,
-			new ItemStack(Items.FLINT), "flint", "gravel", Toolbox.MODID);
+			new ItemStack(Items.FLINT), "flint", "gravel", Lists.<String>newArrayList("wood", "flint"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_STONE = new HeadMaterial("stone", 1, 131, 4.0F, 1.0F, 5,
-			new ItemStack(Blocks.COBBLESTONE), "cobblestone", "pebble", Toolbox.MODID);
+			new ItemStack(Blocks.COBBLESTONE), "cobblestone", "pebble", Lists.<String>newArrayList("stone"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_IRON = new HeadMaterial("iron", 2, 250, 6.0F, 2.0F, 14,
-			new ItemStack(Items.IRON_INGOT), "ingotIron", "nuggetIron", Toolbox.MODID);
+			new ItemStack(Items.IRON_INGOT), "ingotIron", "nuggetIron", Lists.<String>newArrayList("iron"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_GOLD = new HeadMaterial("gold", 0, 32, 12.0F, 0.0F, 22,
-			new ItemStack(Items.GOLD_INGOT), "ingotGold", "nuggetGold", Toolbox.MODID);
+			new ItemStack(Items.GOLD_INGOT), "ingotGold", "nuggetGold", Lists.<String>newArrayList("gold"), Toolbox.MODID);
 
 	public static final HeadMaterial HEAD_COPPER = new HeadMaterial("copper", 1, 181, 5.4F, 1.5F, 16, ItemStack.EMPTY,
-			"ingotCopper", "nuggetCopper", Toolbox.MODID);
+			"ingotCopper", "nuggetCopper", Lists.<String>newArrayList("copper"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_TIN = new HeadMaterial("tin", 1, 145, 4.9F, 1.0F, 12, ItemStack.EMPTY,
-			"ingotTin", "nuggetTin", Toolbox.MODID);
+			"ingotTin", "nuggetTin", Lists.<String>newArrayList("tin"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_BRONZE = new HeadMaterial("bronze", 2, 300, 6.5F, 2.0F, 14, ItemStack.EMPTY,
-			"ingotBronze", "nuggetBronze", Toolbox.MODID);
+			"ingotBronze", "nuggetBronze", Lists.<String>newArrayList("bronze"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_ALUMINUM = new HeadMaterial("aluminum", 1, 161, 5.2F, 1.5F, 14,
-			ItemStack.EMPTY, "ingotAluminum", "nuggetAluminum", Toolbox.MODID);
+			ItemStack.EMPTY, "ingotAluminum", "nuggetAluminum", Lists.<String>newArrayList("aluminum", "aluminium"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_NICKEL = new HeadMaterial("nickel", 1, 181, 6.4F, 1.5F, 8, ItemStack.EMPTY,
-			"ingotNickel", "nuggetNickel", Toolbox.MODID);
+			"ingotNickel", "nuggetNickel", Lists.<String>newArrayList("nickel"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_LEAD = new HeadMaterial("lead", 2, 168, 6.0F, 2.0F, 4, ItemStack.EMPTY,
-			"ingotLead", "nuggetLead", Toolbox.MODID);
+			"ingotLead", "nuggetLead", Lists.<String>newArrayList("lead"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_SILVER = new HeadMaterial("silver", 0, 64, 8.0F, 0.5F, 18, ItemStack.EMPTY,
-			"ingotSilver", "nuggetSilver", Toolbox.MODID);
+			"ingotSilver", "nuggetSilver", Lists.<String>newArrayList("silver"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_STEEL = new HeadMaterial("steel", 2, 500, 7.0F, 2.5F, 14, ItemStack.EMPTY,
-			"ingotSteel", "nuggetSteel", Toolbox.MODID);
+			"ingotSteel", "nuggetSteel", Lists.<String>newArrayList("steel"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_ELECTRUM = new HeadMaterial("electrum", 1, 96, 8.0F, 1.0F, 26,
-			ItemStack.EMPTY, "ingotElectrum", "nuggetElectrum", Toolbox.MODID);
+			ItemStack.EMPTY, "ingotElectrum", "nuggetElectrum", Lists.<String>newArrayList("electrum"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_SOULFORGED_STEEL = new HeadMaterial("soulforged_steel", 4, 600, 9.0F, 3F, 22, ItemStack.EMPTY,
-			"ingotSoulforgedSteel", "nuggetSoulforgedSteel", Toolbox.MODID);
+			"ingotSoulforgedSteel", "nuggetSoulforgedSteel", Lists.<String>newArrayList("soulforged_steel"), Toolbox.MODID);
 
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 1.0F, 1.0F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0.8F, 1.5F, Toolbox.MODID);

@@ -1,5 +1,7 @@
 package api.materials;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 
 public class HeadMaterial extends PartMaterial {
@@ -12,8 +14,9 @@ public class HeadMaterial extends PartMaterial {
 	private ItemStack repairItem;
 	private String craftingItem;
 	private String craftingItemSmall;
+	private List<String> replaceableMaterials;
 	
-	public HeadMaterial(String name, int har, int dur, float eff, float att, int ench, ItemStack repair, String crafting, String crafting2, String mod) {
+	public HeadMaterial(String name, int har, int dur, float eff, float att, int ench, ItemStack repair, String crafting, String crafting2, List<String> replaceableMaterials, String mod) {
 		super(name, mod);
 		this.harvestLevel = har;
 		this.durability = dur;
@@ -23,6 +26,7 @@ public class HeadMaterial extends PartMaterial {
 		this.repairItem = repair;
 		this.craftingItem = crafting;
 		this.craftingItemSmall = crafting2;
+		this.replaceableMaterials = replaceableMaterials;
 	}
 	
 	public int getHarvestLevel() {
@@ -59,6 +63,27 @@ public class HeadMaterial extends PartMaterial {
 	
 	public String getSmallCraftingItem() {
 		return this.craftingItemSmall;
+	}
+	
+	public boolean canReplaceMaterial(String materialName) {
+		String toolMat = materialName.toLowerCase();
+		if (toolMat.indexOf(":") >= 0 && toolMat.indexOf(":") + 1 < toolMat.length()) {
+			toolMat = toolMat.substring(toolMat.indexOf(":") + 1);
+		}
+		for (String mat : this.replaceableMaterials) {
+			
+			//System.out.println(mat.toLowerCase() + ", " + toolMat);
+			
+			if (mat.toLowerCase().equals(toolMat)) {
+				return true;
+			}
+		}
+		
+		if (materialName.equals("DIAMOND")) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

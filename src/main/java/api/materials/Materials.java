@@ -50,5 +50,14 @@ public class Materials {
 		AdornmentMaterial[] adornments = adornment_registry.values().toArray(new AdornmentMaterial[adornment_registry.values().size()]);
 		return adornments[rand.nextInt(adornments.length)];
 	}
+	
+	public static boolean canReplaceMaterial(String materialName) {
+		for (HeadMaterial headMat : head_registry.values()) {
+			if (headMat.canReplaceMaterial(materialName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
