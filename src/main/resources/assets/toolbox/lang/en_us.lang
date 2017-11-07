@@ -84,7 +84,7 @@ item.toolbox.cast_sword_crossguard.name=Sword Crossguard Cast
 item.toolbox.cast_dagger_blade.name=Dagger Blade Cast
 item.toolbox.cast_mace_head.name=Mace Head Cast
 
-fluid.soulforged_steel =Soulforged Steel
+fluid.soulforged_steel=Soulforged Steel
 
 # Guide Book
 guide.chapter.home.name=Contents
