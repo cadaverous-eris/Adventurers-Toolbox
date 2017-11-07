@@ -19,6 +19,7 @@ public class ItemCast extends ItemBase {
 
 	public ItemCast() {
 		super("cast");
+		setHasSubtypes(true);
 	}
 
 	public static ItemStack getStack(EnumType type, int count) {

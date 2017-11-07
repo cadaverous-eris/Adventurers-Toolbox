@@ -36,11 +36,19 @@ public class TConstructCompat {
 		slimeknights.tconstruct.library.smeltery.CastingRecipe recipe;
 		for (EnumType type : ItemCast.EnumType.VALUES) {
 			ItemStack cast = ItemCast.getStack(type, 1);
-			if(!Config.DISABLED_TOOLS.contains(type.getTool())) {
-				recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(cast, RecipeMatch.of(new ItemStack(type.getItem(), 1, 5)), FluidRegistry.getFluid("gold"), 144 * 2);
-				slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+			if (!Config.DISABLED_TOOLS.contains(type.getTool())) {
 				int i = 0;
 				for (HeadMaterial mat : Materials.head_registry.values()) {
+					String reqMat = "stone";
+					if(Config.DISABLED_MATERIALS.contains("stone")) reqMat = "flint";
+					if (reqMat.equals(mat.getName())) {
+						recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(cast, RecipeMatch.of(new ItemStack(type.getItem(), 1, i)), FluidRegistry.getFluid("gold"), 144 * 2);
+						slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+						recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(cast, RecipeMatch.of(new ItemStack(type.getItem(), 1, i)), FluidRegistry.getFluid("alubrass"), 144 * 2);
+						slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+						recipe = new slimeknights.tconstruct.library.smeltery.CastingRecipe(cast, RecipeMatch.of(new ItemStack(type.getItem(), 1, i)), FluidRegistry.getFluid("brass"), 144 * 2);
+						slimeknights.tconstruct.library.TinkerRegistry.registerTableCasting(recipe);
+					}
 					ItemStack head = new ItemStack(type.getItem(), 1, i);
 					Fluid fluid = FluidRegistry.getFluid(mat.getName());
 					if (fluid != null && !Config.DISABLED_MATERIALS.contains(mat.getName()) && !mat.equals(ModMaterials.HEAD_STONE)) {
