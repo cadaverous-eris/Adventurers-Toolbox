@@ -59,7 +59,7 @@ public class ItemCast extends ItemBase {
 		HANDPICK_HEAD(ModItems.handpick_head, "handpick", ingotCost * 1),
 		HAMMER_HEAD(ModItems.hammer_head, "hammer", ingotCost * 7),
 		SWORD_BLADE(ModItems.sword_blade, "sword", ingotCost * 2),
-		SWORD_CROSSGUARD(ModItems.sword_crossguard, "sword", ingotCost * 1),
+		SWORD_CROSSGUARD(ModItems.sword_crossguard, "sword", ingotCost * 3),
 		DAGGER_BLADE(ModItems.dagger_blade, "dagger", ingotCost * 1),
 		MACE_HEAD(ModItems.mace_head, "mace", ingotCost * 5);
 
