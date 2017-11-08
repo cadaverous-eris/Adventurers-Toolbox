@@ -58,6 +58,7 @@ public class ModMaterials {
 	public static final HaftMaterial HAFT_BLAZE_ROD = new HaftMaterial("blaze_rod", 1.125F, 1.2F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_END_ROD = new HaftMaterial("end_rod", 1.25F, 1.5F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_IMPROVED = new HaftMaterial("refined", 1.3F, 0.8F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_WITHER_BONE = new HaftMaterial("wither_bone", 2.0F, 0.8F, Toolbox.MODID);
 
 	public static final HandleMaterial HANDLE_WOOD = new HandleMaterial("wood", 1.0F, Toolbox.MODID);
 	public static final HandleMaterial HANDLE_BONE = new HandleMaterial("bone", 0.9375F, Toolbox.MODID);
@@ -123,6 +124,7 @@ public class ModMaterials {
 		Materials.registerHaftMat(HAFT_BLAZE_ROD);
 		Materials.registerHaftMat(HAFT_END_ROD);
 		if(Loader.isModLoaded("betterwithmods")) Materials.registerHaftMat(HAFT_IMPROVED);
+		if(Loader.isModLoaded("nex")) Materials.registerHaftMat(HAFT_WITHER_BONE);
 	}
 
 	private static void initHandleMaterials() {

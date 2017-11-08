@@ -26,14 +26,16 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.DimensionType;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -369,5 +371,49 @@ public class SpecialToolAbilityHandler {
 		}
 
 	}
+	
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public void onWitherBoneHarvestEvent(BlockEvent.HarvestDropsEvent event) {
+		if (event.getHarvester() == null) {
+			return;
+		}
 
+		EntityPlayer player = event.getHarvester();
+		ItemStack stack = player.getHeldItemMainhand();
+
+		boolean flag = false;
+
+		if (stack.getItem() instanceof IHaftTool) {
+			if (IHaftTool.getHaftMat(stack) == ModMaterials.HAFT_WITHER_BONE) {
+				flag = true;
+			}
+		}
+
+		if (flag) {
+			if (player.dimension != DimensionType.NETHER.getId()) {
+				stack.damageItem(7, player);
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onWitherBoneAttackEvent(AttackEntityEvent event) {
+		
+		EntityPlayer player = event.getEntityPlayer();
+		ItemStack stack = player.getHeldItemMainhand();
+		
+		boolean flag = false;
+		
+		if (stack.getItem() instanceof IHaftTool) {
+			if (IHaftTool.getHaftMat(stack) == ModMaterials.HAFT_WITHER_BONE) {
+				flag = true;
+			}
+		}
+
+		if (flag) {
+			if (player.dimension != DimensionType.NETHER.getId()) {
+				stack.damageItem(7, player);
+			}
+		}
+	}
 }

@@ -126,6 +126,8 @@ guide.mat.flint.name=Flint
 guide.mat.blaze_rod.name=Blaze Rod
 guide.mat.end_rod.name=End Rod
 guide.mat.bone.name=Bone
+guide.mat.wither_bone.name=Wither Bone
+guide.mat.refined.name=Refined Haft
 
 guide.mat.leather.name=Leather
 guide.mat.cloth.name=Cloth
@@ -149,6 +151,7 @@ guide.mat.stat.enchantability_mod.name=Enchantability Modifier
 
 guide.mat.blaze_rod.desc=*Tools made with blaze rod hafts will start fires when used on a block, much like a flint and steel.
 guide.mat.end_rod.desc=*When a block is mined with a tool made with an end rod haft, any dropped items will have no gravity.
+guide.mat.wither_bone.desc=*Tools use eight times as much durability when not in the nether.
 guide.mat.prismarine.desc=*Tools made with prismarine are faster when the user is wet.
 
 guide.tool.pickaxe.name=Pickaxe

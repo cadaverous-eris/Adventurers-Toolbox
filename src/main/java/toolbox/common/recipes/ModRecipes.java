@@ -9,6 +9,7 @@ import api.materials.HandleMaterial;
 import api.materials.HeadMaterial;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -262,6 +263,11 @@ public class ModRecipes {
 		haft_map.put(new ItemStack(Items.BONE), ModMaterials.HAFT_BONE);
 		haft_map.put(new ItemStack(Items.BLAZE_ROD), ModMaterials.HAFT_BLAZE_ROD);
 		haft_map.put(new ItemStack(Blocks.END_ROD), ModMaterials.HAFT_END_ROD);
+		
+		Item haft = ForgeRegistries.ITEMS.getValue(new ResourceLocation("betterwithmods:material"));
+		Item witherBone = ForgeRegistries.ITEMS.getValue(new ResourceLocation("nex:item_bone_wither"));
+		if(haft != null) haft_map.put(new ItemStack(haft, 1, 36), ModMaterials.HAFT_IMPROVED);
+		if(witherBone != null) haft_map.put(new ItemStack(witherBone, 1, 0), ModMaterials.HAFT_WITHER_BONE);
 
 		handle_map.put(new ItemStack(ModItems.handle, 1, 0), ModMaterials.HANDLE_CLOTH);
 		handle_map.put(new ItemStack(ModItems.handle, 1, 1), ModMaterials.HANDLE_LEATHER);
