@@ -52,16 +52,16 @@ public class ItemCast extends ItemBase {
 
 	public enum EnumType {
 
-		PICKAXE_HEAD(ModItems.pickaxe_head, "pickaxe", ingotCost * 3 + nuggetCost * 2),
-		AXE_HEAD(ModItems.axe_head, "axe", ingotCost * 3 + nuggetCost * 1),
-		SHOVEL_HEAD(ModItems.shovel_head, "shovel", ingotCost * 1 + nuggetCost * 3),
-		HOE_HEAD(ModItems.hoe_head, "hoe", ingotCost * 2 + nuggetCost * 1),
-		HANDPICK_HEAD(ModItems.handpick_head, "handpick", ingotCost * 1 + nuggetCost * 2),
-		HAMMER_HEAD(ModItems.hammer_head, "hammer", ingotCost * 7 + nuggetCost * 2),
-		SWORD_BLADE(ModItems.sword_blade, "sword", ingotCost * 2 + nuggetCost * 3),
-		SWORD_CROSSGUARD(ModItems.sword_crossguard, "sword", ingotCost * 1 + nuggetCost * 3),
-		DAGGER_BLADE(ModItems.dagger_blade, "dagger", ingotCost * 1 + nuggetCost * 3),
-		MACE_HEAD(ModItems.mace_head, "mace", ingotCost * 5 + nuggetCost * 4);
+		PICKAXE_HEAD(ModItems.pickaxe_head, "pickaxe", ingotCost * 3 ),
+		AXE_HEAD(ModItems.axe_head, "axe", ingotCost * 3),
+		SHOVEL_HEAD(ModItems.shovel_head, "shovel", ingotCost * 1),
+		HOE_HEAD(ModItems.hoe_head, "hoe", ingotCost * 2),
+		HANDPICK_HEAD(ModItems.handpick_head, "handpick", ingotCost * 1),
+		HAMMER_HEAD(ModItems.hammer_head, "hammer", ingotCost * 7),
+		SWORD_BLADE(ModItems.sword_blade, "sword", ingotCost * 2),
+		SWORD_CROSSGUARD(ModItems.sword_crossguard, "sword", ingotCost * 1),
+		DAGGER_BLADE(ModItems.dagger_blade, "dagger", ingotCost * 1),
+		MACE_HEAD(ModItems.mace_head, "mace", ingotCost * 5);
 
 		public final static EnumType[] VALUES = values();
 
