@@ -136,7 +136,7 @@ public class CommonProxy {
 						|| (output instanceof ItemTool && (output.getRegistryName().getResourceDomain().equals("thermalfoundation") && rp.contains("hammer")))) {
 					String materialName = output instanceof ItemHoe ? ((ItemHoe) output).getMaterialName() : output instanceof ItemSword ? ((ItemSword) output).getToolMaterialName() : ((ItemTool) output).getToolMaterialName();
 					
-					if (Materials.canReplaceMaterial(materialName)) {
+					if (Materials.canReplaceMaterial(materialName, recipe.getRecipeOutput())) {
 						System.out.println(materialName);
 						registry.remove(recipeEntry.getKey());
 						registry.register(new IRecipe() {

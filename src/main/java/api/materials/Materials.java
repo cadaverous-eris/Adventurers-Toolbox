@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import net.minecraft.item.ItemStack;
+
 
 public class Materials {
 	
@@ -51,9 +53,13 @@ public class Materials {
 		return adornments[rand.nextInt(adornments.length)];
 	}
 	
-	public static boolean canReplaceMaterial(String materialName) {
+	public static boolean canReplaceMaterial(String materialName, ItemStack stack) {
 		for (HeadMaterial headMat : head_registry.values()) {
 			if (headMat.canReplaceMaterial(materialName)) {
+				if (materialName.equals("DIAMOND") || materialName.equals("IRON") || materialName.equals("STONE") || materialName.equals("GOLD") || materialName.equals("WOOD")) {
+					String domain = stack.getItem().getRegistryName().getResourceDomain();
+					if (!domain.equals("minecraft")) continue;
+				}
 				return true;
 			}
 		}
