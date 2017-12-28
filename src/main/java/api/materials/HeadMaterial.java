@@ -71,9 +71,6 @@ public class HeadMaterial extends PartMaterial {
 			toolMat = toolMat.substring(toolMat.indexOf(":") + 1);
 		}
 		for (String mat : this.replaceableMaterials) {
-			
-			//System.out.println(mat.toLowerCase() + ", " + toolMat);
-			
 			if (mat.toLowerCase().equals(toolMat)) {
 				return true;
 			}
