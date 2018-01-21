@@ -3,6 +3,7 @@ package toolbox.common;
 import api.materials.HeadMaterial;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -119,8 +120,10 @@ public class CommonProxy {
 	protected void processRecipes() {
 		if (ForgeRegistries.RECIPES instanceof IForgeRegistryModifiable) {
 			IForgeRegistryModifiable registry = (IForgeRegistryModifiable) ForgeRegistries.RECIPES;
-
-			for (Entry<ResourceLocation, IRecipe> recipeEntry : ForgeRegistries.RECIPES.getEntries()) {
+			
+			Entry<ResourceLocation, IRecipe>[] recipeEntries = ForgeRegistries.RECIPES.getEntries().toArray(new Entry[ForgeRegistries.RECIPES.getEntries().size()]);
+			for (int recipeIndex = 0; recipeIndex < recipeEntries.length; recipeIndex++) {
+				Entry<ResourceLocation, IRecipe> recipeEntry = recipeEntries[recipeIndex];
 				IRecipe recipe = recipeEntry.getValue();
 				NonNullList<Ingredient> ingredients = recipe.getIngredients();
 				
