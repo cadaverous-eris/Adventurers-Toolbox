@@ -231,7 +231,6 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 
 	public List<BlockPos> getExtraBlocks(World world, RayTraceResult rt, EntityPlayer player) {
 		List<BlockPos> positions = new ArrayList<BlockPos>();
-		BlockPos pos = rt.getBlockPos();
 		
 		if (rt == null || rt.getBlockPos() == null || rt.sideHit == null) {
 			return positions;
@@ -240,6 +239,8 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 		if (player.isSneaking()) {
 			return positions;
 		}
+		
+		BlockPos pos = rt.getBlockPos();
 
 		switch (rt.sideHit.getAxis()) {
 			case Y:
@@ -278,21 +279,17 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 	}
 
 	protected void attemptAddExtraBlock(World world, BlockPos pos1, BlockPos pos2, List<BlockPos> list) {
-
 		if (world.getBlockState(pos2).getBlock() != world.getBlockState(pos1).getBlock() || world.isAirBlock(pos2)) {
 			return;
 		}
-
 		if (!world.getBlockState(pos1).getBlock().isToolEffective(toolClass, world.getBlockState(pos1)) && !canHarvestBlock(world.getBlockState(pos1))) {
 			return;
 		}
-
 		if (!world.getBlockState(pos2).getBlock().isToolEffective(toolClass, world.getBlockState(pos2)) && !canHarvestBlock(world.getBlockState(pos2))) {
 			return;
 		}
 
 		list.add(pos2);
-
 	}
 
 	public void initModel() {
