@@ -34,6 +34,8 @@ silver.name=Silver
 steel.name=Steel
 electrum.name=Electrum
 soulforged_steel.name=Soulforged Steel
+dawnstone.name=Dawnstone
+constantan.name=Constantan
 
 #Blocks
 
@@ -121,6 +123,8 @@ guide.mat.silver.name=Silver
 guide.mat.steel.name=Steel
 guide.mat.electrum.name=Electrum
 guide.mat.soulforged_steel.name=Soulforged Steel
+guide.mat.dawnstone.name=Dawnstone
+guide.mat.constantan.name=Constantan
 guide.mat.flint.name=Flint
 
 guide.mat.blaze_rod.name=Blaze Rod
@@ -128,6 +132,8 @@ guide.mat.end_rod.name=End Rod
 guide.mat.bone.name=Bone
 guide.mat.wither_bone.name=Wither Bone
 guide.mat.refined.name=Refined Haft
+guide.mat.treated_wood.name=Treated Wood
+guide.mat.withered_bone.name=Withered Bone
 
 guide.mat.leather.name=Leather
 guide.mat.cloth.name=Cloth
@@ -137,6 +143,8 @@ guide.mat.emerald.name=Emerald
 guide.mat.quartz.name=Quartz
 guide.mat.prismarine.name=Prismarine
 guide.mat.ender_pearl.name=Ender Pearl
+guide.mat.lapis.name=Lapis Lazuli
+guide.mat.biotite.name=Ender Biotite
 
 guide.mat.stat.harvest_level.name=Harvest Level
 guide.mat.stat.durability.name=Durability
@@ -153,6 +161,7 @@ guide.mat.blaze_rod.desc=*Tools made with blaze rod hafts will start fires when 
 guide.mat.end_rod.desc=*When a block is mined with a tool made with an end rod haft, any dropped items will have no gravity.
 guide.mat.wither_bone.desc=*Tools use eight times as much durability when not in the nether.
 guide.mat.prismarine.desc=*Tools made with prismarine are faster when the user is wet.
+guide.mat.lapis.desc=*Tools made with lapis lazuli can be enchanted up to level 50 instead of 30. Additionally, mining blocks or killing mobs with a lapis lazuli adorned tool will sometimes grant extra experience orbs.
 
 guide.tool.pickaxe.name=Pickaxe
 guide.tool.axe.name=Axe

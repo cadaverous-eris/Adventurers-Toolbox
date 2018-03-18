@@ -33,7 +33,7 @@ public class HammerHandler {
 			if (stack.getItem() == ModItems.hammer) {
 				
 				World world = event.getPlayer().getEntityWorld();
-				List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, event.getTarget(), event.getPlayer());
+				List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, event.getTarget(), event.getPlayer(), stack);
 				
 				for (BlockPos pos : positions) {
 					event.getContext().drawSelectionBox(event.getPlayer(), new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.getPartialTicks());

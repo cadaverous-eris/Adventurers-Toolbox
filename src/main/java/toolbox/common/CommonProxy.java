@@ -45,6 +45,7 @@ import toolbox.common.handlers.HammerHandler;
 import toolbox.common.handlers.HandpickHarvestHandler;
 import toolbox.common.handlers.WeaponHandler;
 import toolbox.common.handlers.SpecialToolAbilityHandler;
+import toolbox.common.handlers.ToolRepairHandler;
 import toolbox.common.handlers.WorldHandler;
 import toolbox.common.items.ItemBase;
 import toolbox.common.items.ModItems;
@@ -72,6 +73,7 @@ public class CommonProxy {
 
 		MinecraftForge.EVENT_BUS.register(new HandpickHarvestHandler());
 		MinecraftForge.EVENT_BUS.register(new SpecialToolAbilityHandler());
+		MinecraftForge.EVENT_BUS.register(new ToolRepairHandler());
 		MinecraftForge.EVENT_BUS.register(new HammerHandler());
 		MinecraftForge.EVENT_BUS.register(new WeaponHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldHandler());
@@ -140,7 +142,7 @@ public class CommonProxy {
 					String materialName = output instanceof ItemHoe ? ((ItemHoe) output).getMaterialName() : output instanceof ItemSword ? ((ItemSword) output).getToolMaterialName() : ((ItemTool) output).getToolMaterialName();
 					
 					if (Materials.canReplaceMaterial(materialName, recipe.getRecipeOutput())) {
-						System.out.println(materialName);
+						//System.out.println(materialName);
 						registry.remove(recipeEntry.getKey());
 						registry.register(new IRecipe() {
 	

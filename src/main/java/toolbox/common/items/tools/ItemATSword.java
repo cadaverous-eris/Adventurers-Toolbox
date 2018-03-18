@@ -27,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -95,6 +96,9 @@ public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardToo
 		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false)) {
 			return true;
 		}
+		if (toRepair.getItem() == this) {
+			if (OreDictionary.containsMatch(false, OreDictionary.getOres(IBladeTool.getBladeMat(toRepair).getCraftingItem()), repair)) return true;
+		}
 		return super.getIsRepairable(toRepair, repair);
 	}
 
@@ -107,7 +111,7 @@ public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardToo
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
 					"Weapon modifier", (double) 3.0F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER,
-					"Weapon modifier", (double) (-2.4000000953674316D + getEfficiencyMod(stack)), 0));
+					"Weapon modifier", -2.4000000953674316D, 0));
 		}
 
 		return multimap;
@@ -158,6 +162,11 @@ public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardToo
 
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
+	}
+	
+	@Override
+	public boolean isDamageable() {
+		return true;
 	}
 
 }

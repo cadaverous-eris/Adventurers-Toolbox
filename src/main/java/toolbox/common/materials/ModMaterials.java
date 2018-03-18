@@ -44,7 +44,7 @@ public class ModMaterials {
 			"ingotNickel", "nuggetNickel", Lists.<String>newArrayList("nickel"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_LEAD = new HeadMaterial("lead", 2, 168, 6.0F, 2.0F, 4, ItemStack.EMPTY,
 			"ingotLead", "nuggetLead", Lists.<String>newArrayList("lead"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_SILVER = new HeadMaterial("silver", 0, 64, 8.0F, 0.5F, 18, ItemStack.EMPTY,
+	public static final HeadMaterial HEAD_SILVER = new HeadMaterial("silver", 0, 64, 8.0F, 0.5F, 20, ItemStack.EMPTY,
 			"ingotSilver", "nuggetSilver", Lists.<String>newArrayList("silver"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_STEEL = new HeadMaterial("steel", 2, 500, 7.0F, 2.5F, 14, ItemStack.EMPTY,
 			"ingotSteel", "nuggetSteel", Lists.<String>newArrayList("steel"), Toolbox.MODID);
@@ -52,6 +52,10 @@ public class ModMaterials {
 			ItemStack.EMPTY, "ingotElectrum", "nuggetElectrum", Lists.<String>newArrayList("electrum"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_SOULFORGED_STEEL = new HeadMaterial("soulforged_steel", 4, 600, 9.0F, 3F, 22, ItemStack.EMPTY,
 			"ingotSoulforgedSteel", "nuggetSoulforgedSteel", Lists.<String>newArrayList("soulforged_steel"), Toolbox.MODID);
+	public static final HeadMaterial HEAD_DAWNSTONE = new HeadMaterial("dawnstone", 2, 644, 7.5F, 2.5F, 18, ItemStack.EMPTY,
+			"ingotDawnstone", "nuggetDawnstone", Lists.<String>newArrayList("dawnstone"), Toolbox.MODID);
+	public static final HeadMaterial HEAD_CONSTANTAN = new HeadMaterial("constantan", 2, 215, 6F, 2.0F, 14, ItemStack.EMPTY,
+			"ingotConstantan", "nuggetConstantan", Lists.<String>newArrayList("constantan"), Toolbox.MODID);
 
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 1.0F, 1.0F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0.8F, 1.5F, Toolbox.MODID);
@@ -59,12 +63,16 @@ public class ModMaterials {
 	public static final HaftMaterial HAFT_END_ROD = new HaftMaterial("end_rod", 1.25F, 1.5F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_IMPROVED = new HaftMaterial("refined", 1.3F, 0.8F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_WITHER_BONE = new HaftMaterial("wither_bone", 2.0F, 0.8F, Toolbox.MODID);
-
+	public static final HaftMaterial HAFT_TREATED_WOOD = new HaftMaterial("treated_wood", 1.125F, 0.875F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_WITHERED_BONE = new HaftMaterial("withered_bone", 1.125F, 1.25F, Toolbox.MODID);
+	
 	public static final HandleMaterial HANDLE_WOOD = new HandleMaterial("wood", 1.0F, Toolbox.MODID);
 	public static final HandleMaterial HANDLE_BONE = new HandleMaterial("bone", 0.9375F, Toolbox.MODID);
 	public static final HandleMaterial HANDLE_CLOTH = new HandleMaterial("cloth", 1.125F, Toolbox.MODID);
 	public static final HandleMaterial HANDLE_LEATHER = new HandleMaterial("leather", 1.25F, Toolbox.MODID);
-
+	public static final HandleMaterial HANDLE_TREATED_WOOD = new HandleMaterial("treated_wood", 1.125F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_WITHERED_BONE = new HandleMaterial("withered_bone", 1.25F, Toolbox.MODID);
+	
 	public static final AdornmentMaterial ADORNMENT_NULL = new AdornmentMaterial("null", 0, 1.0F, 1.0F, 0.0F, 1.0F,
 			Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_DIAMOND = new AdornmentMaterial("diamond", 1, 6.25F, 1.4F, 1F, 0.7F,
@@ -76,7 +84,11 @@ public class ModMaterials {
 	public static final AdornmentMaterial ADORNMENT_PRISMARINE = new AdornmentMaterial("prismarine", 0, 2.5F, 1F, 1F,
 			1.1F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_ENDER_PEARL = new AdornmentMaterial("ender_pearl", 0, 3F, 1F, 0F,
-			2F, Toolbox.MODID);
+			1.75F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_LAPIS = new AdornmentMaterial("lapis", 0, 1F, 1F, 0F,
+			2.25F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_BIOTITE = new AdornmentMaterial("biotite", 1, 3F, 1.75F, 1.5F,
+			1.125F, Toolbox.MODID);
 	
 	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
@@ -109,6 +121,8 @@ public class ModMaterials {
 		headMaterials.add(HEAD_STEEL);
 		headMaterials.add(HEAD_ELECTRUM);
 		headMaterials.add(HEAD_SOULFORGED_STEEL);
+		headMaterials.add(HEAD_DAWNSTONE);
+		headMaterials.add(HEAD_CONSTANTAN);
 
 		for (HeadMaterial mat : headMaterials) {
 			if (!Config.DISABLED_MATERIALS.contains(mat.getName())) {
@@ -123,8 +137,10 @@ public class ModMaterials {
 		Materials.registerHaftMat(HAFT_BONE);
 		Materials.registerHaftMat(HAFT_BLAZE_ROD);
 		Materials.registerHaftMat(HAFT_END_ROD);
-		if(Loader.isModLoaded("betterwithmods")) Materials.registerHaftMat(HAFT_IMPROVED);
-		if(Loader.isModLoaded("nex")) Materials.registerHaftMat(HAFT_WITHER_BONE);
+		if (Loader.isModLoaded("betterwithmods")) Materials.registerHaftMat(HAFT_IMPROVED);
+		if (Loader.isModLoaded("nex")) Materials.registerHaftMat(HAFT_WITHER_BONE);
+		Materials.registerHaftMat(HAFT_TREATED_WOOD);
+		Materials.registerHaftMat(HAFT_WITHERED_BONE);
 	}
 
 	private static void initHandleMaterials() {
@@ -132,6 +148,8 @@ public class ModMaterials {
 		Materials.registerHandleMat(HANDLE_BONE);
 		Materials.registerHandleMat(HANDLE_CLOTH);
 		Materials.registerHandleMat(HANDLE_LEATHER);
+		Materials.registerHandleMat(HANDLE_TREATED_WOOD);
+		Materials.registerHandleMat(HANDLE_WITHERED_BONE);
 	}
 
 	private static void initAdornmentMaterials() {
@@ -141,6 +159,8 @@ public class ModMaterials {
 		Materials.registerAdornmentMat(ADORNMENT_QUARTZ);
 		Materials.registerAdornmentMat(ADORNMENT_PRISMARINE);
 		Materials.registerAdornmentMat(ADORNMENT_ENDER_PEARL);
+		Materials.registerAdornmentMat(ADORNMENT_LAPIS);
+		Materials.registerAdornmentMat(ADORNMENT_BIOTITE);
 	}
 
 	public static void initHeadRepairItems() {

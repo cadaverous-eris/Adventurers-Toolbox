@@ -16,6 +16,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.items.ModItems;
 import toolbox.common.materials.ModMaterials;
+import toolbox.common.recipes.ModRecipes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,15 +84,24 @@ public class GuiBook extends GuiScreen {
 			}
 		}
 		for (HaftMaterial mat : Materials.haft_registry.values()) {
+			if (!ModRecipes.haft_map.containsValue(mat)) {
+				continue;
+			}
 			BookPageMat page = new BookPageMat(mat);
 			chapters.get("haft_mat").addPage(page);
 		}
 		for (HandleMaterial mat : Materials.handle_registry.values()) {
+			if (!ModRecipes.handle_map.containsValue(mat)) {
+				continue;
+			}
 			BookPageMat page = new BookPageMat(mat);
 			chapters.get("handle_mat").addPage(page);
 		}
 		for (AdornmentMaterial mat : Materials.adornment_registry.values()) {
 			if (mat == ModMaterials.ADORNMENT_NULL) {
+				continue;
+			}
+			if (!ModRecipes.adornment_map.containsValue(mat)) {
 				continue;
 			}
 			BookPageMat page = new BookPageMat(mat);

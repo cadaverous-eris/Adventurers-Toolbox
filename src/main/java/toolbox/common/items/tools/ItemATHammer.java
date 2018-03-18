@@ -6,6 +6,8 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -19,6 +21,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -34,6 +37,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -104,6 +108,9 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false)) {
 			return true;
 		}
+		if (toRepair.getItem() == this) {
+			if (OreDictionary.containsMatch(false, OreDictionary.getOres(IHeadTool.getHeadMat(toRepair).getCraftingItem()), repair)) return true;
+		}
 		return super.getIsRepairable(toRepair, repair);
 	}
 
@@ -121,7 +128,7 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
 			ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
@@ -175,6 +182,21 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 	public boolean isEnchantable(ItemStack stack) {
 		return true;
 	}
+	
+	@Override
+	public boolean isDamageable() {
+		return true;
+	}
+	
+	@Override
+	public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+		Block block = state.getBlock();
+		if (block == Blocks.OBSIDIAN || block == Blocks.REDSTONE_ORE || block == Blocks.LIT_REDSTONE_ORE) {
+			return getHarvestLevel(stack) >= block.getHarvestLevel(state);
+		}
+		
+		return super.canHarvestBlock(state, stack);
+	}
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
@@ -186,7 +208,7 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 			if (rt.typeOfHit == RayTraceResult.Type.BLOCK) {
 				EnumFacing side = rt.sideHit;
 
-				List<BlockPos> extraBlocks = getExtraBlocks(world, rt, player);
+				List<BlockPos> extraBlocks = getExtraBlocks(world, rt, player, itemstack);
 
 				for (BlockPos pos2 : extraBlocks) {
 
@@ -229,7 +251,7 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 		return this.rayTrace(world, player, false);
 	}
 
-	public List<BlockPos> getExtraBlocks(World world, RayTraceResult rt, EntityPlayer player) {
+	public List<BlockPos> getExtraBlocks(World world, RayTraceResult rt, EntityPlayer player, ItemStack stack) {
 		List<BlockPos> positions = new ArrayList<BlockPos>();
 		
 		if (rt == null || rt.getBlockPos() == null || rt.sideHit == null) {
@@ -241,51 +263,53 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 		}
 		
 		BlockPos pos = rt.getBlockPos();
+		IBlockState state = world.getBlockState(pos);
 
-		switch (rt.sideHit.getAxis()) {
+		if (state.getBlock().isToolEffective(toolClass, state) || canHarvestBlock(state, stack)) {
+			switch (rt.sideHit.getAxis()) {
 			case Y:
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.NORTH), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.EAST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.SOUTH), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.WEST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.NORTH).offset(EnumFacing.EAST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.EAST).offset(EnumFacing.SOUTH), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.SOUTH).offset(EnumFacing.WEST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.WEST).offset(EnumFacing.NORTH), positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.NORTH), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.EAST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.SOUTH), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.WEST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.NORTH).offset(EnumFacing.EAST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.EAST).offset(EnumFacing.SOUTH), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.SOUTH).offset(EnumFacing.WEST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.WEST).offset(EnumFacing.NORTH), stack, positions);
 				break;
 			case X:
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.NORTH), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.UP), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.SOUTH), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.DOWN), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.NORTH).offset(EnumFacing.UP), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.UP).offset(EnumFacing.SOUTH), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.SOUTH).offset(EnumFacing.DOWN), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.DOWN).offset(EnumFacing.NORTH), positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.NORTH), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.UP), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.SOUTH), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.DOWN), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.NORTH).offset(EnumFacing.UP), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.UP).offset(EnumFacing.SOUTH), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.SOUTH).offset(EnumFacing.DOWN), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.DOWN).offset(EnumFacing.NORTH), stack, positions);
 				break;
 			case Z:
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.DOWN), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.EAST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.UP), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.WEST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.DOWN).offset(EnumFacing.EAST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.EAST).offset(EnumFacing.UP), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.UP).offset(EnumFacing.WEST), positions);
-				attemptAddExtraBlock(world, pos, pos.offset(EnumFacing.WEST).offset(EnumFacing.DOWN), positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.DOWN), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.EAST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.UP), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.WEST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.DOWN).offset(EnumFacing.EAST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.EAST).offset(EnumFacing.UP), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.UP).offset(EnumFacing.WEST), stack, positions);
+				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.WEST).offset(EnumFacing.DOWN), stack, positions);
 				break;
+			}
 		}
 
 		return positions;
 	}
 
-	protected void attemptAddExtraBlock(World world, BlockPos pos1, BlockPos pos2, List<BlockPos> list) {
-		if (world.getBlockState(pos2).getBlock() != world.getBlockState(pos1).getBlock() || world.isAirBlock(pos2)) {
+	protected void attemptAddExtraBlock(World world, IBlockState state1, BlockPos pos2, ItemStack stack, List<BlockPos> list) {
+		IBlockState state2 = world.getBlockState(pos2);
+		
+		if (state2.getBlock() != state1.getBlock() || world.isAirBlock(pos2)) {
 			return;
 		}
-		if (!world.getBlockState(pos1).getBlock().isToolEffective(toolClass, world.getBlockState(pos1)) && !canHarvestBlock(world.getBlockState(pos1))) {
-			return;
-		}
-		if (!world.getBlockState(pos2).getBlock().isToolEffective(toolClass, world.getBlockState(pos2)) && !canHarvestBlock(world.getBlockState(pos2))) {
+		if (!state2.getBlock().isToolEffective(toolClass, state2) && !canHarvestBlock(state2, stack)) {
 			return;
 		}
 

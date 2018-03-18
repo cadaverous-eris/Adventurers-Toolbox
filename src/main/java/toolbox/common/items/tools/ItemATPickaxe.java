@@ -2,6 +2,7 @@ package toolbox.common.items.tools;
 
 import java.util.List;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
@@ -24,6 +25,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -90,6 +92,9 @@ public class ItemATPickaxe extends ItemPickaxe implements IHeadTool, IHaftTool, 
 		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false)) {
 			return true;
 		}
+		if (toRepair.getItem() == this) {
+			if (OreDictionary.containsMatch(false, OreDictionary.getOres(IHeadTool.getHeadMat(toRepair).getCraftingItem()), repair)) return true;
+		}
 		return super.getIsRepairable(toRepair, repair);
 	}
 
@@ -107,7 +112,7 @@ public class ItemATPickaxe extends ItemPickaxe implements IHeadTool, IHaftTool, 
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
 			ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
@@ -159,6 +164,11 @@ public class ItemATPickaxe extends ItemPickaxe implements IHeadTool, IHaftTool, 
 
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+	
+	@Override
+	public boolean isDamageable() {
 		return true;
 	}
 

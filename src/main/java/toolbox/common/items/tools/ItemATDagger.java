@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -99,6 +100,9 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false)) {
 			return true;
 		}
+		if (toRepair.getItem() == this) {
+			if (OreDictionary.containsMatch(false, OreDictionary.getOres(IBladeTool.getBladeMat(toRepair).getCraftingItem()), repair)) return true;
+		}
 		return super.getIsRepairable(toRepair, repair);
 	}
 
@@ -156,6 +160,11 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+	
+	@Override
+	public boolean isDamageable() {
 		return true;
 	}
 

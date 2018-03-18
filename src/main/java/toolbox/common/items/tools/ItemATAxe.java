@@ -2,6 +2,7 @@ package toolbox.common.items.tools;
 
 import java.util.List;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
@@ -26,6 +27,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -92,6 +94,9 @@ public class ItemATAxe extends ItemAxe implements IHeadTool, IHaftTool, IHandleT
 		if (!mat.isEmpty() && net.minecraftforge.oredict.OreDictionary.itemMatches(mat, repair, false)) {
 			return true;
 		}
+		if (toRepair.getItem() == this) {
+			if (OreDictionary.containsMatch(false, OreDictionary.getOres(IHeadTool.getHeadMat(toRepair).getCraftingItem()), repair)) return true;
+		}
 		return super.getIsRepairable(toRepair, repair);
 	}
 
@@ -110,11 +115,11 @@ public class ItemATAxe extends ItemAxe implements IHeadTool, IHaftTool, IHandleT
 	@Override
 	public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot equipmentSlot,
 			ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
+		Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
 
 		if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
 			multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER,
-					"Tool modifier", (double) 6.0F + this.getAttackDamage(stack), 0));
+					"Tool modifier", (double) 6.0F + getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
 					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) Math.min(-3.2F + (0.075F * getHarvestLevel(stack)), -3.0F), 0));
 		}
@@ -162,6 +167,11 @@ public class ItemATAxe extends ItemAxe implements IHeadTool, IHaftTool, IHandleT
 
 	@Override
 	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+	
+	@Override
+	public boolean isDamageable() {
 		return true;
 	}
 

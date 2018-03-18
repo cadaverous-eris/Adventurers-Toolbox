@@ -101,7 +101,7 @@ public class WorldListener implements IWorldEventListener {
 		}
 		if (player.getHeldItemMainhand().getItem() == ModItems.hammer) {
 			RayTraceResult rt = ModItems.hammer.rayTraceBlocks(world, player);
-			List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, rt, player);
+			List<BlockPos> positions = ModItems.hammer.getExtraBlocks(world, rt, player, player.getHeldItemMainhand());
 
 	        PacketHandler.INSTANCE.sendToAllAround(new MessageExtraBlockBreak(player.getEntityId(), positions.toArray(new BlockPos[positions.size()]), progress - 1), new TargetPoint(player.dimension, player.posX, player.posY, player.posZ, 32D));
 		}

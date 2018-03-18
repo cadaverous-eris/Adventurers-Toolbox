@@ -15,12 +15,15 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -28,6 +31,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -35,11 +39,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DimensionType;
+import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -355,7 +363,6 @@ public class SpecialToolAbilityHandler {
 
 	@SubscribeEvent
 	public void onPrismarineAdornedToolMine(PlayerEvent.BreakSpeed event) {
-
 		if (event.getEntityPlayer() == null) {
 			return;
 		}
@@ -365,11 +372,58 @@ public class SpecialToolAbilityHandler {
 
 		if (stack.getItem() instanceof IAdornedTool
 				&& IAdornedTool.getAdornmentMat(stack) == ModMaterials.ADORNMENT_PRISMARINE && player.isInWater()) {
-
 			event.setNewSpeed(event.getOriginalSpeed() * 2F);
-
 		}
+	}
+	
+	@SubscribeEvent
+	public void onLapisToolEnchant(EnchantmentLevelSetEvent event) {
+		ItemStack stack = event.getItem();
 
+		if (stack.getItem() instanceof IAdornedTool
+				&& IAdornedTool.getAdornmentMat(stack) == ModMaterials.ADORNMENT_LAPIS) {
+			event.setLevel((int) (event.getLevel() * (5f / 3f)));
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLapisToolMine(BlockEvent.BreakEvent event) {
+		if (event.getPlayer() == null) return;
+		
+		ItemStack stack = event.getPlayer().getHeldItemMainhand();
+
+		if (stack.getItem() instanceof IAdornedTool
+				&& IAdornedTool.getAdornmentMat(stack) == ModMaterials.ADORNMENT_LAPIS) {
+			if (rand.nextInt(4) == 0) event.setExpToDrop(event.getExpToDrop() + event.getState().getBlock().getExpDrop(event.getState(), event.getWorld(), event.getPos(), 0));
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLapisToolKill(LivingExperienceDropEvent event) {
+		if (event.getAttackingPlayer() == null) return;
+		
+		ItemStack stack = event.getAttackingPlayer().getHeldItemMainhand();
+
+		if (stack.getItem() instanceof IAdornedTool
+				&& IAdornedTool.getAdornmentMat(stack) == ModMaterials.ADORNMENT_LAPIS) {
+			int exp = event.getDroppedExperience();
+			if (exp > 0 && rand.nextBoolean()) event.setDroppedExperience(exp + 1 + rand.nextInt(exp + 1));
+		}
+	}
+	
+	@SubscribeEvent
+	public void onWitheredBoneToolCrit(CriticalHitEvent event) {
+		if (event.getEntityPlayer() == null || event.getTarget() == null || !(event.getTarget() instanceof EntityLivingBase) || event.getResult() == Event.Result.DENY || (!event.isVanillaCritical() && event.getResult() != Event.Result.ALLOW)) return;
+		
+		ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
+		
+		int i = 0;
+		if (stack.getItem() instanceof IHaftTool && IHaftTool.getHaftMat(stack) == ModMaterials.HAFT_WITHERED_BONE) i++;
+		if (stack.getItem() instanceof IHandleTool && IHandleTool.getHandleMat(stack) == ModMaterials.HANDLE_WITHERED_BONE) i++;
+		
+		if (i > 0) {
+			((EntityLivingBase) event.getTarget()).addPotionEffect(new PotionEffect(MobEffects.WITHER, 160, i - 1));
+		}	
 	}
 	
 	@SubscribeEvent(priority = EventPriority.LOWEST)
@@ -398,7 +452,6 @@ public class SpecialToolAbilityHandler {
 	
 	@SubscribeEvent
 	public void onWitherBoneAttackEvent(AttackEntityEvent event) {
-		
 		EntityPlayer player = event.getEntityPlayer();
 		ItemStack stack = player.getHeldItemMainhand();
 		

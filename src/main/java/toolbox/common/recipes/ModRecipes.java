@@ -266,21 +266,37 @@ public class ModRecipes {
 		
 		Item haft = ForgeRegistries.ITEMS.getValue(new ResourceLocation("betterwithmods:material"));
 		Item witherBone = ForgeRegistries.ITEMS.getValue(new ResourceLocation("nex:item_bone_wither"));
-		if(haft != null) haft_map.put(new ItemStack(haft, 1, 36), ModMaterials.HAFT_IMPROVED);
-		if(witherBone != null) haft_map.put(new ItemStack(witherBone, 1, 0), ModMaterials.HAFT_WITHER_BONE);
-
+		if (haft != null) haft_map.put(new ItemStack(haft, 1, 36), ModMaterials.HAFT_IMPROVED);
+		if (witherBone != null) haft_map.put(new ItemStack(witherBone, 1, 0), ModMaterials.HAFT_WITHER_BONE);
+		for (ItemStack treatedStick : OreDictionary.getOres("stickTreatedWood")) {
+			haft_map.put(treatedStick, ModMaterials.HAFT_TREATED_WOOD);
+		}
+		for (ItemStack witheredBone : OreDictionary.getOres("boneWithered")) {
+			haft_map.put(witheredBone, ModMaterials.HAFT_WITHERED_BONE);
+		}
+		
 		handle_map.put(new ItemStack(ModItems.handle, 1, 0), ModMaterials.HANDLE_CLOTH);
 		handle_map.put(new ItemStack(ModItems.handle, 1, 1), ModMaterials.HANDLE_LEATHER);
-		//handle_map.put(new ItemStack(ModItems.handle, 1, 2), ModMaterials.HANDLE_WOOD);
-		//handle_map.put(new ItemStack(ModItems.handle, 1, 3), ModMaterials.HANDLE_BONE);
 		handle_map.put(new ItemStack(Items.STICK, 1, 0), ModMaterials.HANDLE_WOOD);
 		handle_map.put(new ItemStack(Items.BONE, 1, 0), ModMaterials.HANDLE_BONE);
-
+		
+		for (ItemStack treatedStick : OreDictionary.getOres("stickTreatedWood")) {
+			handle_map.put(treatedStick, ModMaterials.HANDLE_TREATED_WOOD);
+		}
+		for (ItemStack witheredBone : OreDictionary.getOres("boneWithered")) {
+			handle_map.put(witheredBone, ModMaterials.HANDLE_WITHERED_BONE);
+		}
+		
 		adornment_map.put(new ItemStack(Items.DIAMOND), ModMaterials.ADORNMENT_DIAMOND);
 		adornment_map.put(new ItemStack(Items.EMERALD), ModMaterials.ADORNMENT_EMERALD);
 		adornment_map.put(new ItemStack(Items.QUARTZ), ModMaterials.ADORNMENT_QUARTZ);
 		adornment_map.put(new ItemStack(Items.PRISMARINE_CRYSTALS), ModMaterials.ADORNMENT_PRISMARINE);
 		adornment_map.put(new ItemStack(Items.ENDER_PEARL), ModMaterials.ADORNMENT_ENDER_PEARL);
+		adornment_map.put(new ItemStack(Items.DYE, 1, 4), ModMaterials.ADORNMENT_LAPIS);
+		
+		for (ItemStack biotite : OreDictionary.getOres("gemEnderBiotite")) {
+			adornment_map.put(biotite, ModMaterials.ADORNMENT_BIOTITE);
+		}
 	}
 
 	private static IRecipe getToolHeadSchematicRecipe(ItemStack output, String material, String type, int cost) {
