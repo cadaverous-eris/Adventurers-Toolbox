@@ -57,11 +57,11 @@ public class ModMaterials {
 			"ingotDawnstone", "nuggetDawnstone", Lists.<String>newArrayList("dawnstone"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_CONSTANTAN = new HeadMaterial("constantan", 2, 215, 6F, 2.0F, 14, ItemStack.EMPTY,
 			"ingotConstantan", "nuggetConstantan", Lists.<String>newArrayList("constantan"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_COBALT = new HeadMaterial("cobalt", 3, 720, 12.0F, 2.1F, 18, new ItemStack(TinkerCommons.ingots, 1, 0),
+	public static final HeadMaterial HEAD_COBALT = new HeadMaterial("cobalt", 3, 825, 12.0F, 2.1F, 16, new ItemStack(TinkerCommons.ingots, 1, 0),
 			"ingotCobalt", "nuggetCobalt", Lists.<String>newArrayList("cobalt"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_ARDITE = new HeadMaterial("ardite", 3, 1420, 3.5F, 1.6F, 18, new ItemStack(TinkerCommons.ingots, 1, 1),
+	public static final HeadMaterial HEAD_ARDITE = new HeadMaterial("ardite", 3, 1035, 3.5F, 1.5F, 12, new ItemStack(TinkerCommons.ingots, 1, 1),
 			"ingotArdite", "nuggetArdite", Lists.<String>newArrayList("ardite"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_MANYULLYN = new HeadMaterial("manyullyn", 3, 420, 7.0F, 6.75F, 20, new ItemStack(TinkerCommons.ingots, 1, 2),
+	public static final HeadMaterial HEAD_MANYULLYN = new HeadMaterial("manyullyn", 3, 865, 7.0F, 3.0F, 18, new ItemStack(TinkerCommons.ingots, 1, 2),
 			"ingotManyullyn", "nuggetManyullyn", Lists.<String>newArrayList("manyullyn"), Toolbox.MODID);
 	
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 0, 1.0F, 1.0F, 0.0F, 1.0F, Toolbox.MODID);
@@ -80,39 +80,23 @@ public class ModMaterials {
 	public static final HandleMaterial HANDLE_TREATED_WOOD = new HandleMaterial("treated_wood", 1.125F, 1.1F, 0.875F, Toolbox.MODID);
 	public static final HandleMaterial HANDLE_WITHERED_BONE = new HandleMaterial("withered_bone", 1.25F, 1.15F, 1.25F, Toolbox.MODID);
 	
-	public static final AdornmentMaterial ADORNMENT_NULL = new AdornmentMaterial("null", 0, 1.0F, 1.0F, 0.0F, 1.0F,
-			Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_DIAMOND = new AdornmentMaterial("diamond", 1, 6.25F, 1.4F, 1F, 0.7F,
-			Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_EMERALD = new AdornmentMaterial("emerald", 1, 5.75F, 1.3F, 1F, 0.9F,
-			Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_QUARTZ = new AdornmentMaterial("quartz", 0, 2F, 2F, 2F, 0.8F,
-			Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_PRISMARINE = new AdornmentMaterial("prismarine", 0, 2.5F, 1F, 1F,
-			1.1F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_ENDER_PEARL = new AdornmentMaterial("ender_pearl", 0, 3F, 1F, 0F,
-			1.75F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_LAPIS = new AdornmentMaterial("lapis", 0, 1F, 1F, 0F,
-			2.25F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_NULL = new AdornmentMaterial("null", 0, 1.0F, 1.0F, 0.0F, 1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_DIAMOND = new AdornmentMaterial("diamond", 1, 6.25F, 1.4F, 1F, 0.7F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_EMERALD = new AdornmentMaterial("emerald", 1, 5.75F, 1.3F, 1F, 0.8F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_QUARTZ = new AdornmentMaterial("quartz", 0, 2F, 2F, 2F, 0.8F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_PRISMARINE = new AdornmentMaterial("prismarine", 0, 2.5F, 1F, 1F, 1.1F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_ENDER_PEARL = new AdornmentMaterial("ender_pearl", 0, 3F, 1F, 0F, 1.75F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_LAPIS = new AdornmentMaterial("lapis", 0, 1F, 1F, 0F, 2.25F, Toolbox.MODID);
 	
-	public static final AdornmentMaterial ADORNMENT_BIOTITE = new AdornmentMaterial("biotite", 1, 3F, 1.75F, 1.5F,
-			1.125F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_AMETHYST = new AdornmentMaterial("amethyst", 1, 6.5F, 1.6F, 1F,
-			0.9F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_RUBY = new AdornmentMaterial("ruby", 1, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_PERIDOT = new AdornmentMaterial("peridot", 0, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_TOPAZ = new AdornmentMaterial("topaz", 0, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_TANZANITE = new AdornmentMaterial("tanzanite", 0, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_MALACHITE = new AdornmentMaterial("malachite", 0, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_SAPPHIRE = new AdornmentMaterial("sapphire", 1, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 0, 3.0F, 1.3F, 0.5F,
-			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_BIOTITE = new AdornmentMaterial("biotite", 1, 3F, 1.75F, 1.5F, 1.125F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_AMETHYST = new AdornmentMaterial("amethyst", 1, 6.5F, 1.6F, 1.5F, 0.9F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_RUBY = new AdornmentMaterial("ruby", 1, 5.5F, 1.4F, 1F, 0.9F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_PERIDOT = new AdornmentMaterial("peridot", 0, 4.5F, 1.5F, 0.5F, 0.75F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_TOPAZ = new AdornmentMaterial("topaz", 0, 4.5F, 1.3F, 1.0F, 0.8F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_TANZANITE = new AdornmentMaterial("tanzanite", 0, 4.25F, 1.2F, 0.5F, 1.1F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_MALACHITE = new AdornmentMaterial("malachite", 0, 4.25F, 1.3F, 0.5F, 0.85F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_SAPPHIRE = new AdornmentMaterial("sapphire", 1, 5.25F, 1.2F, 1F, 1.25F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 0, 4.75F, 1.2F, 0.5F, 0.75F, Toolbox.MODID);
 	
 	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
