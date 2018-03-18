@@ -57,21 +57,21 @@ public class ModMaterials {
 	public static final HeadMaterial HEAD_CONSTANTAN = new HeadMaterial("constantan", 2, 215, 6F, 2.0F, 14, ItemStack.EMPTY,
 			"ingotConstantan", "nuggetConstantan", Lists.<String>newArrayList("constantan"), Toolbox.MODID);
 
-	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 1.0F, 1.0F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0.8F, 1.5F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_BLAZE_ROD = new HaftMaterial("blaze_rod", 1.125F, 1.2F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_END_ROD = new HaftMaterial("end_rod", 1.25F, 1.5F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_IMPROVED = new HaftMaterial("refined", 1.3F, 0.8F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_WITHER_BONE = new HaftMaterial("wither_bone", 2.0F, 0.8F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_TREATED_WOOD = new HaftMaterial("treated_wood", 1.125F, 0.875F, Toolbox.MODID);
-	public static final HaftMaterial HAFT_WITHERED_BONE = new HaftMaterial("withered_bone", 1.125F, 1.25F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 0, 1.0F, 1.0F, 0.0F, 1.0F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0, 0.8F, 1.0F, 0.5F, 1.3F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_BLAZE_ROD = new HaftMaterial("blaze_rod", 0, 1.125F, 1.0F, 0.5F, 1.2F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_END_ROD = new HaftMaterial("end_rod", 1, 1.5F, 1.25F, 0.0F, 1.2F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_IMPROVED = new HaftMaterial("refined", 0, 1.3F, 1.0F, 0.0F, 0.8F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_WITHER_BONE = new HaftMaterial("wither_bone", 0, 2.0F, 1.0F, 0.0F, 0.8F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_TREATED_WOOD = new HaftMaterial("treated_wood", 0, 1.125F, 1.1F, 0.0F, 0.875F, Toolbox.MODID);
+	public static final HaftMaterial HAFT_WITHERED_BONE = new HaftMaterial("withered_bone", 0, 1.125F, 1.05F, 0.5F, 1.25F, Toolbox.MODID);
 	
-	public static final HandleMaterial HANDLE_WOOD = new HandleMaterial("wood", 1.0F, Toolbox.MODID);
-	public static final HandleMaterial HANDLE_BONE = new HandleMaterial("bone", 0.9375F, Toolbox.MODID);
-	public static final HandleMaterial HANDLE_CLOTH = new HandleMaterial("cloth", 1.125F, Toolbox.MODID);
-	public static final HandleMaterial HANDLE_LEATHER = new HandleMaterial("leather", 1.25F, Toolbox.MODID);
-	public static final HandleMaterial HANDLE_TREATED_WOOD = new HandleMaterial("treated_wood", 1.125F, Toolbox.MODID);
-	public static final HandleMaterial HANDLE_WITHERED_BONE = new HandleMaterial("withered_bone", 1.25F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_WOOD = new HandleMaterial("wood", 1.0F, 1.0F, 1.0F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_BONE = new HandleMaterial("bone", 0.9375F, 1.1F, 1.3F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_CLOTH = new HandleMaterial("cloth", 1.125F, 1.0F, 0.8F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_LEATHER = new HandleMaterial("leather", 1.25F, 1.0f, 0.9F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_TREATED_WOOD = new HandleMaterial("treated_wood", 1.125F, 1.1F, 0.875F, Toolbox.MODID);
+	public static final HandleMaterial HANDLE_WITHERED_BONE = new HandleMaterial("withered_bone", 1.25F, 1.15F, 1.25F, Toolbox.MODID);
 	
 	public static final AdornmentMaterial ADORNMENT_NULL = new AdornmentMaterial("null", 0, 1.0F, 1.0F, 0.0F, 1.0F,
 			Toolbox.MODID);

@@ -49,12 +49,15 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 	}
 
 	public int getDurability(ItemStack stack) {
-		return (int) (IBladeTool.getBladeMat(stack).getDurability() * IHandleTool.getHandleMat(stack).getDurabilityMod()
+		return (int) (IBladeTool.getBladeMat(stack).getDurability()
+				* IHandleTool.getHandleMat(stack).getDurabilityMod()
 				* IAdornedTool.getAdornmentMat(stack).getDurabilityMod() * 0.75F);
 	}
 
 	public float getEfficiencyMod(ItemStack stack) {
-		return (IAdornedTool.getAdornmentMat(stack).getEfficiencyMod() - 1F) / 2F;
+		return ((IAdornedTool.getAdornmentMat(stack).getEfficiencyMod()
+				* IHandleTool.getHandleMat(stack).getEfficiencyMod())
+				- 1F) * 0.25F;
 	}
 
 	public float getAttackDamage(ItemStack stack) {
@@ -64,7 +67,8 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 
 	public int getEnchantability(ItemStack stack) {
 		return (int) (IBladeTool.getBladeMat(stack).getEnchantability()
-				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
+				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod()
+				* IHandleTool.getHandleMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {
