@@ -94,23 +94,24 @@ public class ModMaterials {
 			1.75F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_LAPIS = new AdornmentMaterial("lapis", 0, 1F, 1F, 0F,
 			2.25F, Toolbox.MODID);
+	
 	public static final AdornmentMaterial ADORNMENT_BIOTITE = new AdornmentMaterial("biotite", 1, 3F, 1.75F, 1.5F,
 			1.125F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_AMETHYST = new AdornmentMaterial("amethyst", 1, 6.5F, 1.6F, 1F,
 			0.9F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_RUBY = new AdornmentMaterial("ruby", 1, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_PERIDOT = new AdornmentMaterial("peridot", 1, 3.0F, 1.3F, 0.5F,
+	public static final AdornmentMaterial ADORNMENT_PERIDOT = new AdornmentMaterial("peridot", 0, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_TOPAZ = new AdornmentMaterial("topaz", 1, 3.0F, 1.3F, 0.5F,
+	public static final AdornmentMaterial ADORNMENT_TOPAZ = new AdornmentMaterial("topaz", 0, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_TANZANITE = new AdornmentMaterial("tanzanite", 1, 3.0F, 1.3F, 0.5F,
+	public static final AdornmentMaterial ADORNMENT_TANZANITE = new AdornmentMaterial("tanzanite", 0, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_MALACHITE = new AdornmentMaterial("malachite", 1, 3.0F, 1.3F, 0.5F,
+	public static final AdornmentMaterial ADORNMENT_MALACHITE = new AdornmentMaterial("malachite", 0, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_SAPPHIRE = new AdornmentMaterial("sapphire", 1, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 1, 3.0F, 1.3F, 0.5F,
+	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 0, 3.0F, 1.3F, 0.5F,
 			1.0F, Toolbox.MODID);
 	
 	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();

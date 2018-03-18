@@ -176,6 +176,7 @@ guide.mat.end_rod.desc=*When a block is mined with a tool made with an end rod h
 guide.mat.wither_bone.desc=*Tools use eight times as much durability when not in the nether.
 guide.mat.prismarine.desc=*Tools made with prismarine are faster when the user is wet.
 guide.mat.lapis.desc=*Tools made with lapis lazuli can be enchanted up to level 50 instead of 30. Additionally, mining blocks or killing mobs with a lapis lazuli adorned tool will sometimes grant extra experience orbs.
+guide.mat.withered_bone.desc=*Tools made with withered bones will inflict opponents with withering when landing a critical strike. The effect will be more potent if the tool is made with multiple withered bones.
 
 guide.tool.pickaxe.name=Pickaxe
 guide.tool.axe.name=Axe
