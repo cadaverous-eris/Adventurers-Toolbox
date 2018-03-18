@@ -297,6 +297,38 @@ public class ModRecipes {
 		for (ItemStack biotite : OreDictionary.getOres("gemEnderBiotite")) {
 			adornment_map.put(biotite, ModMaterials.ADORNMENT_BIOTITE);
 		}
+		
+		for (ItemStack ruby : OreDictionary.getOres("gemRuby")) {
+			adornment_map.put(ruby, ModMaterials.ADORNMENT_RUBY);
+		}
+		
+		for (ItemStack amethyst : OreDictionary.getOres("gemAmethyst")) {
+			adornment_map.put(amethyst, ModMaterials.ADORNMENT_AMETHYST);
+		}
+		
+		for (ItemStack peridot : OreDictionary.getOres("gemPeridot")) {
+			adornment_map.put(peridot, ModMaterials.ADORNMENT_PERIDOT);
+		}
+		
+		for (ItemStack topaz : OreDictionary.getOres("gemTopaz")) {
+			adornment_map.put(topaz, ModMaterials.ADORNMENT_TOPAZ);
+		}
+		
+		for (ItemStack tanzanite : OreDictionary.getOres("gemTanzanite")) {
+			adornment_map.put(tanzanite, ModMaterials.ADORNMENT_TANZANITE);
+		}
+		
+		for (ItemStack malachite : OreDictionary.getOres("gemMalachite")) {
+			adornment_map.put(malachite, ModMaterials.ADORNMENT_MALACHITE);
+		}
+		
+		for (ItemStack sapphire : OreDictionary.getOres("gemSapphire")) {
+			adornment_map.put(sapphire, ModMaterials.ADORNMENT_SAPPHIRE);
+		}
+		
+		for (ItemStack amber : OreDictionary.getOres("gemAmber")) {
+			adornment_map.put(amber, ModMaterials.ADORNMENT_AMBER);
+		}
 	}
 
 	private static IRecipe getToolHeadSchematicRecipe(ItemStack output, String material, String type, int cost) {

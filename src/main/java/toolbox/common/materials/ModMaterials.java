@@ -89,6 +89,22 @@ public class ModMaterials {
 			2.25F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_BIOTITE = new AdornmentMaterial("biotite", 1, 3F, 1.75F, 1.5F,
 			1.125F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_AMETHYST = new AdornmentMaterial("amethyst", 1, 6.5F, 1.6F, 1F,
+			0.9F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_RUBY = new AdornmentMaterial("ruby", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_PERIDOT = new AdornmentMaterial("peridot", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_TOPAZ = new AdornmentMaterial("topaz", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_TANZANITE = new AdornmentMaterial("tanzanite", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_MALACHITE = new AdornmentMaterial("malachite", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_SAPPHIRE = new AdornmentMaterial("sapphire", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 1, 3.0F, 1.3F, 0.5F,
+			1.0F, Toolbox.MODID);
 	
 	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
@@ -161,6 +177,14 @@ public class ModMaterials {
 		Materials.registerAdornmentMat(ADORNMENT_ENDER_PEARL);
 		Materials.registerAdornmentMat(ADORNMENT_LAPIS);
 		Materials.registerAdornmentMat(ADORNMENT_BIOTITE);
+		Materials.registerAdornmentMat(ADORNMENT_RUBY);
+		Materials.registerAdornmentMat(ADORNMENT_AMETHYST);
+		Materials.registerAdornmentMat(ADORNMENT_PERIDOT);
+		Materials.registerAdornmentMat(ADORNMENT_TOPAZ);
+		Materials.registerAdornmentMat(ADORNMENT_TANZANITE);
+		Materials.registerAdornmentMat(ADORNMENT_MALACHITE);
+		Materials.registerAdornmentMat(ADORNMENT_SAPPHIRE);
+		Materials.registerAdornmentMat(ADORNMENT_AMBER);
 	}
 
 	public static void initHeadRepairItems() {
