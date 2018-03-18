@@ -36,6 +36,9 @@ electrum.name=Electrum
 soulforged_steel.name=Soulforged Steel
 dawnstone.name=Dawnstone
 constantan.name=Constantan
+ardite.name=Ardite
+cobalt.name=Cobalt
+manyullyn.name=Manyullyn
 
 #Blocks
 
@@ -126,6 +129,9 @@ guide.mat.soulforged_steel.name=Soulforged Steel
 guide.mat.dawnstone.name=Dawnstone
 guide.mat.constantan.name=Constantan
 guide.mat.flint.name=Flint
+guide.mat.ardite.name=Ardite
+guide.mat.cobalt.name=Cobalt
+guide.mat.manyullyn.name=Manyullyn
 
 guide.mat.blaze_rod.name=Blaze Rod
 guide.mat.end_rod.name=End Rod
@@ -145,6 +151,14 @@ guide.mat.prismarine.name=Prismarine
 guide.mat.ender_pearl.name=Ender Pearl
 guide.mat.lapis.name=Lapis Lazuli
 guide.mat.biotite.name=Ender Biotite
+guide.mat.ruby.name=Ruby
+guide.mat.amethyst.name=Amethyst
+guide.mat.peridot.name=Peridot
+guide.mat.topaz.name=Topaz
+guide.mat.tanzanite.name=Tanzanite
+guide.mat.malachite.name=Malachite
+guide.mat.sapphire.name=Sapphire
+guide.mat.amber.name=Amber
 
 guide.mat.stat.harvest_level.name=Harvest Level
 guide.mat.stat.durability.name=Durability
