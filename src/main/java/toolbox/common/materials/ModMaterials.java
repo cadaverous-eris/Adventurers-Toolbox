@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -56,7 +57,13 @@ public class ModMaterials {
 			"ingotDawnstone", "nuggetDawnstone", Lists.<String>newArrayList("dawnstone"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_CONSTANTAN = new HeadMaterial("constantan", 2, 215, 6F, 2.0F, 14, ItemStack.EMPTY,
 			"ingotConstantan", "nuggetConstantan", Lists.<String>newArrayList("constantan"), Toolbox.MODID);
-
+	public static final HeadMaterial HEAD_COBALT = new HeadMaterial("cobalt", 3, 720, 12.0F, 2.1F, 18, new ItemStack(TinkerCommons.ingots, 1, 0),
+			"ingotCobalt", "nuggetCobalt", Lists.<String>newArrayList("cobalt"), Toolbox.MODID);
+	public static final HeadMaterial HEAD_ARDITE = new HeadMaterial("ardite", 3, 1420, 3.5F, 1.6F, 18, new ItemStack(TinkerCommons.ingots, 1, 1),
+			"ingotArdite", "nuggetArdite", Lists.<String>newArrayList("ardite"), Toolbox.MODID);
+	public static final HeadMaterial HEAD_MANYULLYN = new HeadMaterial("manyullyn", 3, 420, 7.0F, 6.75F, 20, new ItemStack(TinkerCommons.ingots, 1, 2),
+			"ingotManyullyn", "nuggetManyullyn", Lists.<String>newArrayList("manyullyn"), Toolbox.MODID);
+	
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 0, 1.0F, 1.0F, 0.0F, 1.0F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0, 0.8F, 1.0F, 0.5F, 1.3F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BLAZE_ROD = new HaftMaterial("blaze_rod", 0, 1.125F, 1.0F, 0.5F, 1.2F, Toolbox.MODID);
@@ -139,7 +146,10 @@ public class ModMaterials {
 		headMaterials.add(HEAD_SOULFORGED_STEEL);
 		headMaterials.add(HEAD_DAWNSTONE);
 		headMaterials.add(HEAD_CONSTANTAN);
-
+		headMaterials.add(HEAD_COBALT);
+		headMaterials.add(HEAD_ARDITE);
+		headMaterials.add(HEAD_MANYULLYN);
+		
 		for (HeadMaterial mat : headMaterials) {
 			if (!Config.DISABLED_MATERIALS.contains(mat.getName())) {
 				System.out.println("Registering " + mat.getName());
