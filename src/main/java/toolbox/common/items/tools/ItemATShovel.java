@@ -47,25 +47,36 @@ public class ItemATShovel extends ItemSpade implements IHeadTool, IHaftTool, IHa
 	}
 
 	public int getHarvestLevel(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
+		return IHeadTool.getHeadMat(stack).getHarvestLevel()
+				+ IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod()
+				+ IHaftTool.getHaftMat(stack).getHarvestLevelMod();
 	}
 
 	public int getDurability(ItemStack stack) {
-		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
-				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
+		return (int) (IHeadTool.getHeadMat(stack).getDurability()
+				* IHaftTool.getHaftMat(stack).getDurabilityMod()
+				* IHandleTool.getHandleMat(stack).getDurabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
 	}
 
 	public float getEfficiency(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getEfficiency() * IAdornedTool.getAdornmentMat(stack).getEfficiencyMod();
+		return IHeadTool.getHeadMat(stack).getEfficiency()
+				* IAdornedTool.getAdornmentMat(stack).getEfficiencyMod()
+				* IHaftTool.getHaftMat(stack).getEfficiencyMod()
+				* IHandleTool.getHandleMat(stack).getEfficiencyMod();
 	}
 
 	public float getAttackDamage(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
+		return IHeadTool.getHeadMat(stack).getAttackDamage()
+				+ IAdornedTool.getAdornmentMat(stack).getAttackDamageMod()
+				+ IHaftTool.getHaftMat(stack).getAttackDamageMod();
 	}
 
 	public int getEnchantability(ItemStack stack) {
-		return (int) (IHeadTool.getHeadMat(stack).getEnchantability() * IHaftTool.getHaftMat(stack).getEnchantabilityMod()
-				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
+		return (int) (IHeadTool.getHeadMat(stack).getEnchantability()
+				* IHaftTool.getHaftMat(stack).getEnchantabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod()
+				* IHandleTool.getHandleMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {

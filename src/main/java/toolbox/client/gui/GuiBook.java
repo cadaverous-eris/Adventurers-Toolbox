@@ -277,8 +277,23 @@ public class GuiBook extends GuiScreen {
 		} else if (page.getMat() instanceof HaftMaterial) {
 			HaftMaterial mat = (HaftMaterial) page.getMat();
 			this.fontRenderer.drawString(
+					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.harvest_level_mod.name")
+					+ TextFormatting.RESET + ": " + mat.getHarvestLevelMod(),
+					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
+			i += increment;
+			this.fontRenderer.drawString(
+					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.efficiency_mod.name") + TextFormatting.RESET
+					+ ": " + mat.getEfficiencyMod(),
+					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
+			i += increment;
+			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.durability_mod.name") + TextFormatting.RESET
 					+ ": " + mat.getDurabilityMod(),
+					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
+			i += increment;
+			this.fontRenderer.drawString(
+					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.attack_damage_mod.name")
+					+ TextFormatting.RESET + ": " + mat.getAttackDamageMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 			this.fontRenderer.drawString(
@@ -289,8 +304,18 @@ public class GuiBook extends GuiScreen {
 		} else if (page.getMat() instanceof HandleMaterial) {
 			HandleMaterial mat = (HandleMaterial) page.getMat();
 			this.fontRenderer.drawString(
+					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.efficiency_mod.name") + TextFormatting.RESET
+					+ ": " + mat.getEfficiencyMod(),
+					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
+			i += increment;
+			this.fontRenderer.drawString(
 					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.durability_mod.name") + TextFormatting.RESET
 					+ ": " + mat.getDurabilityMod(),
+					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
+			i += increment;
+			this.fontRenderer.drawString(
+					TextFormatting.UNDERLINE + I18n.format("guide.mat.stat.enchantability_mod.name")
+					+ TextFormatting.RESET + ": " + mat.getEnchantabilityMod(),
 					(int) ((left + 18) / textScale), (int) ((top + i) / textScale), 0);
 			i += increment;
 		} else if (page.getMat() instanceof AdornmentMaterial) {

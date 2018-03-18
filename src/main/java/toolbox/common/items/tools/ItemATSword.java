@@ -47,20 +47,20 @@ public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardToo
 
 	public int getDurability(ItemStack stack) {
 		return (int) ((((IBladeTool.getBladeMat(stack).getDurability() * 2F) + ICrossguardTool.getCrossguardMat(stack).getDurability()) / 3F)
-				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
-	}
-
-	public float getEfficiencyMod(ItemStack stack) {
-		return (IAdornedTool.getAdornmentMat(stack).getEfficiencyMod() - 1F) / 2F;
+				* IHandleTool.getHandleMat(stack).getDurabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
 	}
 
 	public float getAttackDamage(ItemStack stack) {
-		return IBladeTool.getBladeMat(stack).getAttackDamage() + IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
+		return IBladeTool.getBladeMat(stack).getAttackDamage()
+				+ IAdornedTool.getAdornmentMat(stack).getAttackDamageMod()
+				+ IHaftTool.getHaftMat(stack).getAttackDamageMod();
 	}
 
 	public int getEnchantability(ItemStack stack) {
-		return (int) ((((IBladeTool.getBladeMat(stack).getEnchantability() * 2F) + ICrossguardTool.getCrossguardMat(stack).getEnchantability())
-				/ 3F) * IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod());
+		return (int) ((((IBladeTool.getBladeMat(stack).getEnchantability() * 2F) + ICrossguardTool.getCrossguardMat(stack).getEnchantability()) / 3F)
+				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod()
+				* IHandleTool.getHandleMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {

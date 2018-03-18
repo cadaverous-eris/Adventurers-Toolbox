@@ -43,16 +43,23 @@ public class ItemATHoe extends ItemHoe implements IHeadTool, IHaftTool, IHandleT
 	}
 
 	public int getHarvestLevel(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getHarvestLevel() + IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod();
+		return IHeadTool.getHeadMat(stack).getHarvestLevel()
+				+ IAdornedTool.getAdornmentMat(stack).getHarvestLevelMod()
+				+ IHaftTool.getHaftMat(stack).getHarvestLevelMod();
 	}
 
 	public int getDurability(ItemStack stack) {
-		return (int) (IHeadTool.getHeadMat(stack).getDurability() * IHaftTool.getHaftMat(stack).getDurabilityMod()
-				* IHandleTool.getHandleMat(stack).getDurabilityMod() * IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
+		return (int) (IHeadTool.getHeadMat(stack).getDurability()
+				* IHaftTool.getHaftMat(stack).getDurabilityMod()
+				* IHandleTool.getHandleMat(stack).getDurabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getDurabilityMod());
 	}
-
-	public float getAttackDamage(ItemStack stack) {
-		return IHeadTool.getHeadMat(stack).getAttackDamage() * IAdornedTool.getAdornmentMat(stack).getAttackDamageMod();
+	
+	public int getEnchantability(ItemStack stack) {
+		return (int) (IHeadTool.getHeadMat(stack).getEnchantability()
+				* IHaftTool.getHaftMat(stack).getEnchantabilityMod()
+				* IAdornedTool.getAdornmentMat(stack).getEnchantabilityMod()
+				* IHandleTool.getHandleMat(stack).getEnchantabilityMod());
 	}
 
 	public ItemStack getRepairItem(ItemStack stack) {
@@ -69,6 +76,11 @@ public class ItemATHoe extends ItemHoe implements IHeadTool, IHaftTool, IHandleT
 			if (OreDictionary.containsMatch(false, OreDictionary.getOres(IHeadTool.getHeadMat(toRepair).getCraftingItem()), repair)) return true;
 		}
 		return super.getIsRepairable(toRepair, repair);
+	}
+	
+	@Override
+	public int getItemEnchantability(ItemStack stack) {
+		return getEnchantability(stack);
 	}
 
 	@Override
