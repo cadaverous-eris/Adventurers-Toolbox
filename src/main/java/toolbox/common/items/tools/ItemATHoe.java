@@ -6,10 +6,12 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -21,11 +23,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
+import toolbox.common.materials.ModMaterials;
 
 public class ItemATHoe extends ItemHoe implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
@@ -128,6 +132,12 @@ public class ItemATHoe extends ItemHoe implements IHeadTool, IHaftTool, IHandleT
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
+		if (IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_SOULFORGED_STEEL) {
+			if (Loader.isModLoaded("betterwithmods")) {
+				return HCEnchanting.canEnchantSteel();
+			}
+		}
+
 		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.BREAKABLE;
 	}
 
