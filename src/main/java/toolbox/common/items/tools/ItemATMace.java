@@ -5,6 +5,8 @@ import java.util.List;
 import com.google.common.collect.Multimap;
 
 import api.materials.Materials;
+import betterwithmods.module.hardcore.creatures.HCEnchanting;
+
 import com.google.common.collect.HashMultimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,11 +28,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
+import toolbox.common.materials.ModMaterials;
 
 public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
@@ -163,6 +167,12 @@ public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHand
 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
+		if (IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_SOULFORGED_STEEL) {
+			if (Loader.isModLoaded("betterwithmods")) {
+				return HCEnchanting.canEnchantSteel();
+			}
+		}
+
 		return enchantment.type.canEnchantItem(stack.getItem()) || enchantment.type == EnumEnchantmentType.WEAPON;
 	}
 
