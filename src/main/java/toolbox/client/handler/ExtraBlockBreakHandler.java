@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -98,7 +99,7 @@ public class ExtraBlockBreakHandler implements IResourceManagerReloadListener {
         double d5 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
 
         if (this.mc.world.getWorldTime() % 20 == 0) {
-            this.cleanupExtraDamagedBlocks(this.extraDamagedBlocks.values().iterator());
+            this.cleanupExtraDamagedBlocks();
         }
         
         if (!this.extraDamagedBlocks.isEmpty()) {
@@ -107,10 +108,9 @@ public class ExtraBlockBreakHandler implements IResourceManagerReloadListener {
             bufferBuilderIn.begin(7, DefaultVertexFormats.BLOCK);
             bufferBuilderIn.setTranslation(-d3, -d4, -d5);
             bufferBuilderIn.noColor();
-            Iterator<DestroyExtraBlocksProgress> iterator = this.extraDamagedBlocks.values().iterator();
 
-            while (iterator.hasNext()) {
-            	DestroyExtraBlocksProgress destroyblockprogress = iterator.next();
+            for (Entry<Integer, DestroyExtraBlocksProgress> entry : this.extraDamagedBlocks.entrySet()) {
+            	DestroyExtraBlocksProgress destroyblockprogress = entry.getValue();
                 BlockPos[] blockpositions = destroyblockprogress.getPositions();
                 for (int i = 0; i < blockpositions.length; i++) {
                 	BlockPos blockpos = blockpositions[i];
@@ -123,8 +123,8 @@ public class ExtraBlockBreakHandler implements IResourceManagerReloadListener {
                 	if (!hasBreak) hasBreak = te != null && te.canRenderBreaking();
 
                 	if (!hasBreak) {
-                		if (d6 * d6 + d7 * d7 + d8 * d8 > 1024.0D) {
-                			iterator.remove();
+                		if (d6 * d6 + d7 * d7 + d8 * d8 > 16384) {
+                			this.extraDamagedBlocks.remove(entry.getKey());
                 		} else {
                 			IBlockState iblockstate = mc.world.getBlockState(blockpos);
 
@@ -145,13 +145,13 @@ public class ExtraBlockBreakHandler implements IResourceManagerReloadListener {
         }
     }
     
-    private void cleanupExtraDamagedBlocks(Iterator<DestroyExtraBlocksProgress> iteratorIn) {
-        while (iteratorIn.hasNext()) {
-        	DestroyExtraBlocksProgress destroyblockprogress = iteratorIn.next();
+    private void cleanupExtraDamagedBlocks() {
+        for (Entry<Integer, DestroyExtraBlocksProgress> entry : this.extraDamagedBlocks.entrySet()) {
+        	DestroyExtraBlocksProgress destroyblockprogress = entry.getValue();
             int k1 = destroyblockprogress.getCreationWorldTick();
-
+            
             if (this.mc.world.getWorldTime() - k1 > 400) {
-                iteratorIn.remove();
+                this.extraDamagedBlocks.remove(entry.getKey());
             }
         }
     }

@@ -14,6 +14,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -24,33 +25,45 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import toolbox.common.items.ModItems;
+import toolbox.common.items.tools.IHaftTool;
+import toolbox.common.items.tools.IHandleTool;
+import toolbox.common.materials.ModMaterials;
 
 public class WeaponHandler {
-
+	
 	@SubscribeEvent
-	public void onHurt(LivingHurtEvent event) {
-		DamageSource source = event.getSource();
-		if (source != null && source.getImmediateSource() != null) {
-			Entity entity = source.getImmediateSource();
-			if (entity != null && entity instanceof EntityLivingBase) {
-				EntityLivingBase attacker = (EntityLivingBase) entity;
-				if (attacker.getHeldItemMainhand().getItem() == ModItems.mace) {
-					float amount = Math.max(event.getAmount() - (20F / ((event.getEntityLiving().getTotalArmorValue() + 1F)) - 1F), (event.getAmount() / 3F));
-					event.setAmount(amount);
-				}
+	public void onMaceCrit(CriticalHitEvent event) {
+		if (event.getEntityPlayer() == null || event.getTarget() == null || !(event.getTarget() instanceof EntityLivingBase) || event.getResult() == Event.Result.DENY || (!event.isVanillaCritical() && event.getResult() != Event.Result.ALLOW)) return;
+		
+		ItemStack stack = event.getEntityPlayer().getHeldItemMainhand();
+		EntityLivingBase target = (EntityLivingBase) event.getTarget();
+		EntityPlayer player = event.getEntityPlayer();
+		
+		if (stack.getItem() == ModItems.mace) {
+			int duration = 20 + target.getRNG().nextInt(20);
+			
+			target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, duration, 4));
+			target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, duration, 4));
+			target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, duration, 4));
+			
+			if (player.world instanceof WorldServer) {
+				((WorldServer) player.world).spawnParticle(EnumParticleTypes.SPELL_INSTANT, target.posX, target.posY + (double) (target.height * 0.5F), target.posZ, 7 + target.getRNG().nextInt(3), 0.1D, 0.0D, 0.1D, 0.05D);
 			}
-		}
+		}	
 	}
-
+	
 	@SubscribeEvent
 	public void onAttack(AttackEntityEvent event) {
 		Entity targetEntity = event.getTarget();
 		EntityPlayer player = event.getEntityPlayer();
-		if (player.getHeldItemMainhand().getItem() == ModItems.mace || player.getHeldItemMainhand().getItem() == ModItems.dagger) {
+		ItemStack stack = player.getHeldItemMainhand();
+		if (stack.getItem() == ModItems.dagger || stack.getItem() == ModItems.mace) {
 			event.setCanceled(true);
-			if (player.getDistance(targetEntity) > 2.5F) {
+			if (stack.getItem() == ModItems.dagger && player.getDistance(targetEntity) > 2.5F) {
 				return;
 			}
 			

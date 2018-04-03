@@ -1,6 +1,7 @@
 package toolbox.common.items.tools;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.google.common.collect.Multimap;
 
@@ -10,6 +11,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
@@ -17,6 +19,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
@@ -35,6 +39,8 @@ public class ItemATHandpick extends ItemPickaxe implements IHeadTool, IHaftTool,
 
 	private String name = "handpick";
 	public static final String DAMAGE_TAG = "Damage";
+	
+	protected static final UUID BLOCK_REACH_MODIFIER = UUID.fromString("FB233D1C-4190-4764-A02B-BDCE9785AC93");
 
 	public ItemATHandpick() {
 		super(ToolMaterial.WOOD);
@@ -133,6 +139,8 @@ public class ItemATHandpick extends ItemPickaxe implements IHeadTool, IHaftTool,
 					"Tool modifier", (double) 0.5F + this.getAttackDamage(stack), 0));
 			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
 					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Tool modifier", (double) -2.6F, 0));
+			multimap.put(EntityPlayer.REACH_DISTANCE.getName(),
+					new AttributeModifier(BLOCK_REACH_MODIFIER, "Tool modifier", (double) -1F, 0));
 		}
 
 		return multimap;

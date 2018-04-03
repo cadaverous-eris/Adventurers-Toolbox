@@ -2,8 +2,10 @@ package toolbox.common.handlers;
 
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.Map.Entry;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import api.materials.AdornmentMaterial;
@@ -40,6 +42,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -75,7 +78,7 @@ public class SpecialToolAbilityHandler {
 	private Random rand = new Random();
 
 	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGH)
 	public void onTooltip(ItemTooltipEvent event) {
 		if (event.getItemStack() != null && event.getEntityPlayer() != null) {
 			ItemStack stack = event.getItemStack();
@@ -86,7 +89,7 @@ public class SpecialToolAbilityHandler {
 				boolean shift = GameSettings.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak);
 				boolean advanced = event.getFlags().isAdvanced();
 				List<String> tooltip = event.getToolTip();
-
+				
 				tooltip.clear();
 
 				String s = stack.getDisplayName();
@@ -409,6 +412,36 @@ public class SpecialToolAbilityHandler {
 			int exp = event.getDroppedExperience();
 			if (exp > 0 && rand.nextBoolean()) event.setDroppedExperience(exp + 1 + rand.nextInt(exp + 1));
 		}
+	}
+	
+	private static final UUID BLOCK_REACH_MODIFIER = UUID.fromString("DF472D1A-4281-2854-D26C-BDBE9785CC93");
+	private static final AttributeModifier enderPearlReachModifier = new AttributeModifier(BLOCK_REACH_MODIFIER, "ender pearl reach", 1D, 0);
+	
+	@SubscribeEvent
+	public void onToolSwitch(LivingEquipmentChangeEvent event) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
+			if (event.getSlot() == EntityEquipmentSlot.MAINHAND) {
+				ItemStack from = event.getFrom();
+				ItemStack to = event.getTo();
+				
+				if (isEnderPearlTool(from)) {
+					Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+					multimap.put(EntityPlayer.REACH_DISTANCE.getName(), enderPearlReachModifier);
+					
+					event.getEntityLiving().getAttributeMap().removeAttributeModifiers(multimap);
+				}
+				if (isEnderPearlTool(to)) {
+					Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+					multimap.put(EntityPlayer.REACH_DISTANCE.getName(), enderPearlReachModifier);
+					
+					event.getEntityLiving().getAttributeMap().applyAttributeModifiers(multimap);
+				}
+			}
+		}
+	}
+	
+	private boolean isEnderPearlTool(ItemStack stack) {
+		return (stack.getItem() instanceof IAdornedTool && IAdornedTool.getAdornmentMat(stack) == ModMaterials.ADORNMENT_ENDER_PEARL);
 	}
 	
 	@SubscribeEvent

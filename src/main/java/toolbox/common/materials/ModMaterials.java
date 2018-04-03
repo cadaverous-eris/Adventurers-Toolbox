@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
@@ -57,11 +56,12 @@ public class ModMaterials {
 			"ingotDawnstone", "nuggetDawnstone", Lists.<String>newArrayList("dawnstone"), Toolbox.MODID);
 	public static final HeadMaterial HEAD_CONSTANTAN = new HeadMaterial("constantan", 2, 215, 6F, 2.0F, 14, ItemStack.EMPTY,
 			"ingotConstantan", "nuggetConstantan", Lists.<String>newArrayList("constantan"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_COBALT = new HeadMaterial("cobalt", 3, 825, 12.0F, 2.1F, 16, new ItemStack(TinkerCommons.ingots, 1, 0),
+	
+	public static final HeadMaterial HEAD_COBALT = new HeadMaterial("cobalt", 3, 825, 12.0F, 2.1F, 16, ItemStack.EMPTY,
 			"ingotCobalt", "nuggetCobalt", Lists.<String>newArrayList("cobalt"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_ARDITE = new HeadMaterial("ardite", 3, 1035, 3.5F, 1.5F, 12, new ItemStack(TinkerCommons.ingots, 1, 1),
+	public static final HeadMaterial HEAD_ARDITE = new HeadMaterial("ardite", 3, 1035, 3.5F, 1.5F, 12, ItemStack.EMPTY,
 			"ingotArdite", "nuggetArdite", Lists.<String>newArrayList("ardite"), Toolbox.MODID);
-	public static final HeadMaterial HEAD_MANYULLYN = new HeadMaterial("manyullyn", 3, 865, 7.0F, 3.0F, 18, new ItemStack(TinkerCommons.ingots, 1, 2),
+	public static final HeadMaterial HEAD_MANYULLYN = new HeadMaterial("manyullyn", 3, 865, 7.0F, 3.0F, 18, ItemStack.EMPTY,
 			"ingotManyullyn", "nuggetManyullyn", Lists.<String>newArrayList("manyullyn"), Toolbox.MODID);
 	
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 0, 1.0F, 1.0F, 0.0F, 1.0F, Toolbox.MODID);
@@ -108,8 +108,6 @@ public class ModMaterials {
 	}
 
 	private static void initHeadMaterials() {
-		
-
 		OreDictionary.registerOre("flint", Items.FLINT);
 		OreDictionary.registerOre("gravel", Blocks.GRAVEL);
 		
