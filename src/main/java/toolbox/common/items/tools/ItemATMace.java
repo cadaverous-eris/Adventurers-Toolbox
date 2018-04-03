@@ -168,8 +168,8 @@ public class ItemATMace extends ItemSword implements IHeadTool, IHaftTool, IHand
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
 		if (IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_SOULFORGED_STEEL) {
-			if (Loader.isModLoaded("betterwithmods")) {
-				return HCEnchanting.canEnchantSteel();
+			if (Loader.isModLoaded("betterwithmods") && !HCEnchanting.canEnchantSteel()) {
+				return false;
 			}
 		}
 

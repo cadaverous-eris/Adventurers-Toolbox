@@ -157,8 +157,8 @@ public class ItemATSword extends ItemSword implements IBladeTool, ICrossguardToo
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
 		if (IBladeTool.getBladeMat(stack) == ModMaterials.HEAD_SOULFORGED_STEEL || ICrossguardTool.getCrossguardMat(stack) == ModMaterials.HEAD_SOULFORGED_STEEL) {
-			if (Loader.isModLoaded("betterwithmods")) {
-				return HCEnchanting.canEnchantSteel();
+			if (Loader.isModLoaded("betterwithmods") && !HCEnchanting.canEnchantSteel()) {
+				return false;
 			}
 		}
 
