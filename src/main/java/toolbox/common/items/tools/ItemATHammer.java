@@ -229,9 +229,9 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 
         Material material = state.getMaterial();
 
-        if (material == Material.ROCK || material == Material.IRON) {
-            return true;
-        }
+		if (material == Material.ROCK || material == Material.IRON) {
+			return true;
+		}
 
 		return super.canHarvestBlock(state);
 	}
