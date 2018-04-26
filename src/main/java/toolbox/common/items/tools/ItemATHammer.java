@@ -212,8 +212,8 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 		if (block == Blocks.OBSIDIAN || block == Blocks.REDSTONE_ORE || block == Blocks.LIT_REDSTONE_ORE) {
 			return getHarvestLevel(stack) >= block.getHarvestLevel(state);
 		}
-		
-		return super.canHarvestBlock(state, stack);
+
+		return super.canHarvestBlock(state);
 	}
 
 	@Override
@@ -283,7 +283,7 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 		BlockPos pos = rt.getBlockPos();
 		IBlockState state = world.getBlockState(pos);
 
-		if (state.getBlock().isToolEffective(toolClass, state) || canHarvestBlock(state, stack)) {
+		if (ForgeHooks.canToolHarvestBlock(world, pos, stack)) {
 			switch (rt.sideHit.getAxis()) {
 			case Y:
 				attemptAddExtraBlock(world, state, pos.offset(EnumFacing.NORTH), stack, positions);
@@ -324,8 +324,13 @@ public class ItemATHammer extends ItemPickaxe implements IHeadTool, IHaftTool, I
 	protected void attemptAddExtraBlock(World world, IBlockState state1, BlockPos pos2, ItemStack stack, List<BlockPos> list) {
 		IBlockState state2 = world.getBlockState(pos2);
 		
-		if (state2.getBlock() != state1.getBlock() || world.isAirBlock(pos2)) {
+		if (world.isAirBlock(pos2)) {
 			return;
+		}
+		if (state2.getBlock() != state1.getBlock()) {
+			if (!((state2.getBlock() == Blocks.LIT_REDSTONE_ORE || state2.getBlock() == Blocks.REDSTONE_ORE) && (state1.getBlock() == Blocks.LIT_REDSTONE_ORE || state1.getBlock() == Blocks.REDSTONE_ORE))) {
+				return;
+			}
 		}
 		if (!state2.getBlock().isToolEffective(toolClass, state2) && !canHarvestBlock(state2, stack)) {
 			return;
