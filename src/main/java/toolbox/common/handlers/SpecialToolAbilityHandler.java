@@ -43,6 +43,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.enchanting.EnchantmentLevelSetEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -50,11 +51,16 @@ import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import thaumcraft.common.lib.research.ResearchManager;
+import toolbox.common.CommonProxy;
 import toolbox.common.items.ItemBase;
 import toolbox.common.items.tools.IAdornedTool;
 import toolbox.common.items.tools.IBladeTool;
@@ -154,6 +160,10 @@ public class SpecialToolAbilityHandler {
 							tooltip, event.getFlags());
 				}
 
+				if (item instanceof ItemSword && isVoidTool(stack) && CommonProxy.thaumcraftLoaded) {
+					tooltip.add(TextFormatting.GOLD + I18n.translateToLocal("enchantment.special.sapless"));
+				}
+				
 				if (stack.hasTagCompound()) {
 					if ((i1 & 1) == 0) {
 						NBTTagList nbttaglist = stack.getEnchantmentTagList();
@@ -292,7 +302,7 @@ public class SpecialToolAbilityHandler {
 					tooltip.add(TextFormatting.DARK_GRAY
 							+ ((ResourceLocation) Item.REGISTRY.getNameForObject(item)).toString());
 					tooltip.add(TextFormatting.DARK_GRAY + I18n.translateToLocalFormatted("item.nbt_tags",
-							stack.getTagCompound().getKeySet().size()));
+							stack.hasTagCompound() ? stack.getTagCompound().getKeySet().size() : 0));
 				}
 			}
 		}
@@ -442,6 +452,51 @@ public class SpecialToolAbilityHandler {
 	
 	private boolean isEnderPearlTool(ItemStack stack) {
 		return (stack.getItem() instanceof IAdornedTool && IAdornedTool.getAdornmentMat(stack) == ModMaterials.ADORNMENT_ENDER_PEARL);
+	}
+	
+	private boolean isVoidTool(ItemStack stack) {
+		Item item = stack.getItem();
+		
+		if (item instanceof IHeadTool && IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_VOID) return true;
+		if (item instanceof IBladeTool && IBladeTool.getBladeMat(stack) == ModMaterials.HEAD_VOID) return true;
+		if (item instanceof ICrossguardTool && ICrossguardTool.getCrossguardMat(stack) == ModMaterials.HEAD_VOID) return true;
+		
+		return false;
+	}
+	
+	@SubscribeEvent
+	public void onToolUpdate(LivingUpdateEvent event) {
+		if (event.getEntityLiving() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+			
+			if (player.ticksExisted % 20 == 0) {
+				for (ItemStack stack : player.inventory.mainInventory) {
+					if (stack.isItemDamaged() && isVoidTool(stack)) {
+						stack.damageItem(-1, player);
+					}
+				}
+				for (ItemStack stack : player.inventory.offHandInventory) {
+					if (stack.isItemDamaged() && isVoidTool(stack)) {
+						stack.damageItem(-1, player);
+					}
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public void onAttack(AttackEntityEvent event) {
+		EntityPlayer player = event.getEntityPlayer();
+		Entity targetEntity = event.getTarget();
+		
+		ItemStack weapon = player.getHeldItemMainhand();
+		
+		if (targetEntity instanceof EntityLivingBase) {
+			EntityLivingBase target = (EntityLivingBase) targetEntity;
+			if (!player.world.isRemote && isVoidTool(weapon)) {
+				target.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, weapon.getItem() instanceof ItemSword ? 60 : 80));
+			}
+		}
 	}
 	
 	@SubscribeEvent

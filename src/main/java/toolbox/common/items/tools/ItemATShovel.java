@@ -17,6 +17,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSpade;
@@ -30,11 +31,12 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.items.IWarpingGear;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.materials.ModMaterials;
 
-public class ItemATShovel extends ItemSpade implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATShovel extends ItemSpade implements IWarpingGear, IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
 	private String name = "shovel";
 	public static final String DAMAGE_TAG = "Damage";
@@ -205,4 +207,10 @@ public class ItemATShovel extends ItemSpade implements IHeadTool, IHaftTool, IHa
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
 	}
+	
+	@Override
+	public int getWarp(ItemStack stack, EntityPlayer player) {
+		return IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_VOID ? 1 : 0;
+	}
+	
 }

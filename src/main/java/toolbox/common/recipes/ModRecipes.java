@@ -17,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.IngredientNBT;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
@@ -274,6 +275,11 @@ public class ModRecipes {
 		for (ItemStack witheredBone : OreDictionary.getOres("boneWithered")) {
 			haft_map.put(witheredBone, ModMaterials.HAFT_WITHERED_BONE);
 		}
+		for (ItemStack witheredBone : OreDictionary.getOres("boneWither")) {
+			if (!witheredBone.getItem().getRegistryName().getResourceDomain().equals("nex")) {
+				haft_map.put(witheredBone, ModMaterials.HAFT_WITHERED_BONE);
+			}
+		}
 		
 		handle_map.put(new ItemStack(ModItems.handle, 1, 0), ModMaterials.HANDLE_CLOTH);
 		handle_map.put(new ItemStack(ModItems.handle, 1, 1), ModMaterials.HANDLE_LEATHER);
@@ -285,6 +291,11 @@ public class ModRecipes {
 		}
 		for (ItemStack witheredBone : OreDictionary.getOres("boneWithered")) {
 			handle_map.put(witheredBone, ModMaterials.HANDLE_WITHERED_BONE);
+		}
+		for (ItemStack witheredBone : OreDictionary.getOres("boneWither")) {
+			if (!witheredBone.getItem().getRegistryName().getResourceDomain().equals("nex")) {
+				handle_map.put(witheredBone, ModMaterials.HANDLE_WITHERED_BONE);
+			}
 		}
 		
 		adornment_map.put(new ItemStack(Items.DIAMOND), ModMaterials.ADORNMENT_DIAMOND);

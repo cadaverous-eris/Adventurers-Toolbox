@@ -64,6 +64,11 @@ public class ModMaterials {
 	public static final HeadMaterial HEAD_MANYULLYN = new HeadMaterial("manyullyn", 3, 865, 7.0F, 3.0F, 18, ItemStack.EMPTY,
 			"ingotManyullyn", "nuggetManyullyn", Lists.<String>newArrayList("manyullyn"), Toolbox.MODID);
 	
+	public static final HeadMaterial HEAD_THAUMIUM = new HeadMaterial("thaumium", 3, 500, 7.0f, 2.5f, 22, ItemStack.EMPTY,
+			"ingotThaumium", "nuggetThaumium", Lists.<String>newArrayList("thaumium"), Toolbox.MODID);
+	public static final HeadMaterial HEAD_VOID = new HeadMaterial("void", 4, 150, 8.0f, 3.0f, 10, ItemStack.EMPTY,
+			"ingotVoid", "nuggetVoid", Lists.<String>newArrayList("void"), Toolbox.MODID);
+	
 	public static final HaftMaterial HAFT_WOOD = new HaftMaterial("wood", 0, 1.0F, 1.0F, 0.0F, 1.0F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BONE = new HaftMaterial("bone", 0, 0.8F, 1.0F, 0.5F, 1.3F, Toolbox.MODID);
 	public static final HaftMaterial HAFT_BLAZE_ROD = new HaftMaterial("blaze_rod", 0, 1.125F, 1.0F, 0.5F, 1.2F, Toolbox.MODID);
@@ -133,6 +138,8 @@ public class ModMaterials {
 		headMaterials.add(HEAD_COBALT);
 		headMaterials.add(HEAD_ARDITE);
 		headMaterials.add(HEAD_MANYULLYN);
+		headMaterials.add(HEAD_THAUMIUM);
+		headMaterials.add(HEAD_VOID);
 		
 		for (HeadMaterial mat : headMaterials) {
 			if (!Config.DISABLED_MATERIALS.contains(mat.getName())) {

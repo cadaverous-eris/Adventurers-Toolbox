@@ -24,12 +24,13 @@ import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.materials.ModMaterials;
 import toolbox.common.network.PacketHandler;
 
-@Mod(modid = Toolbox.MODID, name = Toolbox.NAME, version = Toolbox.VERSION, useMetadata = false)
+@Mod(modid = Toolbox.MODID, name = Toolbox.NAME, version = Toolbox.VERSION, dependencies = Toolbox.DEPENDENCIES, useMetadata = false)
 public class Toolbox {
 	
 	public static final String MODID = "toolbox";
 	public static final String NAME = "Adventurer's Toolbox";
 	public static final String VERSION = "0.2.7";
+	public static final String DEPENDENCIES = "after:thaumcraft";
 	
 	@SidedProxy(clientSide = "toolbox.client.ClientProxy", serverSide = "toolbox.common.CommonProxy")
 	public static CommonProxy proxy;

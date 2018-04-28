@@ -39,6 +39,8 @@ constantan.name=Constantan
 ardite.name=Ardite
 cobalt.name=Cobalt
 manyullyn.name=Manyullyn
+thaumium.name=Thaumium
+void.name=Void
 
 #Blocks
 
@@ -132,6 +134,8 @@ guide.mat.flint.name=Flint
 guide.mat.ardite.name=Ardite
 guide.mat.cobalt.name=Cobalt
 guide.mat.manyullyn.name=Manyullyn
+guide.mat.thaumium.name=Thaumium
+guide.mat.void.name=Void
 
 guide.mat.blaze_rod.name=Blaze Rod
 guide.mat.end_rod.name=End Rod
@@ -179,6 +183,7 @@ guide.mat.prismarine.desc=*Tools made with prismarine are faster when the user i
 guide.mat.lapis.desc=*Tools made with lapis lazuli can be enchanted up to level 50 instead of 30. Additionally, mining blocks or killing mobs with a lapis lazuli adorned tool will sometimes grant extra experience orbs.
 guide.mat.ender_pearl.desc=*Tools adorned with ender pearls will be able to mine blocks at a slightly greater distance than normal tools.
 guide.mat.withered_bone.desc=*Tools made with withered bones will inflict opponents with withering when landing a critical strike. The effect will be more potent if the tool is made with multiple withered bones.
+guide.mat.void.desc=*Tools and weapons made with void metal will slowly repair themselves when damaged and inflict weakness upon struck mobs and players. They also tend to warp the mind of anyone who wields them.
 
 guide.tool.pickaxe.name=Pickaxe
 guide.tool.axe.name=Axe

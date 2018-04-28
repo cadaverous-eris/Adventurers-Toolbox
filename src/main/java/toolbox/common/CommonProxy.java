@@ -39,6 +39,15 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistryModifiable;
+import thaumcraft.api.ThaumcraftApi;
+import thaumcraft.api.crafting.IThaumcraftRecipe;
+import thaumcraft.api.crafting.InfusionRecipe;
+import thaumcraft.api.items.ItemsTC;
+import thaumcraft.api.research.ResearchCategories;
+import thaumcraft.api.research.ResearchCategory;
+import thaumcraft.api.research.ResearchEntry;
+import thaumcraft.api.research.ResearchStage;
+import thaumcraft.common.lib.research.ResearchManager;
 import toolbox.Toolbox;
 import toolbox.common.entities.ModEntities;
 import toolbox.common.handlers.HammerHandler;
@@ -64,6 +73,8 @@ public class CommonProxy {
 	public static Configuration config;
 	
 	public static List<HeadMaterial> smelteryMaterials = new ArrayList<>();
+	
+	public static boolean thaumcraftLoaded;
 
 	public void preInit(FMLPreInitializationEvent event) {
 
@@ -110,9 +121,12 @@ public class CommonProxy {
 		}
 
 		ModMaterials.initHeadRepairItems();
-
+		
+		thaumcraftLoaded = Loader.isModLoaded("thaumcraft");
+		
 		if (Config.DISABLE_VANILLA_TOOLS) {
 			processRecipes();
+			if (thaumcraftLoaded) processThaumcraftRecipes();
 		}
 		
 	}
@@ -202,9 +216,95 @@ public class CommonProxy {
 	                        }
 						}
 						if (flag && ingredientItem != null && !getToolReplacement(ingredientItem).isEmpty()) {
-							ingredients.set(i, new IngredientNBT(getToolReplacement(ingredientItem)) {
-								
-							});
+							ingredients.set(i, new IngredientNBT(getToolReplacement(ingredientItem)) {});
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	protected void processThaumcraftRecipes() {
+		Entry<ResourceLocation, IThaumcraftRecipe>[] recipeEntries = ThaumcraftApi.getCraftingRecipes().entrySet().toArray(new Entry[ThaumcraftApi.getCraftingRecipes().entrySet().size()]);
+		for (int recipeIndex = 0; recipeIndex < recipeEntries.length; recipeIndex++) {
+			Entry<ResourceLocation, IThaumcraftRecipe> recipeEntry = recipeEntries[recipeIndex];
+			if (recipeEntry.getValue() instanceof IRecipe) {
+				IRecipe recipe = (IRecipe) recipeEntry.getValue();
+				NonNullList<Ingredient> ingredients = recipe.getIngredients();
+				
+				Item output = recipe.getRecipeOutput().getItem();
+				String rp = output.getRegistryName().getResourcePath();
+				
+				for (int i = 0; i < ingredients.size(); i++) {
+					ItemStack[] matchingStacks = ingredients.get(i).getMatchingStacks();
+					boolean flag = false;
+					Item ingredientItem = null;
+					for (int j = 0; j < matchingStacks.length && !flag; j++) {
+						Item item = matchingStacks[j].getItem();
+						if (!getToolReplacement(item).isEmpty()) {
+							ingredientItem = item;
+                            flag = true;
+                        }
+					}
+					if (flag && ingredientItem != null && !getToolReplacement(ingredientItem).isEmpty()) {
+						ingredients.set(i, new IngredientNBT(getToolReplacement(ingredientItem)) {});
+					}
+				}
+			} else if (recipeEntry.getValue() instanceof InfusionRecipe) {
+				InfusionRecipe recipe = (InfusionRecipe) recipeEntry.getValue();
+				NonNullList<Ingredient> ingredients = recipe.getComponents();
+				Ingredient input = recipe.getRecipeInput();
+				
+				for (int i = 0; i < ingredients.size(); i++) {
+					ItemStack[] matchingStacks = ingredients.get(i).getMatchingStacks();
+					boolean flag = false;
+					Item ingredientItem = null;
+					for (int j = 0; j < matchingStacks.length && !flag; j++) {
+						Item item = matchingStacks[j].getItem();
+						if (!getToolReplacement(item).isEmpty()) {
+							ingredientItem = item;
+                            flag = true;
+                        }
+					}
+					if (flag && ingredientItem != null && !getToolReplacement(ingredientItem).isEmpty()) {
+						ingredients.set(i, new IngredientNBT(getToolReplacement(ingredientItem)) {});
+					}
+				}
+				ItemStack[] matchingStacks = input.getMatchingStacks();
+				boolean flag = false;
+				Item ingredientItem = null;
+				for (int j = 0; j < matchingStacks.length && !flag; j++) {
+					Item item = matchingStacks[j].getItem();
+					if (!getToolReplacement(item).isEmpty()) {
+						ingredientItem = item;
+                        flag = true;
+                    }
+				}
+				if (flag && ingredientItem != null && !getToolReplacement(ingredientItem).isEmpty()) {
+					recipe.sourceInput = new IngredientNBT(getToolReplacement(ingredientItem)) {};
+				}
+			}
+			
+		}
+		
+		for (ResearchCategory category : ResearchCategories.researchCategories.values()) {
+			for (ResearchEntry entry : category.research.values()) {
+				for (ResearchStage stage : entry.getStages()) {
+					ItemStack[] craft = stage.getCraft();
+					int[] craftRef = stage.getCraftReference();
+					if (craft == null || craftRef == null || craft.length != craftRef.length) continue;
+					for (int i = 0; i < craft.length; i++) {
+						ItemStack replacement = getToolReplacement(craft[i].getItem());
+						if (!replacement.isEmpty()) {
+							int replacementHash = ResearchManager.createItemStackHash(replacement);
+							int originalHash = craftRef[i];
+							
+							stage.getCraft()[i] = replacement;
+							stage.getCraftReference()[i] = replacementHash;
+							if (ResearchManager.craftingReferences.contains(originalHash)) {
+								ResearchManager.craftingReferences.remove(originalHash);
+								ResearchManager.craftingReferences.add(replacementHash);
+							}
 						}
 					}
 				}
@@ -266,6 +366,17 @@ public class CommonProxy {
 		tool.setTagCompound(tag);
 		return tool;
 	}
+	
+	public ItemStack createThaumiumTool(Item item) {
+		ItemStack tool = new ItemStack(item);
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_THAUMIUM.getName());
+		tag.setString(IHaftTool.HAFT_TAG, ModMaterials.HAFT_WOOD.getName());
+		tag.setString(IHandleTool.HANDLE_TAG, ModMaterials.HANDLE_WOOD.getName());
+		tag.setString(IAdornedTool.ADORNMENT_TAG, ModMaterials.ADORNMENT_NULL.getName());
+		tool.setTagCompound(tag);
+		return tool;
+	}
 
 	public ItemStack createWoodSword(Item item) {
 		ItemStack tool = new ItemStack(item);
@@ -321,8 +432,21 @@ public class CommonProxy {
 		tool.setTagCompound(tag);
 		return tool;
 	}
+	
+	public ItemStack createThaumiumSword(Item item) {
+		ItemStack tool = new ItemStack(item);
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_THAUMIUM.getName());
+		tag.setString(ICrossguardTool.CROSSGUARD_TAG, ModMaterials.HEAD_THAUMIUM.getName());
+		tag.setString(IHandleTool.HANDLE_TAG, ModMaterials.HANDLE_WOOD.getName());
+		tag.setString(IAdornedTool.ADORNMENT_TAG, ModMaterials.ADORNMENT_NULL.getName());
+		tool.setTagCompound(tag);
+		return tool;
+	}
 
 	private ItemStack getToolReplacement(Item item) {
+		if (item == null) return ItemStack.EMPTY;
+		
 		if (item == Items.DIAMOND_PICKAXE) {
 			return createDiamondTool(ModItems.pickaxe);
 		}
@@ -337,6 +461,9 @@ public class CommonProxy {
 		}
 		if (item == Items.WOODEN_PICKAXE) {
 			return createWoodTool(ModItems.pickaxe);
+		}
+		if (item == ItemsTC.thaumiumPick) {
+			return createThaumiumTool(ModItems.pickaxe);
 		}
 		if (item == Items.DIAMOND_AXE) {
 			return createDiamondTool(ModItems.axe);
@@ -353,6 +480,9 @@ public class CommonProxy {
 		if (item == Items.WOODEN_AXE) {
 			return createWoodTool(ModItems.axe);
 		}
+		if (item == ItemsTC.thaumiumAxe) {
+			return createThaumiumTool(ModItems.axe);
+		}
 		if (item == Items.DIAMOND_SHOVEL) {
 			return createDiamondTool(ModItems.shovel);
 		}
@@ -366,7 +496,10 @@ public class CommonProxy {
 			return createStoneTool(ModItems.shovel);
 		}
 		if (item == Items.WOODEN_SHOVEL) {
-			return createWoodTool(ModItems.hoe);
+			return createWoodTool(ModItems.shovel);
+		}
+		if (item == ItemsTC.thaumiumShovel) {
+			return createThaumiumTool(ModItems.shovel);
 		}
 		if (item == Items.DIAMOND_HOE) {
 			return createDiamondTool(ModItems.hoe);
@@ -383,6 +516,9 @@ public class CommonProxy {
 		if (item == Items.WOODEN_HOE) {
 			return createWoodTool(ModItems.hoe);
 		}
+		if (item == ItemsTC.thaumiumHoe) {
+			return createThaumiumTool(ModItems.hoe);
+		}
 		if (item == Items.DIAMOND_SWORD) {
 			return createDiamondSword(ModItems.sword);
 		}
@@ -397,6 +533,9 @@ public class CommonProxy {
 		}
 		if (item == Items.WOODEN_SWORD) {
 			return createWoodSword(ModItems.sword);
+		}
+		if (item == ItemsTC.thaumiumSword) {
+			return createThaumiumSword(ModItems.sword);
 		}
 
 		return ItemStack.EMPTY;

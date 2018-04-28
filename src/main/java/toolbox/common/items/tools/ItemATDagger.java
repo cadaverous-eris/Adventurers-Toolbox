@@ -33,11 +33,12 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.items.IWarpingGear;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.materials.ModMaterials;
 
-public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, IAdornedTool {
+public class ItemATDagger extends ItemSword implements IWarpingGear, IBladeTool, IHandleTool, IAdornedTool {
 
 	private String name = "dagger";
 	public static final String DAMAGE_TAG = "Damage";
@@ -184,6 +185,11 @@ public class ItemATDagger extends ItemSword implements IBladeTool, IHandleTool, 
 
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
+	}
+	
+	@Override
+	public int getWarp(ItemStack stack, EntityPlayer player) {
+		return IBladeTool.getBladeMat(stack) == ModMaterials.HEAD_VOID ? 1 : 0;
 	}
 
 }

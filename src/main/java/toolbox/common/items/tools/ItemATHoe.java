@@ -15,6 +15,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
@@ -27,11 +28,12 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import thaumcraft.api.items.IWarpingGear;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.materials.ModMaterials;
 
-public class ItemATHoe extends ItemHoe implements IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
+public class ItemATHoe extends ItemHoe implements IWarpingGear, IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
 	private String name = "hoe";
 	public static final String DAMAGE_TAG = "Damage";
@@ -159,6 +161,11 @@ public class ItemATHoe extends ItemHoe implements IHeadTool, IHaftTool, IHandleT
 
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName().toString()));
+	}
+	
+	@Override
+	public int getWarp(ItemStack stack, EntityPlayer player) {
+		return IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_VOID ? 1 : 0;
 	}
 
 }
