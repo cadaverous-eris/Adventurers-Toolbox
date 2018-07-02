@@ -246,7 +246,7 @@ public class ItemATHammer extends ItemPickaxe implements IWarpingGear, IHeadTool
 						}
 					} else {
 						int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos2);
-
+						
 						state.getBlock().onBlockHarvested(world, pos2, state, player);
 						this.onBlockDestroyed(itemstack, world, state, pos2, player);
 						if (state.getBlock().removedByPlayer(state, world, pos2, player, true)) {
