@@ -101,8 +101,9 @@ public class ModMaterials {
 	public static final AdornmentMaterial ADORNMENT_TANZANITE = new AdornmentMaterial("tanzanite", 0, 4.25F, 1.2F, 0.5F, 1.1F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_MALACHITE = new AdornmentMaterial("malachite", 0, 4.25F, 1.3F, 0.5F, 0.85F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_SAPPHIRE = new AdornmentMaterial("sapphire", 1, 5.25F, 1.2F, 1F, 1.25F, Toolbox.MODID);
-	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 0, 4.75F, 1.2F, 0.5F, 0.75F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_AMBER = new AdornmentMaterial("amber", 0, 1.75F, 1.2F, 0.5F, 0.75F, Toolbox.MODID);
 	public static final AdornmentMaterial ADORNMENT_OBSIDIAN = new AdornmentMaterial("obsidian", 1, 7F, 1.5F, 1F, 1.1F, Toolbox.MODID);
+	public static final AdornmentMaterial ADORNMENT_AQUAMARINE = new AdornmentMaterial("aquamarine", 0, 1.5F, 1.1F, 0.5F, 0.75F, Toolbox.MODID);
 	
 	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
 
@@ -187,6 +188,7 @@ public class ModMaterials {
 		Materials.registerAdornmentMat(ADORNMENT_SAPPHIRE);
 		Materials.registerAdornmentMat(ADORNMENT_AMBER);
 		Materials.registerAdornmentMat(ADORNMENT_OBSIDIAN);
+		Materials.registerAdornmentMat(ADORNMENT_AQUAMARINE);
 	}
 
 	public static void initHeadRepairItems() {

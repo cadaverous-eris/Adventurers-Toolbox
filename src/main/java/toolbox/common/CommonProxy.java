@@ -129,6 +129,10 @@ public class CommonProxy {
 			if (thaumcraftLoaded) processThaumcraftRecipes();
 		}
 		
+		if (thaumcraftLoaded) {
+			
+		}
+		
 	}
 
 	public static List<ResourceLocation> removed_recipes = new ArrayList<ResourceLocation>();
@@ -462,7 +466,7 @@ public class CommonProxy {
 		if (item == Items.WOODEN_PICKAXE) {
 			return createWoodTool(ModItems.pickaxe);
 		}
-		if (item == ItemsTC.thaumiumPick) {
+		if (thaumcraftLoaded && item == ItemsTC.thaumiumPick) {
 			return createThaumiumTool(ModItems.pickaxe);
 		}
 		if (item == Items.DIAMOND_AXE) {
@@ -480,7 +484,7 @@ public class CommonProxy {
 		if (item == Items.WOODEN_AXE) {
 			return createWoodTool(ModItems.axe);
 		}
-		if (item == ItemsTC.thaumiumAxe) {
+		if (thaumcraftLoaded && item == ItemsTC.thaumiumAxe) {
 			return createThaumiumTool(ModItems.axe);
 		}
 		if (item == Items.DIAMOND_SHOVEL) {
@@ -498,7 +502,7 @@ public class CommonProxy {
 		if (item == Items.WOODEN_SHOVEL) {
 			return createWoodTool(ModItems.shovel);
 		}
-		if (item == ItemsTC.thaumiumShovel) {
+		if (thaumcraftLoaded && item == ItemsTC.thaumiumShovel) {
 			return createThaumiumTool(ModItems.shovel);
 		}
 		if (item == Items.DIAMOND_HOE) {
@@ -516,7 +520,7 @@ public class CommonProxy {
 		if (item == Items.WOODEN_HOE) {
 			return createWoodTool(ModItems.hoe);
 		}
-		if (item == ItemsTC.thaumiumHoe) {
+		if (thaumcraftLoaded && item == ItemsTC.thaumiumHoe) {
 			return createThaumiumTool(ModItems.hoe);
 		}
 		if (item == Items.DIAMOND_SWORD) {
@@ -534,7 +538,7 @@ public class CommonProxy {
 		if (item == Items.WOODEN_SWORD) {
 			return createWoodSword(ModItems.sword);
 		}
-		if (item == ItemsTC.thaumiumSword) {
+		if (thaumcraftLoaded && item == ItemsTC.thaumiumSword) {
 			return createThaumiumSword(ModItems.sword);
 		}
 

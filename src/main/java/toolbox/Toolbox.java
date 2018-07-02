@@ -29,7 +29,7 @@ public class Toolbox {
 	
 	public static final String MODID = "toolbox";
 	public static final String NAME = "Adventurer's Toolbox";
-	public static final String VERSION = "0.2.7";
+	public static final String VERSION = "0.2.9";
 	public static final String DEPENDENCIES = "after:thaumcraft";
 	
 	@SidedProxy(clientSide = "toolbox.client.ClientProxy", serverSide = "toolbox.common.CommonProxy")

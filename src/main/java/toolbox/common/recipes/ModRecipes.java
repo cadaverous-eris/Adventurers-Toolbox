@@ -335,6 +335,9 @@ public class ModRecipes {
 		for (ItemStack obsidian : OreDictionary.getOres("gemObsidian")) {
 			adornment_map.put(obsidian, ModMaterials.ADORNMENT_OBSIDIAN);
 		}
+		for (ItemStack aquamarine : OreDictionary.getOres("gemAquamarine")) {
+			adornment_map.put(aquamarine, ModMaterials.ADORNMENT_AQUAMARINE);
+		}
 	}
 
 	private static IRecipe getToolHeadSchematicRecipe(ItemStack output, String material, String type, int cost) {

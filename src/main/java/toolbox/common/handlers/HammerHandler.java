@@ -2,6 +2,7 @@ package toolbox.common.handlers;
 
 import java.util.List;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -47,12 +48,15 @@ public class HammerHandler {
 	
 	@SubscribeEvent
 	public void onPlayerClickBlock(PlayerInteractEvent.RightClickBlock event) {
-
-		if (event.getEntityPlayer() == null || !event.getEntityPlayer().isSneaking()) {
+		
+		EntityPlayer player = event.getEntityPlayer();
+		ItemStack stack = event.getItemStack();
+		
+		if (player == null || !player.isSneaking()) {
 			return;
 		}
 		
-		if (event.getItemStack().getItem() == ModItems.hammer && !event.getEntityPlayer().getCooldownTracker().hasCooldown(ModItems.hammer)) {
+		if (stack.getItem() == ModItems.hammer && !player.getCooldownTracker().hasCooldown(ModItems.hammer)) {
 
 			if (!event.getWorld().isRemote) {
 				BlockPos pos = event.getPos().offset(event.getFace());
@@ -60,10 +64,10 @@ public class HammerHandler {
 						pos.getZ() + 0.5, 3, false);
 			}
 
-			event.getEntityPlayer().swingArm(event.getHand());
-			event.getEntityPlayer().setActiveHand(event.getHand());
-			event.getEntityPlayer().getCooldownTracker().setCooldown(ModItems.hammer, 200);
-			ModItems.hammer.setDamage(event.getItemStack(), ModItems.hammer.getDamage(event.getItemStack()) - 10);
+			player.swingArm(event.getHand());
+			player.setActiveHand(event.getHand());
+			player.getCooldownTracker().setCooldown(ModItems.hammer, 200);
+			stack.damageItem(10, player);
 			
 			event.setCancellationResult(EnumActionResult.SUCCESS);
 			event.setResult(Event.Result.ALLOW);

@@ -28,6 +28,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
@@ -36,6 +37,7 @@ import toolbox.Toolbox;
 import toolbox.common.Config;
 import toolbox.common.materials.ModMaterials;
 
+@Optional.Interface(iface = "thaumcraft.api.items.IWarpingGear", modid = "thaumcraft")
 public class ItemATShovel extends ItemSpade implements IWarpingGear, IHeadTool, IHaftTool, IHandleTool, IAdornedTool {
 
 	private String name = "shovel";

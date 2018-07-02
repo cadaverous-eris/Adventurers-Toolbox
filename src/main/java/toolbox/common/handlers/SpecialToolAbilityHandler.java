@@ -1,5 +1,6 @@
 package toolbox.common.handlers;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -80,7 +81,7 @@ import toolbox.common.items.tools.ItemATSword;
 import toolbox.common.materials.ModMaterials;
 
 public class SpecialToolAbilityHandler {
-
+	
 	private Random rand = new Random();
 
 	@SideOnly(Side.CLIENT)
@@ -224,7 +225,7 @@ public class SpecialToolAbilityHandler {
 							efficiency = ((ItemATShovel) item).getEfficiency(stack);
 						}
 						tooltip.add(I18n.translateToLocal("desc.harvest_level.name") + ": " + harvestLvl);
-						tooltip.add(I18n.translateToLocal("desc.efficiency.name") + ": " + efficiency);
+						tooltip.add(I18n.translateToLocal("desc.efficiency.name") + ": " + ItemStack.DECIMALFORMAT.format(efficiency));
 					}
 
 					for (Entry<String, AttributeModifier> entry : multimap.entries()) {
@@ -269,7 +270,7 @@ public class SpecialToolAbilityHandler {
 
 					if (stack.isItemDamaged() && stack.isItemStackDamageable()) {
 						tooltip.add(I18n.translateToLocal("desc.durability.name") + ": "
-								+ (stack.getMaxDamage() - stack.getItemDamage()) + " / " + stack.getMaxDamage());
+								+ (stack.getMaxDamage() - stack.getItemDamage()) + " / " + ItemStack.DECIMALFORMAT.format(stack.getMaxDamage()));
 					} else if (stack.isItemStackDamageable()) {
 						tooltip.add(I18n.translateToLocal("desc.durability.name") + ": " + stack.getMaxDamage());
 					}
