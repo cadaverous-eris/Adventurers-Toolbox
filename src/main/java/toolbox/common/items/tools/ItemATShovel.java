@@ -182,7 +182,7 @@ public class ItemATShovel extends ItemSpade implements IWarpingGear, IHeadTool, 
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, net.minecraft.enchantment.Enchantment enchantment) {
 		if (IHeadTool.getHeadMat(stack) == ModMaterials.HEAD_SOULFORGED_STEEL) {
-			if (Loader.isModLoaded("betterwithmods") && !HCEnchanting.canEnchantSteel()) {
+			if (Loader.isModLoaded("betterwithmods") && !HCEnchanting.canEnchantSteel(enchantment)) {
 				return false;
 			}
 		}
