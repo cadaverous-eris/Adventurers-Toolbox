@@ -150,7 +150,16 @@ public class CommonProxy {
 				Item output = recipe.getRecipeOutput().getItem();
 				String rp = output.getRegistryName().getResourcePath();
 				
-				if ((output instanceof ItemHoe
+				boolean exception = false;
+				
+				for (String s : Config.REMOVAL_EXCEPTIONS) {
+					if (output.getRegistryName().toString().contains(s)) {
+						exception = true;
+					}
+				}
+				
+				if (exception == false && 
+						(output instanceof ItemHoe
 						|| output instanceof ItemAxe
 						|| output instanceof ItemSpade
 						|| output instanceof ItemPickaxe
