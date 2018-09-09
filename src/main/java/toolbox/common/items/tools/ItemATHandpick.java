@@ -49,7 +49,7 @@ public class ItemATHandpick extends ItemPickaxe implements IWarpingGear, IHeadTo
 	protected static final UUID BLOCK_REACH_MODIFIER = UUID.fromString("FB233D1C-4190-4764-A02B-BDCE9785AC93");
 
 	public ItemATHandpick() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

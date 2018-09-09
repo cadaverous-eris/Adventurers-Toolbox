@@ -42,7 +42,7 @@ public class ItemATPickaxe extends ItemPickaxe implements IWarpingGear, IHeadToo
 	public static final String DAMAGE_TAG = "Damage";
 
 	public ItemATPickaxe() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

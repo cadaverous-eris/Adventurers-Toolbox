@@ -41,7 +41,7 @@ public class ItemATHoe extends ItemHoe implements IWarpingGear, IHeadTool, IHaft
 	public static final String DAMAGE_TAG = "Damage";
 
 	public ItemATHoe() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

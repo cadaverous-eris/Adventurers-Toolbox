@@ -12,7 +12,24 @@ public class ToolRepairHandler {
 	@SubscribeEvent
 	public void onAnvilEvent(AnvilUpdateEvent event) {
 		ItemStack tool = event.getLeft();
+		
 		if (tool.getItem() instanceof IHeadTool || tool.getItem() instanceof IBladeTool) {
+			ItemStack repairItem = event.getRight();
+			if (repairItem.getItem() == tool.getItem()) {
+				boolean compatibleTools = false;
+				
+				if (tool.getItem() instanceof IHeadTool) {
+					compatibleTools = IHeadTool.getHeadMat(tool) == IHeadTool.getHeadMat(repairItem);
+				} else if (tool.getItem() instanceof IBladeTool) {
+					compatibleTools = IBladeTool.getBladeMat(tool) == IBladeTool.getBladeMat(repairItem);
+				}
+				
+				if (!compatibleTools) {
+					event.setCanceled(true);
+					return;
+				}
+			}
+			
 			if (event.getOutput().isEmpty() && tool.getItem().getIsRepairable(tool, event.getRight())) {
 				ItemStack output = tool.copy();
 				

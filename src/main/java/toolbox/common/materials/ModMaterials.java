@@ -12,14 +12,18 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.oredict.OreDictionary;
 import toolbox.Toolbox;
 import toolbox.common.Config;
 
 public class ModMaterials {
+	
+	public static ToolMaterial TOOL_MAT_TOOLBOX;
 
 	public static final HeadMaterial HEAD_WOOD = new HeadMaterial("wood", 0, 59, 2.0F, 0.0F, 15,
 			new ItemStack(Blocks.PLANKS), "plankWood", "stickWood", Lists.<String>newArrayList("wood"), Toolbox.MODID);
@@ -106,8 +110,10 @@ public class ModMaterials {
 	public static final AdornmentMaterial ADORNMENT_AQUAMARINE = new AdornmentMaterial("aquamarine", 0, 1.5F, 1.1F, 0.5F, 0.75F, Toolbox.MODID);
 	
 	public static List<HeadMaterial> headMaterials = new ArrayList<HeadMaterial>();
-
+	
 	public static void init() {
+		TOOL_MAT_TOOLBOX = EnumHelper.addToolMaterial(Toolbox.MODID + ":toolbox", 1, 1, 1, 1, 1);
+		
 		initHeadMaterials();
 		initHaftMaterials();
 		initHandleMaterials();

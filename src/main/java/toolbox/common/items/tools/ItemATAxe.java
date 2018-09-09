@@ -44,7 +44,7 @@ public class ItemATAxe extends ItemAxe implements IWarpingGear, IHeadTool, IHaft
 	public static final String DAMAGE_TAG = "Damage";
 
 	public ItemATAxe() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX, 7F, -3.1F);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

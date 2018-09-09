@@ -88,7 +88,7 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new HammerHandler());
 		MinecraftForge.EVENT_BUS.register(new WeaponHandler());
 		MinecraftForge.EVENT_BUS.register(new WorldHandler());
-
+		
 		ModMaterials.init();
 		Toolbox.logger.log(Level.INFO,
 				"Initialized tool part materials with " + Materials.head_registry.size() + " head materials, "
@@ -381,6 +381,17 @@ public class CommonProxy {
 		tool.setTagCompound(tag);
 		return tool;
 	}
+	
+	public ItemStack createVoidTool(Item item) {
+		ItemStack tool = new ItemStack(item);
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString(IHeadTool.HEAD_TAG, ModMaterials.HEAD_VOID.getName());
+		tag.setString(IHaftTool.HAFT_TAG, ModMaterials.HAFT_WOOD.getName());
+		tag.setString(IHandleTool.HANDLE_TAG, ModMaterials.HANDLE_WOOD.getName());
+		tag.setString(IAdornedTool.ADORNMENT_TAG, ModMaterials.ADORNMENT_NULL.getName());
+		tool.setTagCompound(tag);
+		return tool;
+	}
 
 	public ItemStack createWoodSword(Item item) {
 		ItemStack tool = new ItemStack(item);
@@ -447,6 +458,17 @@ public class CommonProxy {
 		tool.setTagCompound(tag);
 		return tool;
 	}
+	
+	public ItemStack createVoidSword(Item item) {
+		ItemStack tool = new ItemStack(item);
+		NBTTagCompound tag = new NBTTagCompound();
+		tag.setString(IBladeTool.BLADE_TAG, ModMaterials.HEAD_VOID.getName());
+		tag.setString(ICrossguardTool.CROSSGUARD_TAG, ModMaterials.HEAD_VOID.getName());
+		tag.setString(IHandleTool.HANDLE_TAG, ModMaterials.HANDLE_WOOD.getName());
+		tag.setString(IAdornedTool.ADORNMENT_TAG, ModMaterials.ADORNMENT_NULL.getName());
+		tool.setTagCompound(tag);
+		return tool;
+	}
 
 	private ItemStack getToolReplacement(Item item) {
 		if (item == null) return ItemStack.EMPTY;
@@ -469,6 +491,9 @@ public class CommonProxy {
 		if (thaumcraftLoaded && item == ItemsTC.thaumiumPick) {
 			return createThaumiumTool(ModItems.pickaxe);
 		}
+		if (thaumcraftLoaded && item == ItemsTC.voidPick) {
+			return createVoidTool(ModItems.pickaxe);
+		}
 		if (item == Items.DIAMOND_AXE) {
 			return createDiamondTool(ModItems.axe);
 		}
@@ -486,6 +511,9 @@ public class CommonProxy {
 		}
 		if (thaumcraftLoaded && item == ItemsTC.thaumiumAxe) {
 			return createThaumiumTool(ModItems.axe);
+		}
+		if (thaumcraftLoaded && item == ItemsTC.voidAxe) {
+			return createVoidTool(ModItems.axe);
 		}
 		if (item == Items.DIAMOND_SHOVEL) {
 			return createDiamondTool(ModItems.shovel);
@@ -505,6 +533,9 @@ public class CommonProxy {
 		if (thaumcraftLoaded && item == ItemsTC.thaumiumShovel) {
 			return createThaumiumTool(ModItems.shovel);
 		}
+		if (thaumcraftLoaded && item == ItemsTC.voidShovel) {
+			return createVoidTool(ModItems.shovel);
+		}
 		if (item == Items.DIAMOND_HOE) {
 			return createDiamondTool(ModItems.hoe);
 		}
@@ -523,6 +554,9 @@ public class CommonProxy {
 		if (thaumcraftLoaded && item == ItemsTC.thaumiumHoe) {
 			return createThaumiumTool(ModItems.hoe);
 		}
+		if (thaumcraftLoaded && item == ItemsTC.voidHoe) {
+			return createVoidTool(ModItems.hoe);
+		}
 		if (item == Items.DIAMOND_SWORD) {
 			return createDiamondSword(ModItems.sword);
 		}
@@ -540,6 +574,9 @@ public class CommonProxy {
 		}
 		if (thaumcraftLoaded && item == ItemsTC.thaumiumSword) {
 			return createThaumiumSword(ModItems.sword);
+		}
+		if (thaumcraftLoaded && item == ItemsTC.voidSword) {
+			return createVoidSword(ModItems.sword);
 		}
 
 		return ItemStack.EMPTY;

@@ -44,7 +44,7 @@ public class ItemATSword extends ItemSword implements IWarpingGear, IBladeTool, 
 	private String name = "sword";
 
 	public ItemATSword() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

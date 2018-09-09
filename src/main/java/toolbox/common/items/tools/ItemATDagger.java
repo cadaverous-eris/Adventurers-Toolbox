@@ -46,7 +46,7 @@ public class ItemATDagger extends ItemSword implements IWarpingGear, IBladeTool,
 	public static final String DAMAGE_TAG = "Damage";
 	
 	public ItemATDagger() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

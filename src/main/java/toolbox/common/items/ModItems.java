@@ -2,6 +2,7 @@ package toolbox.common.items;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -19,6 +20,7 @@ import toolbox.common.items.tools.ItemATMace;
 import toolbox.common.items.tools.ItemATPickaxe;
 import toolbox.common.items.tools.ItemATShovel;
 import toolbox.common.items.tools.ItemATSword;
+import toolbox.common.materials.ModMaterials;
 import toolbox.compat.tconstruct.ItemCast;
 
 @Mod.EventBusSubscriber(modid = Toolbox.MODID)

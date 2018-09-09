@@ -54,7 +54,7 @@ public class ItemATHammer extends ItemPickaxe implements IWarpingGear, IHeadTool
 	public static final String DAMAGE_TAG = "Damage";
 	
 	public ItemATHammer() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);

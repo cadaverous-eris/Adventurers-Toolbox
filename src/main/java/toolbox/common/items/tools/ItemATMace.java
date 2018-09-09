@@ -46,7 +46,7 @@ public class ItemATMace extends ItemSword implements IWarpingGear, IHeadTool, IH
 	public static final String DAMAGE_TAG = "Damage";
 	
 	public ItemATMace() {
-		super(ToolMaterial.WOOD);
+		super(ModMaterials.TOOL_MAT_TOOLBOX);
 
 		setRegistryName(name);
 		setUnlocalizedName(Toolbox.MODID + "." + name);
