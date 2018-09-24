@@ -28,7 +28,7 @@ public class ThaumcraftCompat {
 		
 		for (Entry<String, ArrayList<ResourceLocation>> recipeGroup : ConfigRecipes.recipeGroups.entrySet()) {
 			ArrayList<ResourceLocation> recipeLocs = recipeGroup.getValue();
-			System.out.println(recipeGroup.getKey());
+			
 			for (int i = recipeLocs.size() - 1; i >= 0; i--) {
 				ResourceLocation r = recipeLocs.get(i);
 				if (r.getResourcePath().equals("thaumiumshovel")) {
