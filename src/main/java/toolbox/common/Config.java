@@ -24,6 +24,7 @@ public class Config {
 	
 	public static List<String> DISABLED_TOOLS = new ArrayList<>();
 	public static List<String> DISABLED_MATERIALS = new ArrayList<>();
+	public static List<String> REMOVAL_EXCEPTIONS = new ArrayList<>();
 	
 	public static boolean ENABLE_SCHEMATICS;
 	public static List<String> SPAWN_SCHEMATICS = new ArrayList<>();
@@ -62,6 +63,7 @@ public class Config {
 		
 		DISABLED_TOOLS = Arrays.asList(cfg.getStringList("Disabled Tools", CATEGORY_TOOLS, new String[0], "Add tool names to this list on each new line, don't use commas (Find tool names on GitHib).\n"));
 		DISABLED_MATERIALS = Arrays.asList(cfg.getStringList("Disabled Materials", CATEGORY_TOOLS, new String[] { "flint" }, "Add material names to this list on each new line, don't use commas (Find material names on GitHib).\n"));
+		REMOVAL_EXCEPTIONS = Arrays.asList(cfg.getStringList("Recipe Removal Exceptions", CATEGORY_TOOLS, new String[] { "spartanweaponry:" }, "Add tool names or parts of names to this list on each new line, don't use commas. Any tool who's name contains any string listed here will not have its recipe removed if disable vanilla tools is on.\n"));
 		
 		ENABLE_SCHEMATICS = cfg.getBoolean("Enable Schematic Mode", CATEGORY_SCHEMATICS, true, "This option replaces tool part recipes with a system using schematic items.\nThis can be helpful if you are experiencing recipe conflicts, or if you want tools to have costs more similar to vanilla.\n");
 		SPAWN_SCHEMATICS = Arrays.asList(cfg.getStringList("Spawn Schematics", CATEGORY_SCHEMATICS, new String[] { "pickaxe_head", "axe_head", "shovel_head", "hoe_head", "sword_blade", "sword_crossguard" }, "Add schematic types to this list to add them to players' inventories when first joining a world. One per line.\n"));
