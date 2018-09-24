@@ -67,6 +67,7 @@ import toolbox.common.items.tools.IHeadTool;
 import toolbox.common.materials.ModMaterials;
 import toolbox.common.recipes.ModRecipes;
 import toolbox.compat.tconstruct.TConstructCompat;
+import toolbox.compat.thaumcraft.ThaumcraftCompat;
 
 public class CommonProxy {
 
@@ -126,11 +127,10 @@ public class CommonProxy {
 		
 		if (Config.DISABLE_VANILLA_TOOLS) {
 			processRecipes();
-			if (thaumcraftLoaded) processThaumcraftRecipes();
-		}
-		
-		if (thaumcraftLoaded) {
-			
+			if (thaumcraftLoaded) {
+				processThaumcraftRecipes();
+				ThaumcraftCompat.fixThaumonomiconRecipeLists();
+			}
 		}
 		
 	}
