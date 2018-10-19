@@ -303,11 +303,13 @@ public class CommonProxy {
 		for (ResearchCategory category : ResearchCategories.researchCategories.values()) {
 			for (ResearchEntry entry : category.research.values()) {
 				for (ResearchStage stage : entry.getStages()) {
-					ItemStack[] craft = stage.getCraft();
+					Object[] craft = stage.getCraft();
 					int[] craftRef = stage.getCraftReference();
 					if (craft == null || craftRef == null || craft.length != craftRef.length) continue;
 					for (int i = 0; i < craft.length; i++) {
-						ItemStack replacement = getToolReplacement(craft[i].getItem());
+						if (!(craft[i] instanceof ItemStack)) continue;
+						
+						ItemStack replacement = getToolReplacement(((ItemStack) craft[i]).getItem());
 						if (!replacement.isEmpty()) {
 							int replacementHash = ResearchManager.createItemStackHash(replacement);
 							int originalHash = craftRef[i];
