@@ -182,6 +182,10 @@ public class ModRecipes {
 				"after:minecraft:shapeless");
 		ForgeRegistries.RECIPES.register(new BookRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "book")));
 
+		if (Config.ALLOW_ADORNMENT_REPLACEMENT) {
+			ForgeRegistries.RECIPES.register(new PartReplacementRecipe().setRegistryName(new ResourceLocation(Toolbox.MODID, "part_replacement")));
+		}
+		
 		initToolRecipes();
 
 		initMaterialItems();

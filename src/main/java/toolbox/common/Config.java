@@ -21,6 +21,7 @@ public class Config {
 	public static boolean DISABLE_VANILLA_TOOLS;
 	public static boolean HIDE_UNCRAFTABLE_HEADS;
 	public static boolean SPAWN_WITH_BOOK;
+	public static boolean ALLOW_ADORNMENT_REPLACEMENT;
 	
 	public static List<String> DISABLED_TOOLS = new ArrayList<>();
 	public static List<String> DISABLED_MATERIALS = new ArrayList<>();
@@ -59,7 +60,8 @@ public class Config {
 
 		DISABLE_VANILLA_TOOLS = cfg.getBoolean("Disable Vanilla Tools", CATEGORY_GENERAL, true, "This option disables recipes for vanilla tools that contain materials this mod supports.\nIt also attempts to replace all instances of vanilla tools in crafting recipes (including mod recipes) with suitable replacements from Adventurer's Toolbox.\n");
 		HIDE_UNCRAFTABLE_HEADS = cfg.getBoolean("Hide Uncraftables", CATEGORY_GENERAL, true, "This option prevents tool heads from showing up in the creative tab if they are made from materials that aren't present in your game.\n");
-		SPAWN_WITH_BOOK= cfg.getBoolean("Spawn With Book", CATEGORY_GENERAL, true, "Disable this if you don't want to be given the guide book when first joining a world.\n");
+		SPAWN_WITH_BOOK = cfg.getBoolean("Spawn With Book", CATEGORY_GENERAL, true, "Disable this if you don't want to be given the guide book when first joining a world.\n");
+		ALLOW_ADORNMENT_REPLACEMENT = cfg.getBoolean("Enable Adornment Replacement", CATEGORY_GENERAL, true, "This option enables a recipe for replacing tool adornments.\n");
 		
 		DISABLED_TOOLS = Arrays.asList(cfg.getStringList("Disabled Tools", CATEGORY_TOOLS, new String[0], "Add tool names to this list on each new line, don't use commas (Find tool names on GitHib).\n"));
 		DISABLED_MATERIALS = Arrays.asList(cfg.getStringList("Disabled Materials", CATEGORY_TOOLS, new String[] { "flint" }, "Add material names to this list on each new line, don't use commas (Find material names on GitHib).\n"));
@@ -78,6 +80,7 @@ public class Config {
 		PROPERTY_ORDER_GENERAL.add("Disable Vanilla Tools");
 		PROPERTY_ORDER_GENERAL.add("Hide Uncraftables");
 		PROPERTY_ORDER_GENERAL.add("Spawn With Book");
+		PROPERTY_ORDER_GENERAL.add("Enable Adornment Replacement");
 		
 		PROPERTY_ORDER_TOOLS.add("Disabled Tools");
 		PROPERTY_ORDER_TOOLS.add("Disabled Materials");
